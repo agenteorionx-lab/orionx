@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Políticas de Privacidade | OrionX</title>
+    
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "secondary": "#0a0a0a",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1a0e08",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-slate-100">
+
+    <!-- Header (Simplified) -->
+    <header class="fixed top-0 w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="index.html">
+                    <img src="imagens/OrionX_Logotipo principal preto (1).png" alt="OrionX Logo" class="h-10 w-auto">
+                </a>
+            </div>
+            <a href="index.html" class="font-accent font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar ao Início
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h1 class="font-display font-black text-4xl md:text-5xl mb-8 uppercase text-primary">Políticas de Privacidade</h1>
+            <p class="text-slate-400 mb-12 uppercase font-accent font-bold tracking-widest text-xs">Última atualização: Março de 2024</p>
+            
+            <div class="space-y-12 text-slate-600 dark:text-slate-400 leading-relaxed font-light">
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">1. Informações Coletadas</h2>
+                    <p>Ao utilizar o site da <strong>OrionX</strong>, podemos coletar informações fornecidas diretamente por você, como nome, e-mail e telefone de contato através de nossos formulários de consulta. Além disso, coletamos dados de navegação anonimizados para fins de análise de performance e melhoria de experiência.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">2. Uso das Informações</h2>
+                    <p>As informações coletadas são utilizadas exclusivamente para:</p>
+                    <ul class="list-disc ml-6 mt-4 space-y-2">
+                        <li>Responder a solicitações de orçamentos e consultas profissionais;</li>
+                        <li>Melhorar a navegabilidade e o conteúdo do nosso site;</li>
+                        <li>Enviar comunicações relacionadas ao projeto ou atualizações da OrionX (caso autorizado).</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">3. Proteção de Dados (LGPD)</h2>
+                    <p>A OrionX está comprometida com a proteção de seus dados pessoais. Todas as informações coletadas são tratadas em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD)</strong>. Implementamos medidas técnicas e administrativas para proteger os dados contra acessos não autorizados e situações acidentais de destruição ou perda.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">4. Cookies e Tecnologias de Rastreamento</h2>
+                    <p>Utilizamos cookies para personalizar sua experiência de navegação e coletar dados estatísticos sobre o tráfego do site. Você pode gerenciar ou desativar os cookies diretamente nas configurações do seu navegador a qualquer momento.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">5. Compartilhamento com Terceiros</h2>
+                    <p>Não vendemos, trocamos ou transferimos suas informações para partes externas. Seus dados são guardados com sigilo absoluto e utilizados apenas pela equipe interna da OrionX para as finalidades descritas nestas políticas.</p>
+                </section>
+
+                <section>
+                    <h2 class="font-display font-bold text-xl mb-4 uppercase text-slate-900 dark:text-white">6. Seus Direitos</h2>
+                    <p>De acordo com a LGPD, você tem o direito de solicitar o acesso, a correção ou a exclusão de seus dados pessoais em nosso banco de dados a qualquer momento. Para isso, basta entrar em contato através dos nossos canais oficiais.</p>
+                </section>
+
+                <section class="border-t border-slate-100 dark:border-white/10 pt-12">
+                    <p>Para dúvidas sobre privacidade, entre em contato via <strong>contato@orionx.com.br</strong>.</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Simplified) -->
+    <footer class="bg-slate-50 dark:bg-background-dark py-12 border-t border-slate-100 dark:border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-slate-400 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

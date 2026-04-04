@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PLATAFORMAS ESCALÁVEIS | OrionX</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "secondary": "#0a0a0a",
+                        "background-dark": "#030201",
+                        "blueprint-blue": "#0f172a",
+                        "blueprint-grid": "rgba(255, 255, 255, 0.03)"
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Blueprint Grid Background */
+        .blueprint-bg {
+            background-color: #030201;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .node-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            80%, 100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .data-stream {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #FF5700, transparent);
+            height: 2px;
+            width: 100px;
+            animation: stream 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes stream {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+
+        /* Glass Node */
+        .glass-node {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glass-node:hover {
+            border-color: rgba(255, 87, 0, 0.4);
+            box-shadow: 0 4px 30px rgba(255, 87, 0, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-body text-slate-100 selection:bg-primary selection:text-white blueprint-bg">
+
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                    class="h-7 md:h-9 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-slate-400"
+                    href="index.html">Início</a>
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-white border-b border-primary/50 pb-1"
+                    href="index.html#portfolio">Portfolio</a>
+            </nav>
+            <button
+                class="bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-5 py-2 rounded-full transition-all uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(255,87,0,0.3)]">
+                FALE CONOSCO
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Blueprint Section -->
+    <section class="pt-32 pb-20 relative overflow-hidden min-h-[70vh] flex flex-col justify-center">
+        <!-- Radial Glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,87,0,0.08),transparent_60%)] pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center max-w-5xl mx-auto">
+                <div class="inline-flex items-center gap-2 mb-6 border border-white/10 bg-white/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="font-mono text-[10px] text-slate-300 tracking-widest uppercase">Sistema Base // Nível Enterprise</span>
+                </div>
+                
+                <h1 class="font-display font-black text-4xl md:text-7xl lg:text-8xl text-white uppercase tracking-tighter leading-[1.1] mb-8 drop-shadow-lg">
+                    Ideias que se tornam <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400 italic">Negócios Reais</span>
+                </h1>
+                
+                <p class="font-body text-slate-400 text-lg md:text-2xl max-w-3xl mx-auto font-light leading-relaxed">
+                    Não importa o tamanho do seu desafio, nossa <span class="text-white font-bold">Fábrica de Softwares</span> constrói a tecnologia necessária para ele rodar. De checkouts inteligentes a dashboards de gestão, tiramos sua ideia do papel.
+                </p>
+                
+                <div class="mt-12">
+                    <button class="bg-primary text-white font-display font-bold px-10 py-5 rounded-xl hover:scale-105 transition-all uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(255,87,0,0.4)]">
+                        DESENVOLVER MEU SOFTWARE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Diagram Section -->
+    <section class="py-16 relative z-10 border-y border-white/5 bg-black/40 backdrop-blur-md">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-2xl text-white uppercase tracking-widest">Orion <span class="text-primary italic">Blueprint</span></h2>
+                <p class="font-mono text-xs text-slate-500 mt-2">// O que rola nos bastidores</p>
+            </div>
+
+            <!-- CSS Grid Diagram -->
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                
+                <!-- Connection Lines (Hidden on mobile) -->
+                <div class="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-px bg-white/10 -translate-y-1/2 z-0">
+                    <div class="data-stream"></div>
+                </div>
+
+                <!-- Node 1: Front-end -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center mb-6 relative">
+                        <span class="material-symbols-outlined text-3xl text-slate-300">devices</span>
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2 uppercase">Interfaces 3D</h3>
+                    <p class="font-mono text-[11px] text-slate-400">Next.js / React / WebGL<br>Alta performance de cliente.</p>
+                </div>
+
+                <!-- Node 2: API Gateway / Core -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center border-t-2 border-t-primary bg-primary/5">
+                    <div class="w-20 h-20 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center mb-6 relative shadow-[0_0_30px_rgba(255,87,0,0.3)]">
+                        <span class="material-symbols-outlined text-4xl text-primary">hub</span>
+                        <div class="absolute inset-0 rounded-2xl border border-primary node-pulse opacity-50"></div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-primary mb-2 uppercase">Core System</h3>
+                    <p class="font-mono text-[11px] text-slate-300">Node.js / NestJS<br>Arquitetura Multi-tenant e Eventos.</p>
+                </div>
+
+                <!-- Node 3: DB & AI -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center">
+                    <div class="flex gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl text-slate-300">database</span>
+                        </div>
+                        <div class="w-14 h-14 rounded-xl bg-slate-900 border border-white/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl text-slate-300">psychology</span>
+                        </div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2 uppercase">Seguro & Conectado</h3>
+                    <p class="font-mono text-[11px] text-slate-400">Proteção total de dados e conexões externas via APIs e Webhooks.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- O que podemos desenvolver -->
+    <section class="py-24 relative z-10">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-16 border-b border-white/10 pb-8">
+                <div>
+                    <h2 class="font-display font-black text-3xl md:text-5xl text-white uppercase tracking-tight">O que podemos <span class="text-primary italic">resolver</span></h2>
+                    <p class="font-accent text-sm text-slate-400 mt-2">Dê o próximo passo tecnológico com soluções validadas pelo mercado.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Solução 1 -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all group">
+                    <span class="material-symbols-outlined text-primary mb-4 text-4xl group-hover:scale-110 transition-transform">shopping_cart_checkout</span>
+                    <h4 class="font-display font-bold text-white uppercase text-lg mb-3">Checkouts & Pagamentos</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed font-light">Sistemas de pagamento personalizados com Stripe, Pagar.me ou gateways nacionais. Total controle de assinaturas e vendas recorrentes.</p>
+                </div>
+                <!-- Solução 2 -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all group">
+                    <span class="material-symbols-outlined text-primary mb-4 text-4xl group-hover:scale-110 transition-transform">storefront</span>
+                    <h4 class="font-display font-bold text-white uppercase text-lg mb-3">Lojas Virtuais Próprias</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed font-light">E-commerces de alta performance feitos sob medida, sem as limitações de plataformas prontas. Foco total em conversão e velocidade.</p>
+                </div>
+                <!-- Solução 3 -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all group">
+                    <span class="material-symbols-outlined text-primary mb-4 text-4xl group-hover:scale-110 transition-transform">dashboard_customize</span>
+                    <h4 class="font-display font-bold text-white uppercase text-lg mb-3">Gestão de Empresas</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed font-light">Dashboards administrativos para controle total do seu negócio. Visualize lucros, estoque e equipe em tempo real com dados centralizados.</p>
+                </div>
+                <!-- Solução 4 -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all group">
+                    <span class="material-symbols-outlined text-primary mb-4 text-4xl group-hover:scale-110 transition-transform">sync_alt</span>
+                    <h4 class="font-display font-bold text-white uppercase text-lg mb-3">Integração de Sistemas</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed font-light">Fazemos seus softwares conversarem entre si. Integre CRMs, ERPs e ferramentas externas de forma automática e segura.</p>
+                </div>
+                <!-- Solução 5 -->
+                <div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:bg-white/10 transition-all group">
+                    <span class="material-symbols-outlined text-primary mb-4 text-4xl group-hover:scale-110 transition-transform">api</span>
+                    <h4 class="font-display font-bold text-white uppercase text-lg mb-3">APIs & Webhooks</h4>
+                    <p class="text-sm text-slate-400 leading-relaxed font-light">Crie sua própria infraestrutura de API para que outros parceiros ou aplicativos possam se conectar ao seu núcleo de negócio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-black/60 relative border-t border-white/5">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="font-mono text-primary text-xs tracking-widest uppercase mb-2 block">Portfólio & Lab</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-white uppercase tracking-tight">Nossa Fábrica de <span class="text-primary italic">Softwares</span></h2>
+                <p class="font-body text-slate-400 mt-4 max-w-2xl mx-auto">Sistemas sob medida e produtos escaláveis desenvolvidos para resolver gargalos específicos da sua indústria.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Plataforma 1 (Pronta) -->
+                <div class="group relative rounded-2xl overflow-hidden glass-node flex flex-col h-full border border-white/10 shadow-2xl">
+                    <div class="aspect-[16/9] bg-slate-900 border-b border-white/10 relative overflow-hidden">
+                        <!-- Imagem Placeholder do SaaS 1 -->
+                        <img src="imagens/lp_placeholder_1_1774644503727.png" alt="SaaS 1" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-100 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-1.5 backdrop-blur-sm">
+                            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Produção
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-mono text-primary border border-primary/30 bg-primary/10 px-2 py-0.5 rounded uppercase">ERP / Gestão</span>
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-white uppercase mb-2 drop-shadow-md">SaaS Corporativo 01</h3>
+                        <p class="font-body text-slate-400 text-sm mb-6 flex-1">Solução desenvolvida para operação em larga escala, gerindo assinaturas, fluxos e emissão complexa de dados.</p>
+                        <button class="flex items-center gap-2 text-primary font-accent text-xs font-bold uppercase tracking-widest hover:text-white transition-colors group/btn w-fit">
+                            Explorar Fluxos <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plataforma 2 (Pronta) -->
+                <div class="group relative rounded-2xl overflow-hidden glass-node flex flex-col h-full border border-white/10 shadow-2xl">
+                    <div class="aspect-[16/9] bg-slate-900 border-b border-white/10 relative overflow-hidden">
+                         <!-- Imagem Placeholder do SaaS 2 -->
+                        <img src="imagens/lp_placeholder_1_1774644503727.png" alt="SaaS 2" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 scale-100 group-hover:scale-105" style="filter: hue-rotate(45deg);">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-green-500/20 text-green-400 border border-green-500/30 px-3 py-1 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-1.5 backdrop-blur-sm">
+                            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> Produção
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-mono text-primary border border-primary/30 bg-primary/10 px-2 py-0.5 rounded uppercase">Finanças / Pay</span>
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-white uppercase mb-2 drop-shadow-md">SaaS Corporativo 02</h3>
+                        <p class="font-body text-slate-400 text-sm mb-6 flex-1">Dashboard financeiro com conciliação multitenant. Velocidade excepcional para relatórios massivos.</p>
+                        <button class="flex items-center gap-2 text-primary font-accent text-xs font-bold uppercase tracking-widest hover:text-white transition-colors group/btn w-fit">
+                            Explorar Fluxos <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plataforma 3 (Em Desenvolvimento) -->
+                <div class="group relative rounded-2xl overflow-hidden border border-dashed border-white/20 flex flex-col h-full bg-slate-950/50 backdrop-blur-sm shadow-inner">
+                    <div class="aspect-[16/9] relative flex items-center justify-center bg-[#010101] border-b border-white/5 opacity-80">
+                         <!-- Placeholder Abstracto -->
+                         <div class="absolute inset-0 blueprint-bg opacity-30"></div>
+                         <div class="w-16 h-16 border border-white/20 rounded-xl bg-white/5 flex items-center justify-center relative z-10 animate-pulse">
+                            <span class="material-symbols-outlined text-white/40 text-3xl">construction</span>
+                         </div>
+                        <div class="absolute top-4 right-4 bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-1.5 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-[12px]">code</span> Em Lab
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-mono text-white/50 border border-white/10 bg-white/5 px-2 py-0.5 rounded uppercase">EdTech / AI</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white/80 uppercase mb-2">Projeto Zero 03</h3>
+                        <p class="font-body text-slate-500 text-sm flex-1">Plataforma em desenvolvimento. Foco em gamificação e aprendizado assistido por agentes de voz.</p>
+                    </div>
+                </div>
+
+                <!-- Plataforma 4 (Em Desenvolvimento) -->
+                <div class="group relative rounded-2xl overflow-hidden border border-dashed border-white/20 flex flex-col h-full bg-slate-950/50 backdrop-blur-sm shadow-inner">
+                    <div class="aspect-[16/9] relative flex items-center justify-center bg-[#010101] border-b border-white/5 opacity-80">
+                         <!-- Placeholder Abstracto -->
+                         <div class="absolute inset-0 blueprint-bg opacity-30"></div>
+                         <div class="w-16 h-16 border border-white/20 rounded-xl bg-white/5 flex items-center justify-center relative z-10 animate-pulse delay-150">
+                            <span class="material-symbols-outlined text-white/40 text-3xl">hub</span>
+                         </div>
+                        <div class="absolute top-4 right-4 bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded-full font-mono text-[10px] uppercase font-bold flex items-center gap-1.5 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-[12px]">code</span> Em Lab
+                        </div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-[10px] font-mono text-white/50 border border-white/10 bg-white/5 px-2 py-0.5 rounded uppercase">HealthTech</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-white/80 uppercase mb-2">Projeto Zero 04</h3>
+                        <p class="font-body text-slate-500 text-sm flex-1">Gestão de clínicas integrado a WhatsApp. Controle escalável de múltiplos pontos médicos e triagem autônoma.</p>
+                    </div>
+                </div>
+
+                <!-- Card Final (CTA) -->
+                <div class="group relative rounded-2xl overflow-hidden border border-dashed border-primary/30 flex flex-col items-center justify-center p-12 bg-primary/5 hover:bg-primary/10 transition-all cursor-pointer min-h-[300px] md:col-span-2 lg:col-span-1">
+                    <span class="material-symbols-outlined text-primary text-5xl mb-6 animate-bounce-slow">rocket_launch</span>
+                    <h3 class="font-display font-bold text-2xl text-white uppercase mb-2 italic">Sua Ideia Aqui</h3>
+                    <p class="text-[10px] text-primary font-bold uppercase tracking-[0.3em] font-accent mb-6">Pronto para o próximo nível?</p>
+                    <button class="bg-primary text-white font-display font-bold px-6 py-3 rounded-lg text-[10px] uppercase tracking-widest active:scale-95 transition-all">
+                        VAMOS DESENVOLVER SEU SOFTWARE
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Footer -->
+    <footer class="bg-background-dark py-12 border-t border-white/5">
+        <div class="container mx-auto px-4 text-center">
+            <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                class="h-6 mx-auto mb-6 opacity-80">
+            <p class="text-slate-600 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Construindo Arquiteturas Intocáveis.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

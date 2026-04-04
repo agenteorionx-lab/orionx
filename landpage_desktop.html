@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Portfólio ao Vivo | OrionX — Engenharia de Conversão</title>
+    <meta name="description" content="Explore os projetos de alta conversão da OrionX em um showcase interativo. Navegue pelos sites reais construídos para cada cliente.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "background-dark": "#050302",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; }
+
+        /* ========================================
+           MACBOOK PRO COMPLETO — CSS 3D Avançado
+           ======================================== */
+
+        .mac-scene {
+            perspective: 2200px;
+            perspective-origin: 50% 30%;
+        }
+
+        .mac-body {
+            transform-style: preserve-3d;
+            transform: rotateX(4deg) rotateY(-1deg);
+            transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ----------- TAMPA / LID ----------- */
+        .mac-lid {
+            width: 100%;
+            background: linear-gradient(175deg, #3a3a3a 0%, #2c2c2c 30%, #1e1e1e 70%, #161616 100%);
+            border-radius: 16px 16px 4px 4px;
+            padding: 16px 16px 10px 16px;
+            position: relative;
+            box-shadow:
+                inset 0 1.5px 0 rgba(255,255,255,0.12),
+                inset 0 -2px 0 rgba(0,0,0,0.6),
+                inset -2px 0 6px rgba(0,0,0,0.3),
+                inset 2px 0 6px rgba(0,0,0,0.3);
+        }
+
+        /* Câmera / Notch */
+        .mac-camera {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 9px;
+            height: 9px;
+            background: radial-gradient(circle at 35% 35%, #2a2a2a 0%, #111 60%, #0a0a0a 100%);
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.06);
+            z-index: 10;
+        }
+        .mac-camera::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 3.5px;
+            height: 3.5px;
+            background: radial-gradient(circle, #1a3a5c 0%, #0d1f33 100%);
+            border-radius: 50%;
+        }
+
+        /* Bezel preto ao redor da tela */
+        .mac-bezel {
+            background: #0a0a0a;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.04),
+                inset 0 2px 12px rgba(0,0,0,0.9);
+        }
+
+        /* A Tela de Exibição */
+        .mac-display {
+            width: 100%;
+            height: 440px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            cursor: ns-resize;
+            scroll-behavior: smooth;
+            position: relative;
+            background: #000;
+        }
+        .mac-display::-webkit-scrollbar { width: 4px; }
+        .mac-display::-webkit-scrollbar-track { background: #0a0a0a; }
+        .mac-display::-webkit-scrollbar-thumb { background: #FF5700; border-radius: 4px; }
+
+        .mac-display img {
+            width: 100%;
+            display: block;
+            transition: opacity 0.45s ease;
+        }
+        .mac-display img.fade-out { opacity: 0; }
+
+        /* Reflexo de vidro na tela */
+        .mac-display::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                125deg,
+                rgba(255,255,255,0.07) 0%,
+                rgba(255,255,255,0.02) 25%,
+                transparent 50%,
+                rgba(255,255,255,0.01) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Borda inferior da tampa (dobradiça) */
+        .mac-lid-bottom {
+            width: 98%;
+            height: 6px;
+            background: linear-gradient(180deg, #111 0%, #1a1a1a 100%);
+            border-radius: 0 0 3px 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* ----------- HINGE (DOBRADIÇA) ----------- */
+        .mac-hinge {
+            width: 60%;
+            height: 7px;
+            background: linear-gradient(180deg, #282828 0%, #1a1a1a 50%, #222 100%);
+            border-radius: 0 0 4px 4px;
+            box-shadow:
+                0 2px 8px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+        }
+        /* Parafusos da dobradiça */
+        .mac-hinge::before,
+        .mac-hinge::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle at 35% 35%, #333, #111);
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .mac-hinge::before { left: 12px; }
+        .mac-hinge::after  { right: 12px; }
+
+        /* ----------- CORPO / KEYBOARD DECK ----------- */
+        .mac-keyboard-deck {
+            width: 100%;
+            background: linear-gradient(180deg, #282828 0%, #222 30%, #1e1e1e 60%, #1a1a1a 100%);
+            border-radius: 0 0 14px 14px;
+            padding: 10px 16px 0 16px;
+            position: relative;
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.07),
+                inset 0 -1px 0 rgba(0,0,0,0.5),
+                inset -2px 0 6px rgba(0,0,0,0.25),
+                inset 2px 0 6px rgba(0,0,0,0.25);
+        }
+
+        /* Grade do teclado — filas de teclas */
+        .mac-keys-area {
+            width: 100%;
+            padding: 6px 8px 8px 8px;
+        }
+
+        .mac-key-row {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 3px;
+            justify-content: center;
+        }
+
+        .mac-key {
+            height: 11px;
+            border-radius: 2px;
+            background: linear-gradient(180deg, #333 0%, #252525 100%);
+            border: 1px solid rgba(0,0,0,0.6);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.06),
+                0 -1px 0 rgba(0,0,0,0.5),
+                inset 0 1px 2px rgba(255,255,255,0.04);
+            flex: 1;
+        }
+
+        /* Teclas especiais — proporcionais */
+        .k-tab    { flex: 1.5; }
+        .k-caps   { flex: 1.8; }
+        .k-lshift { flex: 2.3; }
+        .k-rshift { flex: 2.8; }
+        .k-space  { flex: 5.5; }
+        .k-enter  { flex: 2; }
+        .k-del    { flex: 1.8; }
+        .k-fn     { flex: 1; background: linear-gradient(180deg, #2a2a2a 0%, #1e1e1e 100%); }
+
+        /* Fila de Fn / Touch Bar simulado */
+        .mac-touchbar {
+            width: 100%;
+            height: 7px;
+            background: linear-gradient(180deg, #222 0%, #1a1a1a 100%);
+            border-radius: 3px 3px 0 0;
+            border: 1px solid rgba(0,0,0,0.7);
+            border-bottom: none;
+            margin-bottom: 4px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.04);
+        }
+
+        /* Trackpad */
+        .mac-trackpad-row {
+            display: flex;
+            justify-content: center;
+            padding: 6px 0 8px 0;
+        }
+        .mac-trackpad {
+            width: 38%;
+            height: 28px;
+            background: linear-gradient(180deg, #2b2b2b 0%, #222 100%);
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.05),
+                inset 0 1px 3px rgba(0,0,0,0.6);
+        }
+
+        /* Base inferior (pezinho) */
+        .mac-bottom {
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(180deg, #141414 0%, #0f0f0f 100%);
+            border-radius: 0 0 14px 14px;
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.9),
+                0 12px 40px rgba(0,0,0,0.6),
+                0 1px 0 rgba(255,255,255,0.04) inset;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+        }
+        /* Pés de borracha */
+        .mac-foot {
+            width: 18px;
+            height: 3px;
+            background: #0a0a0a;
+            border-radius: 2px;
+        }
+
+        /* Sombra no 'chão' */
+        .mac-shadow {
+            width: 80%;
+            height: 24px;
+            background: radial-gradient(ellipse, rgba(0,0,0,0.75) 0%, transparent 72%);
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           SELECTOR DE PROJETOS — TABS ELEGANTES
+           ======================================== */
+
+        .project-tabs {
+            display: flex;
+            gap: 0;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 14px;
+            padding: 5px;
+            backdrop-filter: blur(12px);
+        }
+
+        .project-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            background: transparent;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .project-tab:hover {
+            background: rgba(255,255,255,0.04);
+        }
+
+        .project-tab.active {
+            background: rgba(255,87,0,0.1);
+            border-color: rgba(255,87,0,0.35);
+            box-shadow: 0 0 20px rgba(255,87,0,0.1);
+        }
+
+        .project-tab .tab-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.5);
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .project-tab.active .tab-name {
+            color: #fff;
+        }
+
+        .project-tab .tab-cat {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.25);
+            white-space: nowrap;
+        }
+
+        .project-tab.active .tab-cat {
+            color: rgba(255,87,0,0.8);
+        }
+
+        /* Dot indicator */
+        .project-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #FF5700;
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .project-tab.active::after {
+            width: 24px;
+        }
+
+        /* ========================================
+           BACKGROUND
+           ======================================== */
+        .bg-radial {
+            background:
+                radial-gradient(ellipse at 20% 60%, rgba(255,87,0,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,87,0,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(255,87,0,0.025) 0%, transparent 50%);
+        }
+        .bg-grid-fine {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+            background-size: 36px 36px;
+        }
+
+        /* Fade-in page */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .fade-up-2 { animation: fadeUp 0.7s 0.15s cubic-bezier(0.16,1,0.3,1) both; }
+        .fade-up-3 { animation: fadeUp 0.7s 0.30s cubic-bezier(0.16,1,0.3,1) both; }
+    </style>
+</head>
+
+<body class="bg-background-dark font-body text-slate-100 min-h-screen overflow-x-hidden">
+
+    <!-- BG Layers -->
+    <div class="fixed inset-0 bg-radial pointer-events-none z-0"></div>
+    <div class="fixed inset-0 bg-grid-fine pointer-events-none z-0 opacity-70"></div>
+
+    <!-- ===== NAV ===== -->
+    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between" style="height:68px">
+            <a href="index.html">
+                <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-8 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-colors">Início</a>
+                <a href="engenharia-de-conversao.html" class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] text-white border-b border-primary/50 pb-0.5">Portfólio</a>
+            </nav>
+            <a href="#" class="bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-5 py-2.5 rounded-full transition-all text-[10px] uppercase tracking-widest shadow-[0_0_24px_rgba(255,87,0,0.3)]">
+                Fale Conosco
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== HERO TITLE ===== -->
+    <section class="relative z-10 pt-28 pb-6 text-center px-6">
+        <div class="fade-up">
+            <span class="font-display text-primary text-[9px] font-bold uppercase tracking-[0.6em] mb-4 inline-block italic opacity-90">
+                Live Portfolio Showcase
+            </span>
+        </div>
+        <div class="fade-up-2">
+            <h1 class="font-display font-black text-3xl md:text-5xl lg:text-6xl text-white uppercase tracking-tighter leading-none mb-3">
+                Cases que <span class="text-primary italic">Convertem</span>
+            </h1>
+            <p class="font-accent text-[10px] text-slate-500 uppercase tracking-[0.35em]">
+                Navegue pelo site completo de cada projeto — dê scroll dentro da tela
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== TABS DE PROJETO ===== -->
+    <section class="relative z-10 flex justify-center px-4 pb-8 fade-up-3">
+        <div class="project-tabs flex-wrap justify-center" id="project-tabs">
+
+            <button class="project-tab active"
+                data-full="lp_criadas/clubev3/screencapture-clubev3-br-2026-03-27-19_39_35.png"
+                data-name="Clube V3"
+                data-cat="Health / Benefícios"
+                data-link="https://clubev3.com.br/">
+                <span class="tab-name">Clube V3</span>
+                <span class="tab-cat">Health / Benefícios</span>
+            </button>
+
+            <button class="project-tab"
+                data-full="lp_criadas/heyvet/heyvet.png"
+                data-name="HeyVet"
+                data-cat="Saúde Animal"
+                data-link="https://heyvetbrasil.com.br/pagina/">
+                <span class="tab-name">HeyVet</span>
+                <span class="tab-cat">Saúde Animal</span>
+            </button>
+
+            <button class="project-tab"
+                data-full="lp_criadas/terranobre/screencapture-agenteorionx-lab-github-io-terranobre-2026-03-27-19_41_44.png"
+                data-name="Terra Nobre"
+                data-cat="Real Estate"
+                data-link="#">
+                <span class="tab-name">Terra Nobre</span>
+                <span class="tab-cat">Real Estate</span>
+            </button>
+
+            <button class="project-tab"
+                data-full="lp_criadas/ubbincorp/screencapture-ubbincorpnorteminas-br-2026-03-27-20_16_23.png"
+                data-name="UBBINCORP"
+                data-cat="Incorporadora"
+                data-link="https://ubbincorpnorteminas.com.br/">
+                <span class="tab-name">UBBINCORP</span>
+                <span class="tab-cat">Incorporadora</span>
+            </button>
+
+            <button class="project-tab"
+                data-full="lp_criadas/vanguarda/screencapture-agenteorionx-lab-github-io-vanguarda-2026-03-27-21_19_33.png"
+                data-name="Vanguarda"
+                data-cat="Imobiliária"
+                data-link="#">
+                <span class="tab-name">Vanguarda</span>
+                <span class="tab-cat">Imobiliária</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- ===== MACBOOK PRO 3D ===== -->
+    <section class="relative z-10 flex flex-col items-center px-4 pb-10">
+
+        <div class="mac-scene w-full max-w-4xl">
+            <div class="mac-body" id="macbook">
+
+                <!-- ═══ TAMPA (Lid) ═══ -->
+                <div class="mac-lid w-full">
+                    <div class="mac-camera"></div>
+                    <div class="mac-bezel">
+                        <div class="mac-display" id="mac-screen">
+                            <img id="mac-img"
+                                 src="lp_criadas/clubev3/screencapture-clubev3-br-2026-03-27-19_39_35.png"
+                                 alt="Clube V3 — Site Completo">
+                        </div>
+                    </div>
+                </div>
+                <div class="mac-lid-bottom"></div>
+
+                <!-- ═══ DOBRADIÇA ═══ -->
+                <div class="mac-hinge"></div>
+
+                <!-- ═══ CORPO / TECLADO ═══ -->
+                <div class="mac-keyboard-deck w-full">
+                    <div class="mac-keys-area">
+
+                        <!-- Touch Bar / Fn Row -->
+                        <div class="mac-touchbar"></div>
+
+                        <!-- Linha 1: Números -->
+                        <div class="mac-key-row">
+                            <div class="mac-key k-fn"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key k-del"></div>
+                        </div>
+
+                        <!-- Linha 2: QWERTY -->
+                        <div class="mac-key-row">
+                            <div class="mac-key k-tab"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key k-enter"></div>
+                        </div>
+
+                        <!-- Linha 3: ASDF -->
+                        <div class="mac-key-row">
+                            <div class="mac-key k-caps"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div>
+                            <div class="mac-key k-enter" style="flex:2.4"></div>
+                        </div>
+
+                        <!-- Linha 4: ZXCV -->
+                        <div class="mac-key-row">
+                            <div class="mac-key k-lshift"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div><div class="mac-key"></div>
+                            <div class="mac-key"></div>
+                            <div class="mac-key k-rshift"></div>
+                        </div>
+
+                        <!-- Linha 5: Barra de espaço -->
+                        <div class="mac-key-row" style="align-items:center;gap:3px">
+                            <div class="mac-key" style="flex:1;height:11px"></div>
+                            <div class="mac-key" style="flex:1;height:11px"></div>
+                            <div class="mac-key" style="flex:1;height:11px"></div>
+                            <div class="mac-key k-space" style="height:11px"></div>
+                            <div class="mac-key" style="flex:1;height:11px"></div>
+                            <div class="mac-key" style="flex:1;height:11px"></div>
+                            <!-- Setas -->
+                            <div style="display:flex;flex-direction:column;gap:2px;flex:1">
+                                <div class="mac-key" style="height:5px;border-radius:2px 2px 0 0"></div>
+                                <div style="display:flex;gap:2px">
+                                    <div class="mac-key" style="height:5px;flex:1;border-radius:0 0 2px 2px"></div>
+                                    <div class="mac-key" style="height:5px;flex:1;border-radius:0 0 2px 2px"></div>
+                                    <div class="mac-key" style="height:5px;flex:1;border-radius:0 0 2px 2px"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Trackpad -->
+                    <div class="mac-trackpad-row">
+                        <div class="mac-trackpad"></div>
+                    </div>
+                </div>
+
+                <!-- Base inferior -->
+                <div class="mac-bottom">
+                    <div class="mac-foot"></div>
+                    <div class="mac-foot"></div>
+                </div>
+
+            </div><!-- /.mac-body -->
+        </div><!-- /.mac-scene -->
+
+        <!-- Ground shadow -->
+        <div class="mac-shadow -mt-1"></div>
+
+        <!-- Info e CTA abaixo do Mac -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center gap-5">
+            <div class="flex items-center gap-2 text-slate-500">
+                <span class="material-symbols-outlined text-base" style="font-size:18px;color:#FF5700">mouse</span>
+                <span class="font-accent text-[9px] uppercase tracking-[0.3em]">Scroll dentro da tela para ver mais</span>
+            </div>
+            <div class="h-4 w-px bg-white/10 hidden sm:block"></div>
+            <a id="visit-link" href="https://clubev3.com.br/" target="_blank"
+               class="flex items-center gap-2 bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-6 py-2.5 rounded-full text-[10px] uppercase tracking-widest transition-all shadow-[0_0_24px_rgba(255,87,0,0.25)]">
+                <span class="material-symbols-outlined" style="font-size:14px">open_in_new</span>
+                Visitar Site ao Vivo
+            </a>
+        </div>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="relative z-10 border-t border-white/5 py-10 text-center mt-6">
+        <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-6 mx-auto mb-4 opacity-60">
+        <p class="font-accent text-[9px] text-slate-600 uppercase tracking-widest">© 2024 OrionX — Engenharia de Conversão</p>
+    </footer>
+
+    <!-- ===== JS ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const macImg    = document.getElementById('mac-img');
+            const macScreen = document.getElementById('mac-screen');
+            const visitLink = document.getElementById('visit-link');
+            const tabs      = document.querySelectorAll('.project-tab');
+            const macbook   = document.getElementById('macbook');
+            const macScene  = macbook.closest('.mac-scene');
+
+            const switchProject = (tab) => {
+                if (tab.classList.contains('active')) return;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Fade out
+                macImg.classList.add('fade-out');
+
+                setTimeout(() => {
+                    macImg.src = tab.dataset.full;
+                    macImg.alt = tab.dataset.name + ' — Site Completo';
+                    visitLink.href = tab.dataset.link || '#';
+                    macScreen.scrollTop = 0;
+
+                    const tryShow = () => macImg.classList.remove('fade-out');
+                    macImg.onload = tryShow;
+                    setTimeout(tryShow, 120);
+                }, 380);
+            };
+
+            tabs.forEach(tab => tab.addEventListener('click', () => switchProject(tab)));
+
+            // Tilt 3D suave ao mover o mouse sobre o Mac
+            macScene.addEventListener('mousemove', (e) => {
+                const r = macScene.getBoundingClientRect();
+                const cx = r.left + r.width / 2;
+                const cy = r.top + r.height / 2;
+                const dx = (e.clientX - cx) / (r.width / 2);   // -1 to 1
+                const dy = (e.clientY - cy) / (r.height / 2);
+
+                const rotX = (-dy * 5).toFixed(2);
+                const rotY = ( dx * 6).toFixed(2);
+
+                macbook.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            });
+
+            macScene.addEventListener('mouseleave', () => {
+                macbook.style.transform = 'rotateX(4deg) rotateY(-1deg)';
+            });
+        });
+    </script>
+
+</body>
+</html>

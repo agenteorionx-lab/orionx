@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Engenharia de Conversão | OrionX</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "secondary": "#0a0a0a",
+                        "background-light": "#ffffff",
+                        "background-dark": "#1a0e08",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0rem",
+                        "lg": "0.5rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-background-dark font-body text-slate-100 selection:bg-primary selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <a href="index.html">
+                    <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-8 md:h-10 w-auto">
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="font-accent font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors" href="index.html#hero">Voltar ao Início</a>
+                <a class="font-accent font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors" href="index.html#portfolio">Portfólio 3D</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <button class="bg-primary text-white font-display font-bold px-4 py-1.5 md:px-6 md:py-2 rounded-lg hover:scale-110 active:scale-95 transition-all uppercase text-xs md:text-sm shadow-lg hover:shadow-primary/40">
+                    CONTATO
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Subpage Hero -->
+    <section class="min-h-[50vh] flex items-center pt-24 relative overflow-hidden bg-[#0A0503]">
+        <div class="absolute inset-0 pointer-events-none opacity-20">
+            <div class="h-full w-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/40 via-transparent to-transparent"></div>
+        </div>
+        <div class="container mx-auto px-4 md:px-6 relative z-10 py-16 text-center">
+            <span class="inline-block px-4 py-1.5 bg-primary/10 border border-primary/30 text-primary font-accent font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] rounded-full mb-6">OrionX Portfólio</span>
+            <h1 class="font-display font-black text-4xl md:text-6xl text-white uppercase mb-6 drop-shadow-lg">Engenharia de Conversão</h1>
+            <p class="font-body text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                Explore as Sales Pages exclusivas e projetadas sob extrema precisão técnica. Foco total em UI/UX Premium, Velocidade de Carregamento e Retenção.
+            </p>
+        </div>
+    </section>
+
+    <!-- Galeria de Portfolio -->
+    <section class="py-16 md:py-32 bg-[#100805]">
+        <div class="container mx-auto px-4 md:px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto">
+                
+                <!-- Projeto 1 -->
+                <div class="group relative rounded-[2rem] overflow-hidden border border-slate-700/50 bg-slate-900 transition-all hover:border-primary/50 shadow-2xl hover:shadow-primary/20 aspect-video md:aspect-square lg:aspect-video flex flex-col cursor-pointer">
+                    <div class="h-3/4 relative overflow-hidden">
+                        <img src="imagens/lp_placeholder_3_1774644538050.png" alt="Sales Page 1" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="h-1/4 bg-slate-950 p-6 md:p-8 flex items-center justify-between border-t border-slate-800">
+                        <div>
+                            <h3 class="font-display font-bold text-white text-xl uppercase mb-1">Black Lançamento VIP</h3>
+                            <p class="font-accent text-xs font-bold text-slate-500 uppercase tracking-widest">Conversão de Ingresso High-Ticket</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all transform group-hover:rotate-45">
+                            <span class="material-symbols-outlined font-bold">arrow_upward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 2 (Fictício para popular) -->
+                <div class="group relative rounded-[2rem] overflow-hidden border border-slate-700/50 bg-slate-900 transition-all hover:border-primary/50 shadow-2xl hover:shadow-primary/20 aspect-video md:aspect-square lg:aspect-video flex flex-col cursor-pointer">
+                    <div class="h-3/4 flex items-center justify-center relative overflow-hidden bg-slate-900">
+                         <!-- Você substituirá esta imagem futuramente -->
+                         <img src="imagens/lp_placeholder_1_1774644503727.png" alt="Sales Page 2" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60">
+                         <div class="absolute inset-0 bg-slate-950/40"></div>
+                         <h4 class="relative z-10 font-accent text-slate-400 uppercase tracking-[0.2em] font-bold border border-slate-600 px-6 py-2 rounded-full backdrop-blur-md">Página Oculta / Em Breve</h4>
+                    </div>
+                    <div class="h-1/4 bg-slate-950 p-6 md:p-8 flex items-center justify-between border-t border-slate-800">
+                        <div>
+                            <h3 class="font-display font-bold text-white text-xl uppercase mb-1">Mastermind Tech</h3>
+                            <p class="font-accent text-xs font-bold text-slate-500 uppercase tracking-widest">Captação de Leads B2B</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all transform group-hover:rotate-45">
+                            <span class="material-symbols-outlined font-bold">arrow_upward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projeto 3 (Fictício para popular) -->
+                <div class="group relative rounded-[2rem] overflow-hidden border border-slate-700/50 bg-slate-900 transition-all hover:border-primary/50 shadow-2xl hover:shadow-primary/20 aspect-video md:aspect-square lg:aspect-video flex flex-col cursor-pointer">
+                    <div class="h-3/4 flex items-center justify-center relative overflow-hidden bg-slate-900">
+                         <!-- Você substituirá esta imagem futuramente -->
+                         <img src="imagens/lp_placeholder_2_1774644522197.png" alt="Sales Page 3" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60">
+                         <div class="absolute inset-0 bg-slate-950/40"></div>
+                         <h4 class="relative z-10 font-accent text-slate-400 uppercase tracking-[0.2em] font-bold border border-slate-600 px-6 py-2 rounded-full backdrop-blur-md">Página Oculta / Em Breve</h4>
+                    </div>
+                    <div class="h-1/4 bg-slate-950 p-6 md:p-8 flex items-center justify-between border-t border-slate-800">
+                        <div>
+                            <h3 class="font-display font-bold text-white text-xl uppercase mb-1">SaaS Launch</h3>
+                            <p class="font-accent text-xs font-bold text-slate-500 uppercase tracking-widest">Produto em Assinatura</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all transform group-hover:rotate-45">
+                            <span class="material-symbols-outlined font-bold">arrow_upward</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card de Chamada para Ação para Novo Projeto -->
+                <div class="group relative rounded-[2rem] overflow-hidden border border-dashed border-primary/30 bg-transparent transition-all hover:border-primary hover:bg-primary/5 shadow-none aspect-video md:aspect-square lg:aspect-video flex flex-col items-center justify-center cursor-pointer">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">add</span>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-2xl uppercase mb-2">Construir Próxima LP</h3>
+                    <p class="font-body text-slate-400 max-w-xs text-center">Inicie um novo projeto de alta conversão conosco hoje.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer Herdado -->
+    <footer class="bg-[#080402] border-t border-slate-900 pt-16 pb-8">
+        <div class="container mx-auto px-4 md:px-6 text-center md:text-left">
+            <div class="border-t border-slate-900 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-6 w-auto">
+                    <p class="text-slate-500 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Todos os direitos reservados. High Performance Built.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

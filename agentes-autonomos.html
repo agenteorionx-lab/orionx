@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AGENTES AUTÔNOMOS | OrionX</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "secondary": "#0a0a0a",
+                        "background-dark": "#030201",
+                        "blueprint-blue": "#0f172a",
+                        "blueprint-grid": "rgba(255, 255, 255, 0.03)"
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Blueprint Grid Background */
+        .blueprint-bg {
+            background-color: #030201;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .node-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            80%, 100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .data-stream {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #FF5700, transparent);
+            height: 2px;
+            width: 100px;
+            animation: stream 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes stream {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+
+        /* Glass Node */
+        .glass-node {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .glass-node:hover {
+            border-color: rgba(255, 87, 0, 0.4);
+            box-shadow: 0 4px 30px rgba(255, 87, 0, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-body text-slate-100 selection:bg-primary selection:text-white blueprint-bg">
+
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                    class="h-7 md:h-9 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-slate-400"
+                    href="index.html">Início</a>
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-white border-b border-primary/50 pb-1"
+                    href="index.html#portfolio">Portfólio</a>
+            </nav>
+            <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                class="bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-5 py-2 rounded-full transition-all uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(255,87,0,0.3)] inline-block">
+                FALE CONOSCO
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Blueprint Section -->
+    <section class="pt-32 pb-20 relative overflow-hidden min-h-[70vh] flex flex-col justify-center">
+        <!-- Radial Glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,87,0,0.08),transparent_60%)] pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center max-w-5xl mx-auto">
+                <div class="inline-flex items-center gap-2 mb-6 border border-white/10 bg-white/5 px-4 py-1.5 rounded-full backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                    <span class="font-mono text-[10px] text-slate-300 tracking-widest uppercase">IA Avançada // 24/7 Atendimento</span>
+                </div>
+                
+                <h1 class="font-display font-black text-4xl md:text-6xl lg:text-7xl text-white uppercase tracking-tighter leading-[1.1] mb-8 drop-shadow-lg">
+                    Agentes de IA para <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400 italic">WhatsApp, Telefone e Omnichannel</span>
+                </h1>
+                
+                <p class="font-body text-slate-400 text-lg md:text-xl max-w-4xl mx-auto font-light leading-relaxed">
+                    Automatize vendas e suporte com IA de ponta que conversa por texto, voz e telefone — tudo centralizado em uma plataforma inteligente capaz de entender o contexto, qualificar leads e realizar agendamentos.
+                </p>
+                
+                <div class="mt-12 flex item-center justify-center gap-4">
+                    <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank" 
+                        class="bg-primary text-white font-display font-bold px-10 py-4 rounded-xl hover:scale-105 transition-all uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(255,87,0,0.4)] inline-block">
+                        AGENDAR DEMONSTRAÇÃO
+                    </a>
+                    <button class="bg-transparent border border-white/20 text-white font-display font-bold px-10 py-4 rounded-xl hover:bg-white/5 transition-all uppercase tracking-widest text-sm">
+                        VER SOLUÇÕES
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Problema Section -->
+    <section class="py-16 relative z-10 border-t border-white/5 bg-black/40 backdrop-blur-md">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-3xl md:text-4xl text-white uppercase tracking-tight">Sua empresa perde a oportunidade <span class="text-primary italic">todos os dias</span></h2>
+                <p class="font-mono text-sm text-slate-500 mt-4">Cada mensagem não respondida ou ligação perdida é receita deixada na mesa.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Problema 1 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">timer</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Demora no Atendimento</h4>
+                        <p class="text-xs text-slate-400">Leads entram e esfriam por demora no primeiro contato.</p>
+                    </div>
+                </div>
+                <!-- Problema 2 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">schedule</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Fora do Horário</h4>
+                        <p class="text-xs text-slate-400">Sua empresa perde contatos e orçamentos fora do horário comercial.</p>
+                    </div>
+                </div>
+                <!-- Problema 3 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">groups</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Tempo Gasto</h4>
+                        <p class="text-xs text-slate-400">Equipe gasta tempo precioso com perguntas repetitivas e triagem manual.</p>
+                    </div>
+                </div>
+                <!-- Problema 4 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">phone_missed</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Chamadas Perdidas</h4>
+                        <p class="text-xs text-slate-400">Chamadas perdidas rapidamente viram oportunidades desperdiçadas.</p>
+                    </div>
+                </div>
+                <!-- Problema 5 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">forum</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Follow-up Inconsistente</h4>
+                        <p class="text-xs text-slate-400">Falta de follow-up deixa muito dinheiro e contratos na mesa.</p>
+                    </div>
+                </div>
+                <!-- Problema 6 -->
+                <div class="bg-white/5 border border-red-500/10 p-6 rounded-xl hover:border-red-500/30 transition-colors flex gap-4 items-start">
+                    <span class="material-symbols-outlined text-red-500">call_merge</span>
+                    <div>
+                        <h4 class="font-display font-bold text-white text-sm mb-1">Canais Espalhados</h4>
+                        <p class="text-xs text-slate-400">Canais de comunicação espalhados geram caos e ruptura de contexto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Três Pilares (The Diagram Section) -->
+    <section class="py-24 relative z-10 border-y border-white/5">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display font-bold text-3xl text-white uppercase tracking-widest">Três Pilares <span class="text-primary italic">IA</span></h2>
+                <p class="font-mono text-xs text-slate-500 mt-2">// O motor da nossa comunicação autônoma</p>
+            </div>
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+                <div class="hidden md:block absolute top-1/2 left-[15%] right-[15%] h-px bg-white/10 -translate-y-1/2 z-0">
+                    <div class="data-stream"></div>
+                </div>
+                <!-- Node 1: WhatsApp -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-xl bg-slate-900 border border-emerald-500/30 flex items-center justify-center mb-6 relative">
+                        <span class="material-symbols-outlined text-3xl text-emerald-400">smart_toy</span>
+                        <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2 uppercase">Agentes WhatsApp</h3>
+                    <p class="font-mono text-[11px] text-slate-400">SDR, Closer &amp; Follow-up.<br>Respostas instantâneas, contorno de objeções, qualificação e agendamento contínuo.</p>
+                </div>
+                <!-- Node 2: Telefonia -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center border-t-2 border-t-sky-500/50 bg-sky-500/5">
+                    <div class="w-20 h-20 rounded-2xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center mb-6 relative shadow-[0_0_30px_rgba(14,165,233,0.25)]">
+                        <span class="material-symbols-outlined text-4xl text-sky-400">phone_in_talk</span>
+                        <div class="absolute inset-0 rounded-2xl border border-sky-500 node-pulse opacity-50"></div>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-sky-400 mb-2 uppercase">Telefonia de IA</h3>
+                    <p class="font-mono text-[11px] text-slate-300">Voz ultra-realista &lt; 600ms.<br>Atendimento ativo e receptivo, handoff humano suave, ligações ativas com caller ID verificado.</p>
+                </div>
+                <!-- Node 3: Omnichannel -->
+                <div class="glass-node p-8 rounded-2xl relative z-10 flex flex-col items-center text-center">
+                    <div class="w-14 h-14 rounded-xl bg-slate-900 border border-primary/30 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-2xl text-primary">language</span>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-white mb-2 uppercase">Plataforma <span class="text-primary">Omnichannel</span></h3>
+                    <p class="font-mono text-[11px] text-slate-400">Todos os canais em um só lugar. Base de dados compartilhada, assistente interno e históricos unificados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tecnologia e Pilares Detalhados -->
+    <section class="py-24 relative z-10 border-y border-white/5 bg-background-dark">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <!-- Título Principal -->
+            <div class="text-center mb-20 max-w-4xl mx-auto">
+                <span class="font-mono text-primary text-xs tracking-widest uppercase mb-4 block">Tecnologia Multimodal</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-white tracking-tight mb-6 leading-tight">
+                    IA de ponta que entende texto, áudio, imagem e voz
+                </h2>
+                <p class="font-body text-slate-400 text-lg leading-relaxed">
+                    Processamento multimodal, voz com qualidade humana, assistente IA para agentes e plataforma omnichannel — tudo em uma solução integrada.
+                </p>
+            </div>
+
+            <div class="space-y-24">
+                
+                <!-- Bloco 1: Agentes IA WhatsApp -->
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center justify-center">
+                            <span class="material-symbols-outlined">sms</span>
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-white">Agentes IA <span class="text-emerald-400">WhatsApp</span></h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 1.1 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">bolt</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente IA SDR</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Venda direta no WhatsApp</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Responde rápido, contorna objeções, qualifica e conduz a conversa para conversão. Ideal para serviços de menor ticket.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Resposta instantânea</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Qualificação automática</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Atendimento padronizado</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Ideal para low ticket</li>
+                            </ul>
+                        </div>
+                        <!-- Card 1.2 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group border-t-2 border-t-emerald-500/50 bg-emerald-500/5">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">event_available</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente IA para Closer</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Agendamento inteligente</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Identifica o perfil do lead, coleta informações estratégicas e agenda o contato com o responsável pela venda.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Pré-qualificação</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Coleta de contexto</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Agendamento inteligente</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Foco em tickets maiores</li>
+                            </ul>
+                        </div>
+                        <!-- Card 1.3 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">sync</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente IA de Follow-up</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Reaquecimento de leads</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Reengaja leads que pararam de responder, retoma conversas no momento certo e recupera oportunidades.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Follow-up automático</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Reativação de leads</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Cadência inteligente</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">arrow_forward</span> Aproveitamento da base</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloco 2: Agentes de Telefonia IA -->
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center justify-center">
+                            <span class="material-symbols-outlined">phone_in_talk</span>
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-white">Agentes de <span class="text-sky-400">Telefonia IA</span></h3>
+                        <span class="text-[10px] font-mono font-bold text-primary border border-primary/30 bg-primary/10 px-2 py-0.5 rounded-full uppercase tracking-wider">NOVO</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 2.1 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">call_received</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente Receptivo</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Atendimento inbound por voz</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Recebe ligações com voz ultra-realista e latência sub-segundo (~600ms). Entende contexto, resolve ou transfere — sem filas de espera.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Voz humana ultra-realista</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Latência ~600ms</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Turn-taking inteligente</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Roteamento e transferência ao vivo</li>
+                            </ul>
+                        </div>
+                        <!-- Card 2.2 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group border-t-2 border-t-sky-500/50 bg-sky-500/5">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">call_made</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente Ativo</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Prospecção, cobrança e campanhas</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Realiza chamadas ativas em escala com IA conversacional. Prospecta, confirma agendamentos, cobra e pesquisa — com caller ID verificado.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Batch calling em massa</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Caller ID verificado</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Scripts dinâmicos com IA</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Rastreamento de conversão</li>
+                            </ul>
+                        </div>
+                        <!-- Card 2.3 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">call_split</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Agente de Transferência</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Qualificação + handoff humano</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Qualifica por voz com function calling em tempo real e transfere a ligação ao vivo quando o lead está pronto, preservando todo o contexto.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Qualificação por voz</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Function calling em tempo real</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Transferência com contexto</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">arrow_forward</span> Integração SIP/PABX</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloco 3: Plataforma Omnichannel -->
+                <div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 rounded-lg bg-white/5 border border-white/10 text-slate-300 flex items-center justify-center">
+                            <span class="material-symbols-outlined">headset_mic</span>
+                        </div>
+                        <h3 class="font-display font-bold text-2xl text-white">Plataforma <span class="text-primary">Omnichannel</span></h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Card 3.1 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">forum</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Central Omnichannel</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Todos os canais em um só lugar</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Centralize conversas de WhatsApp, Instagram, Facebook, Telegram, e-mail e live chat em uma única interface inteligente.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> WhatsApp, Instagram, Facebook</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Telegram, e-mail, live chat</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Histórico unificado</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Atribuição automática</li>
+                            </ul>
+                        </div>
+                        <!-- Card 3.2 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group border-t-2 border-t-primary/50 bg-primary/5">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">smart_toy</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Assistente IA para Agentes</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Copiloto inteligente</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">IA que sugere respostas, acessa conversas anteriores, consulta a base de conhecimento e traduz mensagens em tempo real.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Sugestão de respostas IA</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Consulta à base de conhecimento</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Tradução automática</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Resumo de conversas</li>
+                            </ul>
+                        </div>
+                        <!-- Card 3.3 -->
+                        <div class="glass-node p-8 rounded-2xl flex flex-col items-start hover:-translate-y-1 transition-transform group">
+                            <div class="w-12 h-12 rounded-xl bg-[#0f172a] border border-white/10 text-slate-300 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined">menu_book</span>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-lg mb-1 group-hover:text-slate-300 transition-colors">Base de Conhecimento</h4>
+                            <p class="font-mono text-xs text-slate-300/80 mb-4 tracking-widest uppercase">Help center com busca IA</p>
+                            <p class="text-sm text-slate-400 font-light mb-6 flex-1">Central de ajuda personalizável com busca inteligente por IA, artigos categorizados, multi-idioma e domínio próprio.</p>
+                            <ul class="space-y-2">
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Busca inteligente com IA</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Múltiplos portais e marcas</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Multi-idioma</li>
+                                <li class="text-xs text-slate-300 font-mono flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[16px]">arrow_forward</span> Domínio personalizado + SSL</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Fluxo e Segmentos -->
+    <section class="py-24 relative z-10 border-t border-white/5 bg-background-dark">
+        <div class="container mx-auto px-4 max-w-7xl">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-16 border-b border-white/10 pb-8">
+                <div>
+                    <h2 class="font-display font-black text-3xl md:text-5xl text-white uppercase tracking-tight">Adaptado a qualquer <span class="text-primary italic">Segmento</span></h2>
+                    <p class="font-accent text-sm text-slate-400 mt-2">Nossos agentes são treinados sob medida para o fluxo comercial do seu negócio.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Coluna Esquerda: Fluxo do Agente -->
+                <div>
+                    <h3 class="font-display font-bold text-xl text-white mb-6 uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">route</span> Fluxo do Agente
+                    </h3>
+                    <div class="space-y-3">
+                        <!-- Passo 1 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">1</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Primeiro atendimento automático</h4>
+                        </div>
+                        <!-- Passo 2 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">2</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Triagem e qualificação do lead</h4>
+                        </div>
+                        <!-- Passo 3 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">3</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Coleta de informações estratégicas</h4>
+                        </div>
+                        <!-- Passo 4 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">4</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Agendamento com o responsável</h4>
+                        </div>
+                        <!-- Passo 5 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">5</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Follow-up e reaquecimento</h4>
+                        </div>
+                        <!-- Passo 6 -->
+                        <div class="group bg-white/[0.02] border border-white/5 rounded-xl p-4 flex items-center gap-4 hover:bg-white/[0.05] hover:border-primary/30 transition-all cursor-crosshair">
+                            <div class="w-8 h-8 rounded-lg bg-primary/20 text-primary font-mono font-bold flex items-center justify-center text-sm shadow-[0_0_15px_rgba(255,87,0,0.2)]">6</div>
+                            <h4 class="font-bold text-slate-200 text-sm font-body group-hover:text-primary transition-colors">Transferência para humano (Handoff)</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Segmentos Atendidos -->
+                <div>
+                    <h3 class="font-display font-bold text-xl text-white mb-6 uppercase tracking-widest flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">domain</span> Segmentos
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Seg 1 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">gavel</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Advocacia</h4>
+                        </div>
+                        <!-- Seg 2 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">medical_services</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Saúde e Clínicas</h4>
+                        </div>
+                        <!-- Seg 3 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">real_estate_agent</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Imobiliárias</h4>
+                        </div>
+                        <!-- Seg 4 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">school</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Educação</h4>
+                        </div>
+                        <!-- Seg 5 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">shopping_cart</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">E-commerce</h4>
+                        </div>
+                        <!-- Seg 6 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">account_balance</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Serviços Financeiros</h4>
+                        </div>
+                        <!-- Seg 7 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">home_repair_service</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Serviços / Manutenção</h4>
+                        </div>
+                        <!-- Seg 8 -->
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(255,87,0,0.1)] hover:border-primary/40 transition-all group">
+                            <span class="material-symbols-outlined text-slate-400 group-hover:text-primary text-3xl mb-3 transition-colors">directions_car</span>
+                            <h4 class="font-body font-bold text-slate-200 text-sm group-hover:text-white transition-colors">Automotivo</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona CTA Final -->
+    <section class="py-24 bg-black/60 relative border-t border-white/5">
+        <div class="container mx-auto px-4 text-center">
+            <span class="font-mono text-primary text-xs tracking-widest uppercase mb-2 block">Processo</span>
+            <h2 class="font-display font-black text-3xl md:text-5xl text-white uppercase tracking-tight mb-16">Como <span class="text-primary italic">funciona</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-16">
+                <!-- Card 1 -->
+                <div class="bg-background-dark/80 border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-primary/50 transition-colors text-left flex flex-col items-center">
+                    <span class="text-6xl font-display font-black text-white/5 absolute top-4 right-4 z-0 group-hover:text-primary/10 transition-colors">01</span>
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 relative z-10">
+                        <span class="material-symbols-outlined text-2xl">search</span>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-3 relative z-10 text-center">Mapeamos o fluxo</h3>
+                    <p class="font-body text-sm text-slate-400 leading-relaxed relative z-10 text-center">Entendemos sua operação, canais de atendimento, perfil dos leads e necessidades específicas.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-background-dark/80 border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-primary/50 transition-colors text-left flex flex-col items-center">
+                    <span class="text-6xl font-display font-black text-white/5 absolute top-4 right-4 z-0 group-hover:text-primary/10 transition-colors">02</span>
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 relative z-10">
+                        <span class="material-symbols-outlined text-2xl">psychology</span>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-3 relative z-10 text-center">Configuramos a IA</h3>
+                    <p class="font-body text-sm text-slate-400 leading-relaxed relative z-10 text-center">Treinamos agentes com contexto, tom de voz, base de conhecimento e regras de negócio.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-background-dark/80 border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-primary/50 transition-colors text-left flex flex-col items-center">
+                    <span class="text-6xl font-display font-black text-white/5 absolute top-4 right-4 z-0 group-hover:text-primary/10 transition-colors">03</span>
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 relative z-10">
+                        <span class="material-symbols-outlined text-2xl">cable</span>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-3 relative z-10 text-center">Integramos tudo</h3>
+                    <p class="font-body text-sm text-slate-400 leading-relaxed relative z-10 text-center">Conectamos WhatsApp, telefonia (SIP/PABX), e-mail, redes sociais e live chat na plataforma.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-background-dark/80 border border-white/10 rounded-2xl p-8 relative overflow-hidden group hover:border-primary/50 transition-colors text-left flex flex-col items-center">
+                    <span class="text-6xl font-display font-black text-white/5 absolute top-4 right-4 z-0 group-hover:text-primary/10 transition-colors">04</span>
+                    <div class="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center mb-6 relative z-10">
+                        <span class="material-symbols-outlined text-2xl">rocket_launch</span>
+                    </div>
+                    <h3 class="font-display font-bold text-white text-lg mb-3 relative z-10 text-center">IA em operação</h3>
+                    <p class="font-body text-sm text-slate-400 leading-relaxed relative z-10 text-center">Agentes atendem por texto e voz, assistente IA apoia a equipe e analytics monitora tudo.</p>
+                </div>
+            </div>
+
+            <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                class="bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-10 py-5 rounded-full transition-all uppercase text-sm tracking-widest shadow-[0_0_30px_rgba(255,87,0,0.3)] inline-flex items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">rocket_launch</span>
+                INICIAR NOSSA AUTOMAÇÃO
+            </a>
+        </div>
+    </section>
+
+    <!-- Perguntas Frequentes -->
+    <section class="py-24 relative z-10 border-t border-white/5 bg-background-dark">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <div class="text-center mb-16">
+                <span class="font-mono text-primary text-xs tracking-widest uppercase mb-4 block">Dúvidas</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-white uppercase tracking-tight">Perguntas <span class="text-primary italic">Frequentes</span></h2>
+            </div>
+
+            <div class="space-y-4" id="faq-container">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Em quanto tempo pode entrar no ar?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Normalmente em poucos dias após o mapeamento inicial, dependendo da complexidade da operação e dos canais a serem integrados.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">O agente pode transferir a ligação para um humano?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. O agente qualifica por voz e, quando necessário, transfere a ligação ao vivo preservando todo o contexto da conversa para o atendente humano.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Serve para qualquer segmento?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. Nossos agentes se adaptam a diferentes segmentos — advocacia, saúde, imobiliário, educação, e-commerce, serviços financeiros e muito mais.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Funciona 24 horas?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. Todos os agentes de IA e a plataforma operam 24/7 sem interrupção.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Posso usar apenas um dos produtos?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. Cada solução pode ser contratada separadamente — agentes WhatsApp, telefonia IA ou plataforma omnichannel — ou você pode combinar todas para uma operação completa.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Integra com meu sistema de telefonia?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. O agente de telefonia integra via SIP trunk com qualquer sistema existente (PABX, VoIP, call center). Suporta batch calling, caller ID verificado e rastreamento de conversão.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Tem base de conhecimento / help center?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. Inclui uma central de ajuda personalizável com busca inteligente por IA, artigos categorizados, suporte multi-idioma, múltiplos portais por marca e domínio próprio com SSL.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">O que é o assistente IA para agentes?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">É um copiloto inteligente integrado à plataforma que ajuda sua equipe a responder mais rápido com sugestões de resposta baseadas em IA, acesso a conversas anteriores, consulta automática à base de conhecimento e tradução em tempo real.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">A voz do agente de telefonia parece natural?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Sim. Utilizamos tecnologia proprietária de síntese de voz treinada com dados reais de performance, produzindo conversação fluida e indistinguível de um atendente humano.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 10 -->
+                <div class="faq-item bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                        <h4 class="font-display font-bold text-white text-sm md:text-base pr-4">Como funciona o agente de telefonia por voz?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon shrink-0">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
+                        <p class="font-body text-slate-400 text-sm leading-relaxed pb-6">Nosso agente de telefonia utiliza IA conversacional de última geração com voz ultra-realista e latência de ~600ms. Ele recebe e realiza chamadas, entende contexto em tempo real, executa ações (agendar, transferir, consultar) e sabe quando falar e quando ouvir com turn-taking inteligente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const icon = item.querySelector('.faq-icon');
+            const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+
+            // Fecha todos os outros
+            document.querySelectorAll('.faq-item').forEach(function(other) {
+                if (other !== item) {
+                    const otherAnswer = other.querySelector('.faq-answer');
+                    const otherIcon = other.querySelector('.faq-icon');
+                    otherAnswer.style.maxHeight = '0px';
+                    otherAnswer.style.paddingBottom = '0';
+                    otherIcon.style.transform = 'rotate(0deg)';
+                    other.classList.remove('border-primary/30');
+                    other.classList.add('border-white/10');
+                }
+            });
+
+            // Toggle atual
+            if (isOpen) {
+                answer.style.maxHeight = '0px';
+                answer.style.paddingBottom = '0';
+                icon.style.transform = 'rotate(0deg)';
+                item.classList.remove('border-primary/30');
+                item.classList.add('border-white/10');
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+                item.classList.add('border-primary/30');
+                item.classList.remove('border-white/10');
+            }
+        }
+    </script>
+
+    <!-- Final Footer -->
+    <footer class="bg-background-dark py-12 border-t border-white/5">
+        <div class="container mx-auto px-4 text-center">
+            <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                class="h-6 mx-auto mb-6 opacity-80">
+            <p class="text-slate-600 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Construindo Arquiteturas Inteligentes.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

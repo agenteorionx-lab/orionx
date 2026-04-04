@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PROJETOS DE LANDING PAGES | OrionX</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "secondary": "#0a0a0a",
+                        "background-dark": "#050302",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Exo 2", "sans-serif"],
+                        "accent": ["Montserrat", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .browser-mockup {
+            border-top: 24px solid #1a1a1a;
+            position: relative;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        /* Glass Reflection Overlay */
+        .browser-mockup::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 40%, rgba(255, 255, 255, 0.02) 100%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .browser-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .group:hover .browser-mockup img {
+            transform: scale(1.01);
+        }
+
+        .browser-mockup::before {
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: 12px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff5f56;
+            box-shadow: 16px 0 0 #ffbd2e, 32px 0 0 #27c93f;
+            z-index: 20;
+        }
+
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(-5%);
+            }
+
+            50% {
+                transform: translateY(0);
+            }
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 4s ease-in-out infinite;
+        }
+
+        .shadow-3xl {
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 87, 0, 0.1);
+        }
+
+        /* Modal Details */
+        #project-modal {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #project-modal.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95);
+        }
+
+        #project-modal:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .modal-scroll-area::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .modal-scroll-area::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .modal-scroll-area::-webkit-scrollbar-thumb {
+            background: #ff5700;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-background-dark font-body text-slate-100 selection:bg-primary selection:text-white">
+
+    <!-- Top Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-background-dark/80 backdrop-blur-lg border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                    class="h-7 md:h-9 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-slate-400"
+                    href="index.html">Início</a>
+                <a class="font-accent font-bold text-[10px] uppercase tracking-[0.2em] hover:text-primary transition-colors text-white border-b border-primary/50 pb-1"
+                    href="index.html#portfolio">Portfolio</a>
+            </nav>
+            <button
+                class="bg-primary hover:bg-white hover:text-primary text-white font-display font-bold px-5 py-2 rounded-full transition-all uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(255,87,0,0.3)]">
+                FALE CONOSCO
+            </button>
+        </div>
+    </header>
+
+    <!-- Seção de Portfólio Centralizada -->
+    <section class="pt-32 pb-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,87,0,0.05),transparent_50%)]">
+        </div>
+        <div class="container mx-auto px-4 relative z-10">
+
+            <!-- Título Principal OrionX -->
+            <div class="text-center mb-24 animate-fade-in max-w-4xl mx-auto px-4">
+                <span
+                    class="font-display font-bold text-primary text-[10px] uppercase tracking-[0.5em] mb-6 inline-block italic">Our
+                    Engineering Projects</span>
+                <h1
+                    class="font-display font-black text-4xl md:text-7xl text-white uppercase tracking-tighter leading-none mb-8">
+                    Engenharia de <br> <span class="text-primary italic">Conversão OrionX</span>
+                </h1>
+                <p
+                    class="font-accent text-[10px] text-slate-500 font-bold uppercase tracking-[0.3em] inline-block py-2 px-6 border-y border-white/5">
+                    Projetos Selecionados • 2023-2024
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+
+                <!-- Card 1: Clube V3 -->
+                <div class="group flex flex-col cursor-pointer project-card" data-title="Clube V3 - Benefícios & Saúde"
+                    data-category="Health / Benefícios"
+                    data-image="lp_criadas/clubev3/screencapture-clubev3-br-2026-03-27-19_39_35.png"
+                    data-link="https://clubev3.com.br/"
+                    data-desc="Ecossistema completo de descontos em saúde e serviços. Interface focada em clareza de benefícios e conversão imediata de novos assinantes.">
+                    <div
+                        class="browser-mockup bg-slate-900 aspect-[4/3] shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/10 rounded-xl overflow-hidden">
+                        <img src="lp_criadas/clubev3/Gemini_Generated_Image_5y95845y95845y95.png" alt="Clube V3 Cover">
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <span class="bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase">Ver
+                                Projeto</span>
+                        </div>
+                    </div>
+                    <div class="pt-5 px-1">
+                        <h3 class="font-display font-bold text-lg text-white mb-1 uppercase tracking-tight">Clube V3
+                        </h3>
+                        <p
+                            class="font-accent text-[10px] font-bold text-slate-500 uppercase tracking-widest border-l-2 border-slate-700 pl-2">
+                            Health / Benefícios</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: HeyVet -->
+                <div class="group flex flex-col cursor-pointer project-card" data-title="HeyVet - Teleorientação Pet"
+                    data-category="Teleorientação / Saúde Animal" data-image="lp_criadas/heyvet/heyvet.png"
+                    data-link="https://heyvetbrasil.com.br/pagina/"
+                    data-desc="Ecosistema digital focado em alta conversão com elementos interativos estrategicamente posicionados. Desenvolvido para transmitir autoridade instantânea e facilitar o agendamento.">
+                    <div
+                        class="browser-mockup bg-slate-900 aspect-[4/3] shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/10 rounded-xl overflow-hidden">
+                        <img src="lp_criadas/heyvet/Gemini_Generated_Image_uty2xjuty2xjuty2.png" alt="HeyVet Mockup">
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <span class="bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase">Ver
+                                Detalhes</span>
+                        </div>
+                    </div>
+                    <div class="pt-5 px-1">
+                        <h3 class="font-display font-bold text-lg text-white mb-1 uppercase tracking-tight">HeyVet</h3>
+                        <p
+                            class="font-accent text-[10px] font-bold text-slate-500 uppercase tracking-widest border-l-2 border-primary pl-2">
+                            Teleorientação / Saúde Animal</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Terra Nobre -->
+                <div class="group flex flex-col cursor-pointer project-card" data-title="Terra Nobre - Loteamento"
+                    data-category="Real Estate / Loteamento"
+                    data-image="lp_criadas/terranobre/screencapture-agenteorionx-lab-github-io-terranobre-2026-03-27-19_41_44.png"
+                    data-link="#"
+                    data-desc="Landing Page de alto padrão para lançamento de loteamento. Foco em visualização 360º e captura de leads qualificados para corretores.">
+                    <div
+                        class="browser-mockup bg-slate-900 aspect-[4/3] shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/10 rounded-xl overflow-hidden">
+                        <img src="lp_criadas/terranobre/Gemini_Generated_Image_qu0u3qqu0u3qqu0u.png" alt="Terra Nobre Cover">
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <span class="bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase">Ver
+                                Projeto</span>
+                        </div>
+                    </div>
+                    <div class="pt-5 px-1">
+                        <h3 class="font-display font-bold text-lg text-white mb-1 uppercase tracking-tight">Terra Nobre
+                        </h3>
+                        <p
+                            class="font-accent text-[10px] font-bold text-slate-500 uppercase tracking-widest border-l-2 border-slate-700 pl-2">
+                            Real Estate / Loteamento</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: UBBINCORP -->
+                <div class="group flex flex-col cursor-pointer project-card" data-title="UBBINCORP - Incorporadora"
+                    data-category="Real Estate / Incorporadora"
+                    data-image="lp_criadas/ubbincorp/screencapture-ubbincorpnorteminas-br-2026-03-27-20_16_23.png"
+                    data-link="https://ubbincorpnorteminas.com.br/"
+                    data-desc="Painel institucional para incorporadora de luxo. Design sólido e moderno que transmite confiança no setor de alto padrão imobiliário.">
+                    <div
+                        class="browser-mockup bg-slate-900 aspect-[4/3] shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/10 rounded-xl overflow-hidden">
+                        <img src="lp_criadas/ubbincorp/Gemini_Generated_Image_sexvvrsexvvrsexv.png" alt="UBBINCORP Cover">
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <span class="bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase">Ver
+                                Projeto</span>
+                        </div>
+                    </div>
+                    <div class="pt-5 px-1">
+                        <h3 class="font-display font-bold text-lg text-white mb-1 uppercase tracking-tight">UBBINCORP
+                        </h3>
+                        <p
+                            class="font-accent text-[10px] font-bold text-slate-500 uppercase tracking-widest border-l-2 border-slate-700 pl-2">
+                            Real Estate / Incorporadora</p>
+                    </div>
+                </div>
+
+                <!-- Card 5: Vanguarda -->
+                <div class="group flex flex-col cursor-pointer project-card" data-title="Vanguarda - Imobiliária"
+                    data-category="Real Estate / Brokerage"
+                    data-image="lp_criadas/vanguarda/screencapture-agenteorionx-lab-github-io-vanguarda-2026-03-27-21_19_33.png"
+                    data-link="#"
+                    data-desc="Vitrine digital de alta performance para imobiliária. Interface limpa e rápida para busca de imóveis exclusivos.">
+                    <div
+                        class="browser-mockup bg-slate-900 aspect-[4/3] shadow-2xl transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-primary/10 rounded-xl overflow-hidden">
+                        <img src="lp_criadas/vanguarda/Gemini_Generated_Image_r8ilcyr8ilcyr8il.png" alt="Vanguarda Cover">
+                        <div
+                            class="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                            <span class="bg-primary text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase">Ver
+                                Projeto</span>
+                        </div>
+                    </div>
+                    <div class="pt-5 px-1">
+                        <h3 class="font-display font-bold text-lg text-white mb-1 uppercase tracking-tight">Vanguarda
+                        </h3>
+                        <p
+                            class="font-accent text-[10px] font-bold text-slate-500 uppercase tracking-widest border-l-2 border-slate-700 pl-2">
+                            Real Estate / Imobiliária</p>
+                    </div>
+                </div>
+
+                <!-- Card 6: CTA Final -->
+                <div
+                    class="group relative rounded-xl bg-primary/5 border border-primary/20 flex flex-col items-center justify-center p-8 aspect-[4/3] hover:bg-primary transition-all cursor-pointer">
+                    <span
+                        class="material-symbols-outlined text-5xl text-primary group-hover:text-white mb-4 transition-colors">rocket_launch</span>
+                    <h3 class="font-display font-bold text-lg text-white uppercase tracking-tighter">Sua Página Aqui
+                    </h3>
+                    <p class="text-[11px] text-primary group-hover:text-white/80 mt-1 uppercase font-bold text-center">
+                        Inicie seu projeto de alta conversão</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- OrionX Core Section (Metodologia) -->
+    <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-primary/5 opacity-20"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <span
+                        class="font-display font-bold text-primary text-[10px] uppercase tracking-[0.4em] mb-4 inline-block italic">The
+                        Orion Protocol</span>
+                    <h2 class="font-display font-black text-2xl md:text-5xl text-white uppercase tracking-tighter">
+                        Engenharia de <span class="text-primary italic">Resultados</span></h2>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-[2rem] overflow-hidden">
+                    <div class="p-10 bg-background-dark/80 hover:bg-white/5 transition-all group">
+                        <div class="flex items-center gap-6 mb-6">
+                            <span
+                                class="font-display font-black text-4xl text-white/10 group-hover:text-primary/40 transition-colors">01</span>
+                            <h4 class="font-display font-bold text-lg text-white uppercase">Diagnóstico ROI</h4>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">Analisamos seu funil atual para identificar
+                            furos de conversão e janelas de oportunidade.</p>
+                    </div>
+                    <div
+                        class="p-10 bg-background-dark/80 hover:bg-white/5 transition-all group border-l-0 md:border-l border-white/5">
+                        <div class="flex items-center gap-6 mb-6">
+                            <span
+                                class="font-display font-black text-4xl text-white/10 group-hover:text-primary/40 transition-colors">02</span>
+                            <h4 class="font-display font-bold text-lg text-white uppercase">Copy Estratégico</h4>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">Escrita persuasiva baseada em gatilhos mentais
+                            e psicologia de consumo do avatar.</p>
+                    </div>
+                    <div
+                        class="p-10 bg-background-dark/80 hover:bg-white/5 transition-all group border-t border-white/5">
+                        <div class="flex items-center gap-6 mb-6">
+                            <span
+                                class="font-display font-black text-4xl text-white/10 group-hover:text-primary/40 transition-colors">03</span>
+                            <h4 class="font-display font-bold text-lg text-white uppercase">Design Sensorial</h4>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">Layouts que guiam o olhar e criam autoridade
+                            instantânea através da estética premium.</p>
+                    </div>
+                    <div
+                        class="p-10 bg-background-dark/80 hover:bg-white/5 transition-all group border-t border-white/5 border-l-0 md:border-l">
+                        <div class="flex items-center gap-6 mb-6">
+                            <span
+                                class="font-display font-black text-4xl text-white/10 group-hover:text-primary/40 transition-colors">04</span>
+                            <h4 class="font-display font-bold text-lg text-white uppercase">Engenharia Leve</h4>
+                        </div>
+                        <p class="text-slate-500 text-sm leading-relaxed">Entrega ultrarápida (Core Web Vitals) para
+                            garantir que cada clique carregue em MS.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Footer -->
+    <footer class="bg-background-dark py-12 border-t border-white/5">
+        <div class="container mx-auto px-4 text-center">
+            <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                class="h-6 mx-auto mb-6 opacity-80">
+            <p class="text-slate-600 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. High-End Landing
+                Pages.</p>
+        </div>
+    </footer>
+
+    <!-- POPUP MODAL (Glassmorphism System) -->
+    <div id="project-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-xl" id="modal-overlay"></div>
+
+        <div
+            class="relative w-full max-w-6xl max-h-[90vh] bg-slate-950 border border-white/10 rounded-[2rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row overflow-hidden animate-zoom-in">
+            <!-- Modal Sidebar (Text) -->
+            <div
+                class="w-full md:w-80 p-8 flex flex-col order-2 md:order-1 border-t md:border-t-0 md:border-r border-white/5 bg-black/40">
+                <div class="mb-auto">
+                    <span id="modal-category"
+                        class="font-accent font-bold text-[9px] text-primary uppercase tracking-[0.3em] mb-2 block italic">CATEGORIA</span>
+                    <h2 id="modal-title"
+                        class="font-display font-black text-2xl text-white uppercase leading-tight mb-4">TITULO DO
+                        PROJETO</h2>
+                    <p id="modal-desc" class="text-slate-400 text-sm leading-relaxed mb-8">Descrição breve do projeto e
+                        soluções aplicadas.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <a id="modal-link" href="#" target="_blank"
+                        class="w-full bg-white text-black font-display font-bold py-4 rounded-xl text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all text-center block">
+                        VISITAR SITE AO VIVO
+                    </a>
+                    <button
+                        class="w-full bg-white/5 text-white/50 font-display font-bold py-4 rounded-xl text-[10px] uppercase tracking-widest hover:bg-white/10 transition-all font-accent"
+                        id="close-modal-btn">
+                        FECHAR DEMONSTRAÇÃO
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Preview (Scrollable Image) -->
+            <div
+                class="flex-1 overflow-y-auto modal-scroll-area bg-slate-900 border-l border-white/5 order-1 md:order-2">
+                <img id="modal-img" src="" alt="Project Full View" class="w-full h-auto">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Controller Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('project-modal');
+            const cards = document.querySelectorAll('.project-card');
+            const closeBtn = document.getElementById('close-modal-btn');
+            const overlay = document.getElementById('modal-overlay');
+
+            // Elements to update
+            const mTitle = document.getElementById('modal-title');
+            const mCat = document.getElementById('modal-category');
+            const mDesc = document.getElementById('modal-desc');
+            const mImg = document.getElementById('modal-img');
+            const mLink = document.getElementById('modal-link');
+
+            const openModal = (card) => {
+                mTitle.textContent = card.dataset.title;
+                mCat.textContent = card.dataset.category;
+                mDesc.textContent = card.dataset.desc;
+                mImg.src = card.dataset.image;
+                mLink.href = card.dataset.link || '#';
+
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Lock background
+            };
+
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = ''; // Unlock background
+            };
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => openModal(card));
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+
+            // Close with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        });
+    </script>
+</body>
+
+</html>
