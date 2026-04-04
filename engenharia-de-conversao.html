@@ -131,6 +131,64 @@
             background: #ff5700;
             border-radius: 10px;
         }
+
+        /* Lightbox Zoom */
+        .lightbox-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .lightbox-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-img-wrap {
+            transform: scale(0.92);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: grab;
+            touch-action: none;
+        }
+        .lightbox-overlay.active .lightbox-img-wrap {
+            transform: scale(1);
+        }
+        .lightbox-img-wrap.dragging {
+            cursor: grabbing;
+        }
+        .lightbox-img-wrap img {
+            max-width: 95vw;
+            max-height: 90vh;
+            object-fit: contain;
+            transition: transform 0.25s ease;
+            transform-origin: center center;
+        }
+        .zoom-controls {
+            display: flex;
+            gap: 8px;
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 210;
+        }
+        .zoom-controls button {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.2s;
+        }
+        .zoom-controls button:hover {
+            background: #FF5700;
+            border-color: #FF5700;
+        }
     </style>
 </head>
 
@@ -416,7 +474,7 @@
             <!-- Modal Preview (Scrollable Image) -->
             <div
                 class="flex-1 overflow-y-auto modal-scroll-area bg-slate-900 border-l border-white/5 order-1 md:order-2">
-                <img id="modal-img" src="" alt="Project Full View" class="w-full h-auto">
+                <img id="modal-img" src="" alt="Project Full View" class="w-full h-auto cursor-zoom-in" onclick="openLightbox(this.src)">
             </div>
         </div>
     </div>
@@ -463,6 +521,187 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') closeModal();
             });
+        });
+    </script>
+
+    <!-- Lightbox Zoom Viewer -->
+    <div id="img-lightbox" class="lightbox-overlay fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-md">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 z-[210] w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-primary transition-all">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <div class="zoom-controls">
+            <button onclick="zoomIn()" title="Zoom In"><span class="material-symbols-outlined">add</span></button>
+            <button onclick="resetZoom()" title="Resetar"><span class="material-symbols-outlined">fit_screen</span></button>
+            <button onclick="zoomOut()" title="Zoom Out"><span class="material-symbols-outlined">remove</span></button>
+        </div>
+        <div id="lightbox-img-wrap" class="lightbox-img-wrap">
+            <img id="lightbox-img" src="" alt="Zoom View">
+        </div>
+    </div>
+
+    <script>
+        let currentZoom = 1;
+        let isDragging = false;
+        let startX, startY, translateX = 0, translateY = 0;
+
+        function openLightbox(src) {
+            currentZoom = 1;
+            translateX = 0;
+            translateY = 0;
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            img.style.transform = 'scale(1)';
+            document.getElementById('img-lightbox').classList.add('active');
+
+            // Forçar landscape no mobile
+            try {
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(function(){});
+                }
+            } catch(e) {}
+        }
+
+        function closeLightbox() {
+            document.getElementById('img-lightbox').classList.remove('active');
+            // Liberar orientação
+            try {
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                }
+            } catch(e) {}
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.3, 5);
+            clampAndApply();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.3, 1);
+            clampAndApply();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            translateX = 0;
+            translateY = 0;
+            clampAndApply();
+        }
+
+        function getClampedTranslate() {
+            const img = document.getElementById('lightbox-img');
+            const rect = img.getBoundingClientRect();
+
+            const baseW = rect.width / currentZoom;
+            const baseH = rect.height / currentZoom;
+
+            const scaledW = baseW * currentZoom;
+            const scaledH = baseH * currentZoom;
+            const viewW = window.innerWidth;
+            const viewH = window.innerHeight;
+
+            let maxX = Math.max(0, (scaledW - viewW) / 2 / currentZoom);
+            let maxY = Math.max(0, (scaledH - viewH) / 2 / currentZoom);
+
+            return {
+                x: Math.max(-maxX, Math.min(maxX, translateX)),
+                y: Math.max(-maxY, Math.min(maxY, translateY))
+            };
+        }
+
+        function clampAndApply() {
+            const clamped = getClampedTranslate();
+            translateX = clamped.x;
+            translateY = clamped.y;
+            const img = document.getElementById('lightbox-img');
+            img.style.transform = `scale(${currentZoom}) translate(${translateX / currentZoom}px, ${translateY / currentZoom}px)`;
+        }
+
+        // Scroll wheel zoom
+        document.getElementById('img-lightbox').addEventListener('wheel', function(e) {
+            e.preventDefault();
+            if (e.deltaY < 0) zoomIn();
+            else zoomOut();
+        }, { passive: false });
+
+        // Click overlay to close
+        document.getElementById('img-lightbox').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // Drag to pan (Mouse)
+        const wrap = document.getElementById('lightbox-img-wrap');
+        wrap.addEventListener('mousedown', function(e) {
+            if (currentZoom <= 1) return;
+            isDragging = true;
+            startX = e.clientX - translateX;
+            startY = e.clientY - translateY;
+            wrap.classList.add('dragging');
+            e.preventDefault();
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            translateX = e.clientX - startX;
+            translateY = e.clientY - startY;
+            clampAndApply();
+        });
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            wrap.classList.remove('dragging');
+        });
+
+        // Touch drag to pan (Mobile)
+        let lastTouchDist = 0;
+        wrap.addEventListener('touchstart', function(e) {
+            if (e.touches.length === 2) {
+                lastTouchDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                e.preventDefault();
+                return;
+            }
+            if (currentZoom <= 1) return;
+            isDragging = true;
+            startX = e.touches[0].clientX - translateX;
+            startY = e.touches[0].clientY - translateY;
+            wrap.classList.add('dragging');
+            e.preventDefault();
+        }, { passive: false });
+
+        wrap.addEventListener('touchmove', function(e) {
+            if (e.touches.length === 2) {
+                const dist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+                if (lastTouchDist > 0) {
+                    const delta = dist - lastTouchDist;
+                    if (delta > 2) { zoomIn(); }
+                    else if (delta < -2) { zoomOut(); }
+                }
+                lastTouchDist = dist;
+                e.preventDefault();
+                return;
+            }
+            if (!isDragging) return;
+            translateX = e.touches[0].clientX - startX;
+            translateY = e.touches[0].clientY - startY;
+            clampAndApply();
+            e.preventDefault();
+        }, { passive: false });
+
+        wrap.addEventListener('touchend', function(e) {
+            isDragging = false;
+            lastTouchDist = 0;
+            wrap.classList.remove('dragging');
+        });
+
+        // Escape to close lightbox
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('img-lightbox').classList.contains('active')) {
+                closeLightbox();
+            }
         });
     </script>
 </body>
