@@ -1616,33 +1616,141 @@
             }
         }
 
+        // ============================================================
+        // CONFIGURAÇÕES — PREENCHA ANTES DE PUBLICAR
+        // ============================================================
+        const ORIONX_CONFIG = {
+            // ✅ Supabase — projeto OrionX
+            supabaseUrl: 'https://oyyiowkeegmkicwvbmit.supabase.co',
+            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95eWlvd2tlZWdta2ljd3ZibWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMDIzNDcsImV4cCI6MjA4OTc3ODM0N30.Wk7s-kebbtAjwW7uCV2l2XQxQTop78xW8LJsBDLF0LM',
+
+            // ✅ n8n Webhook OrionX
+            // TESTE  → /webhook-test/orion_formulario  (n8n precisa estar em "Listen for test event")
+            // PRODUÇÃO → /webhook/orion_formulario     (workflow ativo/publicado)
+            n8nWebhookUrl: 'https://n8n.orionxbrasil.com.br/webhook-test/orion_formulario',
+        };
+        // ============================================================
+
+        // Captura parâmetros UTM da URL uma vez ao carregar a página
+        const _utmParams = (function () {
+            const p = new URLSearchParams(window.location.search);
+            return {
+                utm_source:   p.get('utm_source')   || '',
+                utm_medium:   p.get('utm_medium')   || '',
+                utm_campaign: p.get('utm_campaign') || '',
+                utm_term:     p.get('utm_term')     || '',
+                utm_content:  p.get('utm_content')  || '',
+            };
+        })();
+
+        // Converte data "dd/mm/aaaa" + hora "HH:MM" para ISO 8601 (fuso Brasília -03:00)
+        function buildAgendamentoISO(dataBR, hora) {
+            try {
+                const [dia, mes, ano] = dataBR.split('/');
+                const [h, m] = hora.split(':');
+                // Monta string de data local (sem UTC) e ajusta fuso de Brasília
+                const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${h.padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
+                return iso;
+            } catch (_) {
+                return null;
+            }
+        }
+
         async function handleBookingSubmit(e) {
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData);
-            
-            // --- INTEGRAÇÃO N8N (WEBHOOK) ---
-            // Substitua a URL abaixo pelo seu webhook real do n8n
-            const n8nWebhookUrl = 'https://n8n.seudominio.com.br/webhook/seu-identificador';
-            
-            try {
-                // Envia os dados para o n8n sem travar a navegação do usuário
-                fetch(n8nWebhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        event: 'booking_qualification',
-                        timestamp: new Date().toISOString(),
-                        ...data
-                    })
-                });
-            } catch (err) {
-                console.error("Falha ao enviar para o n8n:", err);
+
+            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
+            const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
+
+            // 2. Payload completo e estruturado
+            const payload = {
+                event:         'booking_qualification',
+                timestamp:     new Date().toISOString(),
+                pagina_origem: 'lp_clinicas',
+
+                contato: {
+                    nome:     data.nome,
+                    telefone: data.telefone,
+                },
+
+                agendamento: {
+                    data: data.agendamento_data,  // "07/04/2026"
+                    hora: data.agendamento_hora,  // "14:00"
+                    iso:  agendamentoISO,          // "2026-04-07T14:00:00-03:00"
+                },
+
+                qualificacao: {
+                    desafio:  data.pergunta_desafio,
+                    gargalo:  data.pergunta_gargalo,
+                    sistemas: data.pergunta_sistemas,
+                    equipe:   data.pergunta_equipe,
+                    detalhes: data.pergunta_detalhes,
+                },
+
+                utm: _utmParams,
+            };
+
+            // 3. Salva no Supabase (não bloqueia a UX)
+            let leadId = null;
+            if (ORIONX_CONFIG.supabaseUrl && !ORIONX_CONFIG.supabaseUrl.startsWith('COLE')) {
+                try {
+                    const sbRes = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type':  'application/json',
+                            'apikey':        ORIONX_CONFIG.supabaseKey,
+                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                            'Prefer':        'return=representation', // retorna o registro criado com o ID
+                        },
+                        body: JSON.stringify({
+                            nome:              data.nome,
+                            telefone:          data.telefone,
+                            agendamento_data:  data.agendamento_data,
+                            agendamento_hora:  data.agendamento_hora,
+                            agendamento_iso:   agendamentoISO,
+                            pergunta_desafio:  data.pergunta_desafio,
+                            pergunta_gargalo:  data.pergunta_gargalo,
+                            pergunta_sistemas: data.pergunta_sistemas,
+                            pergunta_equipe:   data.pergunta_equipe,
+                            pergunta_detalhes: data.pergunta_detalhes,
+                            pagina_origem:     'lp_clinicas',
+                            ...Object.fromEntries(
+                                Object.entries(_utmParams).filter(([, v]) => v)
+                            ),
+                        }),
+                    });
+                    if (sbRes.ok) {
+                        const [sbData] = await sbRes.json();
+                        leadId = sbData?.id || null;
+                        console.log('✅ Lead salvo no Supabase. ID:', leadId);
+                    } else {
+                        const errText = await sbRes.text();
+                        console.warn('⚠️ Supabase retornou erro:', sbRes.status, errText);
+                    }
+                } catch (err) {
+                    console.error('❌ Falha ao salvar no Supabase:', err);
+                }
             }
 
-            console.log("Lead Qualificado OrionX:", data);
-            
-            // Transição para tela de sucesso personalizada (Em vez de ALERT)
+            // 4. Dispara Webhook n8n (com lead_id para o n8n poder atualizar o meet_link)
+            if (ORIONX_CONFIG.n8nWebhookUrl && !ORIONX_CONFIG.n8nWebhookUrl.startsWith('COLE')) {
+                try {
+                    fetch(ORIONX_CONFIG.n8nWebhookUrl, {
+                        method:  'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body:    JSON.stringify({ ...payload, lead_id: leadId }),
+                    });
+                    console.log('✅ Webhook n8n disparado.');
+                } catch (err) {
+                    console.error('❌ Falha ao disparar webhook n8n:', err);
+                }
+            }
+
+            console.log('📋 Lead OrionX Clínicas qualificado:', payload);
+
+            // 5. Transição para a tela de sucesso
             goToStep3(data);
         }
 
