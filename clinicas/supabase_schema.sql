@@ -105,6 +105,14 @@ CREATE POLICY "Somente service role pode atualizar"
   TO service_role
   USING (true);
 
+-- Permite que qualquer pessoa veja apenas se um horário está ocupado
+-- Útil para o calendário desabilitar botões já agendados
+CREATE POLICY "Permitir visualização de disponibilidade"
+  ON leads_clinicas
+  FOR SELECT
+  TO anon
+  USING (status != 'cancelado');
+
 -- 5. VIEW ÚTIL: resumo do pipeline de leads
 -- ============================================================
 CREATE OR REPLACE VIEW view_pipeline_clinicas AS

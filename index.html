@@ -2,6 +2,13 @@
 <html class="light" lang="pt-BR">
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P5SG3RWQ');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>OrionX | Transformando a Interação entre Pessoas e Tecnologia</title>
@@ -10,9 +17,15 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://oyyiowkeegmkicwvbmit.supabase.co">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
         rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -56,6 +69,59 @@
         .swiper-wrapper {
             pointer-events: none !important;
         }
+
+        .swiper-slide {
+            pointer-events: auto !important;
+        }
+
+        /* Modal Agendamento Styles */
+        .glass-dark {
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #FF5700;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-bounce-slow {
+            animation: bounceSlow 3s ease-in-out infinite;
+        }
+
+        .pulse-ring {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 87, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 0, 0); }
+        }
+
         .swiper-slide {
             pointer-events: auto !important;
             z-index: 1;
@@ -77,6 +143,10 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-body text-slate-900 dark:text-slate-100">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5SG3RWQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Top Navigation -->
     <header
@@ -98,7 +168,7 @@
                     href="#portfolio">Portfólio</a>
             </nav>
             <div class="flex items-center gap-3">
-                <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank" rel="noopener noreferrer"
                     class="bg-primary text-white font-display font-bold px-4 py-1.5 md:px-6 md:py-2 rounded-lg hover:scale-110 active:scale-95 transition-all outline-none uppercase text-xs md:text-sm shadow-lg hover:shadow-primary/40 inline-block">
                     CONTATO
                 </a>
@@ -144,11 +214,11 @@
                     premium à engenharia de software de quem domina arquiteturas corporativas há mais de 8 anos.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-5 md:gap-4">
-                    <button
+                    <button onclick="openBookingModal()"
                         class="bg-slate-900 text-white font-display font-bold px-6 py-4 md:px-10 md:py-4 rounded-xl hover:bg-black hover:-translate-y-1 transition-all uppercase tracking-widest text-xs md:text-sm shadow-xl hover:shadow-black/50 w-full sm:w-auto text-center">
-                        EXPLORAR SOLUÇÕES
+                        AGENDAR UMA REUNIÃO
                     </button>
-                    <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                    <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank" rel="noopener noreferrer"
                         class="bg-transparent border-2 border-white text-white font-display font-bold px-6 py-4 md:px-10 md:py-4 rounded-xl hover:bg-white hover:text-primary transition-all uppercase tracking-widest text-xs md:text-sm shadow-xl hover:shadow-white/20 w-full sm:w-auto text-center inline-block">
                         FALAR COM ESPECIALISTA
                     </a>
@@ -603,6 +673,18 @@
                         <p class="text-white/60 text-sm leading-relaxed">Monitoramento ativo e ambientes Linux/VPS
                             otimizados para 99.9% uptime.</p>
                     </div>
+
+                    <!-- Novos botões de CTA da seção Por que a OrionX? (Dentro do container) -->
+                    <div class="mt-12 md:mt-16 flex flex-col sm:flex-row gap-6 justify-center items-center col-span-full">
+                        <button onclick="openBookingModal()"
+                            class="bg-primary text-white font-display font-bold px-12 py-5 rounded-2xl hover:bg-white hover:text-primary transition-all uppercase tracking-widest text-sm md:text-base shadow-[0_0_40px_rgba(255,87,0,0.3)] w-full sm:w-auto transform hover:scale-105 active:scale-95">
+                            Agendar Reunião
+                        </button>
+                        <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank" rel="noopener noreferrer"
+                            class="bg-white/5 border border-white/20 text-white font-display font-bold px-12 py-5 rounded-2xl hover:bg-white hover:text-slate-950 transition-all uppercase tracking-widest text-sm md:text-base shadow-xl w-full sm:w-auto transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
+                            Falar com Especialista
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -805,7 +887,7 @@
                         class="font-display font-bold text-sm uppercase tracking-widest text-white mb-8 border-b border-primary/20 pb-2 w-fit">
                         Siga-nos</h4>
                     <div class="flex gap-6 items-center">
-                        <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                        <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank" rel="noopener noreferrer"
                             class="text-slate-400 hover:text-primary transition-all transform hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -813,7 +895,7 @@
                                     d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                             </svg>
                         </a>
-                        <a href="#" class="text-slate-400 hover:text-primary transition-all transform hover:scale-110">
+                        <a href="https://www.instagram.com/orionx_br?igsh=MTEzZmUwdGE3ZXBnMw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-primary transition-all transform hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="currentColor">
                                 <path
@@ -838,8 +920,518 @@
         </div>
     </footer>
 
+    <!-- MODAL DE AGENDAMENTO (INTEGRADO) -->
+    <div id="modal-agendamento" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-3 md:p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-slate-900 border border-white/10 w-full max-w-lg h-[620px] md:h-[680px] max-h-[95vh] overflow-hidden rounded-[2rem] relative flex flex-col shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
+            <!-- Header Modal -->
+            <div class="p-4 md:p-6 border-b border-white/5 flex items-center justify-between bg-black/30">
+                <div class="flex items-center gap-3">
+                    <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-6 md:h-8 w-auto">
+                </div>
+                <div class="flex items-center gap-4">
+                    <div id="step-dot-1" class="h-1 w-8 bg-primary rounded-full transition-all"></div>
+                    <div id="step-dot-2" class="h-1 w-8 bg-white/10 rounded-full transition-all"></div>
+                </div>
+                <button onclick="closeBookingModal()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white transition-all">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Steps Container -->
+            <div class="flex relative transition-transform duration-500 ease-in-out flex-1" id="steps-track">
+                
+                <!-- STEP 1: COMPACT CALENDAR -->
+                <div class="min-w-full h-full flex flex-col p-6 md:p-8 overflow-hidden">
+                    <div class="text-center mb-6">
+                        <h3 class="font-display font-black text-xl md:text-2xl text-white uppercase italic">Agendar <span class="text-primary italic">Reunião</span></h3>
+                        <p class="text-slate-500 text-[10px] font-accent uppercase tracking-widest mt-1">Selecione uma data e horário</p>
+                    </div>
+                    
+                    <div id="step-1-main" class="flex flex-col flex-1 overflow-hidden relative">
+                        <!-- SCROLLABLE CONTENT AREA -->
+                        <div class="flex-1 overflow-y-auto custom-scrollbar px-1">
+                            <!-- 1.1: DATE PICKER SECTION -->
+                            <div id="date-selection-section" class="flex flex-col animate-fade-in pb-4">
+                                <div class="flex items-center justify-between mb-6 px-2">
+                                    <h4 id="calendar-month" class="text-white font-display font-bold text-sm uppercase tracking-widest text-primary"></h4>
+                                    <div class="flex gap-2">
+                                        <button onclick="changeMonth(-1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                                        <button onclick="changeMonth(1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-4">
+                                    <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-2" id="calendar-grid">
+                                    <!-- Days injected via JS -->
+                                </div>
+                            </div>
+
+                            <!-- 1.2: TIME PICKER SECTION -->
+                            <div id="time-selection-section" class="hidden flex flex-col animate-fade-in pb-4">
+                                <div class="flex items-center justify-between mb-8 px-2 border-b border-white/5 pb-4">
+                                    <button onclick="backToCalendar()" class="flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                                        <span class="font-display font-bold text-[10px] uppercase tracking-[0.2em]">Voltar</span>
+                                    </button>
+                                    <h4 id="selected-date-display" class="text-white font-display font-bold text-[10px] uppercase tracking-[0.2em] text-right text-slate-400">Selecione o Horário</h4>
+                                </div>
+                                
+                                <div id="time-slots" class="grid grid-cols-3 gap-3">
+                                    <!-- Slots injected via JS -->
+                                </div>
+
+                                <!-- ACTION BUTTON (ONLY VISIBLE ON TIME SECTION) -->
+                                <div id="footer-step-1" class="pt-6 mt-8 border-t border-white/5 flex justify-end">
+                                    <button id="btn-next-step" disabled onclick="goToStep2()" class="bg-white/5 text-white/20 border border-white/5 font-display font-black px-10 py-3.5 rounded-xl transition-all text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 cursor-not-allowed shadow-lg">
+                                        <span id="btn-next-text">CONTINUAR</span> <span class="material-symbols-outlined text-base">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: QUALIFICATION FORM -->
+                <div class="min-w-full h-full flex flex-col bg-black/10 overflow-y-auto custom-scrollbar">
+                    <div class="p-6 md:p-8 flex flex-col flex-1">
+                        <div class="text-center mb-6">
+                            <h3 class="font-display font-black text-xl md:text-2xl text-white uppercase italic leading-tight">Qualificação <span class="text-primary italic">Rápida</span></h3>
+                            <p class="text-slate-500 text-[10px] font-accent uppercase tracking-widest mt-2">Pergunta <span id="current-q-num" class="text-primary">1</span> de 6</p>
+                        </div>
+
+                        <!-- Progress Bar (Internal to Step 2) -->
+                        <div class="max-w-md mx-auto w-full h-1 bg-white/5 rounded-full mb-6 md:mb-10 overflow-hidden">
+                            <div id="form-progress-bar" class="h-full bg-primary transition-all duration-500 shadow-[0_0_15px_rgba(255,87,0,0.5)]" style="width: 16.6%;"></div>
+                        </div>
+
+                        <form id="qualify-form" onsubmit="handleBookingSubmit(event)"
+                            class="max-w-2xl mx-auto w-full relative flex-1 flex flex-col">
+                        <!-- Campos Ocultos de Agendamento -->
+                        <input type="hidden" name="agendamento_data" id="hidden-date">
+                        <input type="hidden" name="agendamento_hora" id="hidden-time">
+
+                        <div class="flex-1">
+                            <div class="form-sub-step space-y-6 md:space-y-8 animate-fade-in" data-step="1">
+                                <div class="space-y-4">
+                                    <label class="text-base md:text-lg text-white font-display font-bold block">Qual o seu nome, e-mail e melhor Telefone/WhatsApp?</label>
+                                    <div class="grid grid-cols-1 gap-4">
+                                        <input required type="text" name="nome" id="fullname" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <input required type="tel" name="telefone" id="phone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                            <input required type="email" name="email" id="email" placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-Step 2: Desafio -->
+                            <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="2">
+                                <div class="space-y-4">
+                                    <label class="text-lg text-white font-display font-bold block">Qual o seu principal desafio hoje?</label>
+                                    <textarea required name="pergunta_desafio" rows="3" placeholder="Ex: Baixa conversão, processos manuais, site obsoleto..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Sub-Step 3: Gargalo -->
+                            <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="3">
+                                <div class="space-y-4">
+                                    <label class="text-lg text-white font-display font-bold block">Qual é o principal processo manual que você deseja resolver hoje?</label>
+                                    <textarea required name="pergunta_gargalo" rows="3" placeholder="Descreva aqui o que mais toma tempo na sua operação..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Sub-Step 4: Sistemas -->
+                            <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="4">
+                                <div class="space-y-4">
+                                    <label class="text-lg text-white font-display font-bold block">Você já possui alguma ferramenta ou sistema em uso para este processo?</label>
+                                    <textarea required name="pergunta_sistemas" rows="3" placeholder="Ex: Salesforce, CRM próprio, Planilhas, RD Station..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Sub-Step 5: Equipe -->
+                            <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="5">
+                                <div class="space-y-4">
+                                    <label class="text-lg text-white font-display font-bold block">Qual o tamanho da sua equipe?</label>
+                                    <div class="grid grid-cols-1 gap-3">
+                                        <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
+                                            <input type="radio" name="pergunta_equipe" value="1-3" class="w-5 h-5 accent-primary" required>
+                                            <span class="text-white">1 a 3 pessoas</span>
+                                        </label>
+                                        <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
+                                            <input type="radio" name="pergunta_equipe" value="4-10" class="w-5 h-5 accent-primary">
+                                            <span class="text-white">4 a 10 pessoas</span>
+                                        </label>
+                                        <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-xl cursor-pointer hover:bg-white/10 transition-all">
+                                            <input type="radio" name="pergunta_equipe" value="11+" class="w-5 h-5 accent-primary">
+                                            <span class="text-white">Mais de 10 pessoas</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sub-Step 6: Expectativas -->
+                            <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="6">
+                                <div class="space-y-4">
+                                    <label class="text-lg text-white font-display font-bold block">O que você espera com as soluções da OrionX?</label>
+                                    <textarea required name="pergunta_detalhes" rows="4" placeholder="Detalhe como podemos te ajudar a crescer..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Integrated Action Buttons for Step 2 -->
+                        <div id="footer-step-2" class="mt-6 md:mt-8 flex items-center justify-end gap-3 border-t border-white/5 pt-4 md:pt-6">
+                            <button type="button" id="btn-prev-substep" onclick="prevSubStep()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all">
+                                <span class="material-symbols-outlined text-base">arrow_back</span>
+                            </button>
+                            <button type="button" id="btn-next-substep-form" onclick="nextSubStep()" class="bg-primary text-white font-display font-black px-8 py-3 rounded-xl hover:scale-[1.02] transition-all shadow-lg flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest">
+                                <span id="btn-substep-text">CONTINUAR</span> <span id="btn-substep-icon" class="material-symbols-outlined text-base">arrow_forward</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 3: SUCCESS / THANK YOU -->
+                <div id="step-3-success" class="min-w-full h-full flex flex-col items-center justify-center p-8 text-center bg-black/40 overflow-y-auto hidden">
+                    <div class="w-20 h-20 md:w-24 md:h-24 bg-primary/20 rounded-full flex items-center justify-center mb-6 md:mb-8 shadow-[0_0_50px_rgba(255,87,0,0.3)] animate-pulse">
+                        <span class="material-symbols-outlined text-4xl md:text-5xl text-primary">check_circle</span>
+                    </div>
+                    
+                    <h3 class="font-display font-black text-2xl md:text-4xl text-white uppercase italic mb-4">Agendamento <span class="text-primary italic">Confirmado!</span></h3>
+                    <p class="text-slate-400 text-xs md:text-sm max-w-md mx-auto mb-8 md:mb-10 leading-relaxed font-accent">
+                        Suas informações foram salvas. Nossa equipe entrará em contato em breve para realizar a confirmação final da sua reunião.
+                    </p>
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 mb-8 md:mb-10 w-full max-w-sm backdrop-blur-sm">
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest font-black mb-3">Resumo da Reunião</p>
+                        <div class="flex flex-col gap-3 text-white font-display font-bold">
+                            <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                                <span class="text-xs text-slate-400 font-normal">Data:</span>
+                                <span id="summary-date" class="text-sm text-white">--/--/--</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-400 font-normal">Horário:</span>
+                                <span id="summary-time" class="text-sm text-white">--:--</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeBookingModal()" class="w-full max-w-md bg-white/10 border border-white/10 text-white font-display font-black px-10 py-4 md:py-5 rounded-2xl hover:bg-white/20 transition-all text-[11px] uppercase tracking-widest flex items-center justify-center gap-3">
+                        VOLTAR PARA O SITE <span class="material-symbols-outlined text-sm">home</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- External Scripts -->
     <script src="script.js"></script>
+    
+    <script>
+        // ============================================================
+        // CONFIGURAÇÕES — ORIENTADO A HOME
+        // ============================================================
+        const ORIONX_CONFIG = {
+            supabaseUrl: 'https://oyyiowkeegmkicwvbmit.supabase.co',
+            supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95eWlvd2tlZWdta2ljd3ZibWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMDIzNDcsImV4cCI6MjA4OTc3ODM0N30.Wk7s-kebbtAjwW7uCV2l2XQxQTop78xW8LJsBDLF0LM',
+            n8nWebhookUrl: 'https://n8n.orionxbrasil.com.br/webhook-test/orion_formulario', // Mantenha o test para validação inicial
+        };
+
+        // Captura parâmetros UTM
+        const _utmParams = (function () {
+            const p = new URLSearchParams(window.location.search);
+            return {
+                utm_source:   p.get('utm_source')   || '',
+                utm_medium:   p.get('utm_medium')   || '',
+                utm_campaign: p.get('utm_campaign') || '',
+                utm_term:     p.get('utm_term')     || '',
+                utm_content:  p.get('utm_content')  || '',
+            };
+        })();
+
+        let currentMonth = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let currentSubStep = 1;
+
+        // --- MODAL CONTROL ---
+        function openBookingModal() {
+            const modal = document.getElementById('modal-agendamento');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            resetToStep1();
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('modal-agendamento');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function resetToStep1() {
+            selectedDate = null;
+            selectedTime = null;
+            currentSubStep = 1;
+            renderCalendar();
+            goToStep1();
+            document.getElementById('date-selection-section').classList.remove('hidden');
+            document.getElementById('time-selection-section').classList.add('hidden');
+        }
+
+        // --- CALENDAR LOGIC ---
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const monthDisplay = document.getElementById('calendar-month');
+            if (!grid || !monthDisplay) return;
+
+            grid.innerHTML = '';
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            
+            monthDisplay.innerText = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(currentMonth);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            const limitDate = new Date();
+            limitDate.setDate(today.getDate() + 30);
+
+            for (let i = 0; i < firstDay; i++) grid.innerHTML += '<div></div>';
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const isPast = date < today;
+                const isFarFuture = date > limitDate;
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+                
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.innerText = day;
+                btn.className = `aspect-square w-full rounded-xl text-xs font-bold transition-all flex items-center justify-center
+                    ${isPast || isWeekend || isFarFuture ? 'text-white/10 cursor-not-allowed opacity-30' : 'text-white hover:bg-primary/20 hover:text-primary bg-white/5'}
+                    ${isSelected ? 'bg-primary text-white shadow-[0_0_20px_rgba(255,87,0,0.6)] !opacity-100' : ''}`;
+                
+                if (!isPast && !isWeekend && !isFarFuture) {
+                    btn.onclick = () => selectDate(date);
+                }
+                grid.appendChild(btn);
+            }
+        }
+
+        function changeMonth(dir) {
+            currentMonth.setMonth(currentMonth.getMonth() + dir);
+            renderCalendar();
+        }
+
+        async function selectDate(date) {
+            selectedDate = date;
+            selectedTime = null;
+            document.getElementById('hidden-date').value = date.toLocaleDateString('pt-BR');
+            document.getElementById('selected-date-display').innerText = date.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            document.getElementById('date-selection-section').classList.add('hidden');
+            document.getElementById('time-selection-section').classList.remove('hidden');
+            
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '<div class="col-span-full py-10 text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest animate-pulse">Consultando disponibilidade...</div>';
+            
+            updateNextBtnStep1();
+            renderCalendar();
+            
+            // Busca disponibilidade
+            const occupied = await fetchOccupiedSlots(date.toLocaleDateString('pt-BR'));
+            renderTimeSlots(occupied);
+        }
+
+        async function fetchOccupiedSlots(dateStr) {
+            try {
+                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?agendamento_data=eq.${encodeURIComponent(dateStr)}&select=agendamento_hora,status`, {
+                    headers: { 'apikey': ORIONX_CONFIG.supabaseKey, 'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}` }
+                });
+                if (!res.ok) return [];
+                const data = await res.json();
+                return data.filter(d => d.status !== 'cancelado').map(d => d.agendamento_hora);
+            } catch (err) {
+                return [];
+            }
+        }
+
+        function renderTimeSlots(occupied = []) {
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '';
+            
+            const now = new Date();
+            const tomorrowLimit = new Date(now.getTime() + (24 * 60 * 60 * 1000));
+
+            for (let hour = 10; hour <= 20; hour++) {
+                const timeStr = `${hour.toString().padStart(2, '0')}:00`;
+                const slotDateTime = new Date(selectedDate.getTime());
+                slotDateTime.setHours(hour, 0, 0, 0);
+
+                if (slotDateTime < tomorrowLimit) continue;
+
+                const isOccupied = occupied.includes(timeStr);
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                
+                if (isOccupied) {
+                    btn.innerText = 'OCUPADO';
+                    btn.disabled = true;
+                    btn.className = 'py-3 px-4 rounded-xl text-[9px] font-black bg-white/5 text-slate-600 cursor-not-allowed opacity-50 border border-white/5';
+                } else {
+                    btn.innerText = timeStr;
+                    const isSelected = selectedTime === timeStr;
+                    btn.className = `py-3 px-4 rounded-xl text-xs font-bold transition-all border
+                        ${isSelected ? 'bg-primary border-primary text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-400 hover:border-primary/50 hover:text-white'}`;
+                    btn.onclick = () => {
+                        selectedTime = timeStr;
+                        document.getElementById('hidden-time').value = timeStr;
+                        renderTimeSlots(occupied);
+                        updateNextBtnStep1();
+                    };
+                }
+                container.appendChild(btn);
+            }
+        }
+
+        function updateNextBtnStep1() {
+            const btn = document.getElementById('btn-next-step');
+            if (selectedDate && selectedTime) {
+                btn.disabled = false;
+                btn.classList.remove('bg-white/5', 'text-white/20', 'cursor-not-allowed');
+                btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-white/5', 'text-white/20', 'cursor-not-allowed');
+                btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            }
+        }
+
+        function backToCalendar() {
+            selectedTime = null;
+            document.getElementById('date-selection-section').classList.remove('hidden');
+            document.getElementById('time-selection-section').classList.add('hidden');
+            updateNextBtnStep1();
+        }
+
+        // --- NAVIGATION ---
+        function goToStep1() {
+            document.getElementById('steps-track').style.transform = 'translateX(0%)';
+            document.getElementById('step-dot-1').classList.replace('bg-white/10', 'bg-primary');
+            document.getElementById('step-dot-2').classList.replace('bg-white/10', 'bg-primary');
+            document.getElementById('step-3-success').classList.add('hidden');
+        }
+
+        function goToStep2() {
+            document.getElementById('steps-track').style.transform = 'translateX(-100%)';
+            document.getElementById('step-dot-1').classList.replace('bg-primary', 'bg-white/10');
+            document.getElementById('step-dot-2').classList.replace('bg-white/10', 'bg-primary');
+            showSubStep(1);
+        }
+
+        function goToStep3(data) {
+            document.getElementById('step-3-success').classList.remove('hidden');
+            document.getElementById('steps-track').style.transform = 'translateX(-200%)';
+            document.getElementById('summary-date').innerText = data.agendamento_data;
+            document.getElementById('summary-time').innerText = data.agendamento_hora;
+        }
+
+        // --- SUBSTEP FORM ---
+        function showSubStep(n) {
+            currentSubStep = n;
+            document.querySelectorAll('.form-sub-step').forEach(s => s.classList.add('hidden'));
+            document.querySelector(`.form-sub-step[data-step="${n}"]`).classList.remove('hidden');
+            document.getElementById('current-q-num').innerText = n;
+            document.getElementById('form-progress-bar').style.width = (n / 6 * 100) + '%';
+            
+            const btnText = document.getElementById('btn-substep-text');
+            const btnIcon = document.getElementById('btn-substep-icon');
+            if (n === 6) {
+                btnText.innerText = 'FINALIZAR';
+                btnIcon.innerText = 'check_circle';
+            } else {
+                btnText.innerText = 'CONTINUAR';
+                btnIcon.innerText = 'arrow_forward';
+            }
+        }
+
+        function nextSubStep() {
+            const activeStep = document.querySelector(`.form-sub-step[data-step="${currentSubStep}"]`);
+            const inputs = activeStep.querySelectorAll('input[required], textarea[required]');
+            let valid = true;
+            inputs.forEach(i => {
+                if (!i.value.trim() && (i.type !== 'radio' || !activeStep.querySelector('input[name="pergunta_equipe"]:checked'))) {
+                    i.classList.add('border-red-500');
+                    valid = false;
+                } else {
+                    i.classList.remove('border-red-500');
+                }
+            });
+
+            if (!valid) return;
+
+            if (currentSubStep < 6) showSubStep(currentSubStep + 1);
+            else document.getElementById('qualify-form').requestSubmit();
+        }
+
+        function prevSubStep() {
+            if (currentSubStep > 1) showSubStep(currentSubStep - 1);
+            else goToStep1();
+        }
+
+        // --- SUBMISSION ---
+        async function handleBookingSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            const payload = {
+                event: 'booking_home',
+                timestamp: new Date().toISOString(),
+                pagina_origem: 'home',
+                contato: { nome: data.nome, telefone: data.telefone, email: data.email },
+                agendamento: { data: data.agendamento_data, hora: data.agendamento_hora },
+                qualificacao: {
+                    desafio: data.pergunta_desafio,
+                    gargalo: data.pergunta_gargalo,
+                    sistemas: data.pergunta_sistemas,
+                    equipe: data.pergunta_equipe,
+                    detalhes: data.pergunta_detalhes
+                },
+                utm: _utmParams
+            };
+
+            // Salva no Supabase
+            try {
+                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': ORIONX_CONFIG.supabaseKey,
+                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({ ...data, pagina_origem: 'home', ..._utmParams })
+                });
+                if (res.ok) console.log('✅ Salvo no Supabase');
+            } catch (err) { console.error('❌ Erro Supabase', err); }
+
+            // Webhook n8n
+            try {
+                fetch(ORIONX_CONFIG.n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {}
+
+            goToStep3(data);
+        }
+    </script>
 </body>
 
 </html>

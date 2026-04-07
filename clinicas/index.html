@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth bg-black" lang="pt-BR">
+<html class="bg-black" lang="pt-BR">
 
 <head>
     <meta charset="utf-8" />
@@ -229,9 +229,9 @@
 
     <!-- Header (Dark) -->
     <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-14 md:h-20 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2">
-                <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-10 w-auto">
+                <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-6 md:h-10 w-auto">
             </a>
             <nav class="hidden md:flex items-center gap-8 text-white">
                 <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#gargalos">Diagnóstico</a>
@@ -239,11 +239,43 @@
                 <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#modulos">Módulos</a>
                 <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#faq">FAQ</a>
             </nav>
-            <a href="https://wa.me/5538984116978" target="_blank" class="bg-primary text-white font-display font-bold px-6 py-2 rounded-full hover:bg-white hover:text-primary transition-all text-xs tracking-widest shadow-[0_0_15px_rgba(255,87,0,0.4)]">
-                FALE CONOSCO
-            </a>
+            <div class="flex items-center gap-4">
+                <a href="https://wa.me/5538984116978" target="_blank" class="hidden sm:block bg-primary text-white font-display font-bold px-6 py-2 rounded-full hover:bg-white hover:text-primary transition-all text-[10px] tracking-widest shadow-[0_0_15px_rgba(255,87,0,0.4)]">
+                    FALE CONOSCO
+                </a>
+                <!-- Hamburger button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2 hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/98 backdrop-blur-2xl translate-x-full transition-transform duration-500 md:hidden overflow-y-auto">
+        <div class="flex flex-col min-h-full p-8">
+            <div class="flex items-center justify-between mb-16">
+                <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-8 w-auto">
+                <button onclick="toggleMobileMenu()" class="text-white p-2 min-w-[44px] min-h-[44px]">
+                    <span class="material-symbols-outlined text-3xl">close</span>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-6">
+                <a href="#gargalos" onclick="toggleMobileMenu()" class="font-display font-black text-3xl text-white uppercase tracking-tighter hover:text-primary border-b border-white/5 pb-4 italic">Diagnóstico</a>
+                <a href="#pilares" onclick="toggleMobileMenu()" class="font-display font-black text-3xl text-white uppercase tracking-tighter hover:text-primary border-b border-white/5 pb-4 italic">Arquitetura</a>
+                <a href="#modulos" onclick="toggleMobileMenu()" class="font-display font-black text-3xl text-white uppercase tracking-tighter hover:text-primary border-b border-white/5 pb-4 italic">Módulos</a>
+                <a href="#faq" onclick="toggleMobileMenu()" class="font-display font-black text-3xl text-white uppercase tracking-tighter hover:text-primary border-b border-white/5 pb-4 italic">FAQ</a>
+            </nav>
+            <div class="mt-auto pt-16 space-y-4">
+                <a href="https://wa.me/5538984116978" target="_blank" class="flex items-center justify-center gap-3 w-full bg-emerald-500 text-white font-display font-bold px-8 py-5 rounded-2xl text-center uppercase tracking-widest text-xs shadow-lg">
+                    <i class="fab fa-whatsapp"></i> FALAR NO WHATSAPP
+                </a>
+                <button onclick="openBooking(); toggleMobileMenu();" class="flex items-center justify-center gap-3 w-full bg-primary text-white font-display font-bold px-8 py-5 rounded-2xl text-center uppercase tracking-widest text-xs shadow-lg text-balance">
+                    <span class="material-symbols-outlined">calendar_month</span> AGENDAR REUNIÃO
+                </button>
+            </div>
+        </div>
+    </div>
 
     <main class="flex-grow">
 
@@ -261,19 +293,19 @@
                     <span class="font-mono text-[10px] text-primary tracking-widest uppercase font-bold">TECNOLOGIA MULTIMODAL // PERFORMANCE EM SAÚDE 24/7</span>
                 </div>
                 
-                <h1 class="font-display font-black text-4xl md:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-[1.1] mb-8">
+                <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-snug sm:leading-tight md:leading-[1.1] mb-10">
                     Atendimento Clínico de <span class="text-primary italic">Alta Performance</span> e Inteligência em Escala
                 </h1>
                 
-                <p class="text-slate-600 text-lg md:text-xl font-medium leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
+                <p class="text-slate-600 text-base md:text-xl font-medium leading-relaxed mb-12 max-w-2xl mx-auto lg:mx-0 px-4 sm:px-0">
                     Sua recepção nunca mais para. Agentes de IA OrionX gerenciam agendamentos e consultas 24h por dia, com precisão técnica e voz humana.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
-                    <button onclick="openBooking()" class="bg-primary text-white font-display font-bold px-10 py-5 rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] text-xs shadow-[0_20px_50px_rgba(255,87,0,0.3)] group drop-shadow-xl inline-flex items-center gap-4">
+                <div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start px-4 sm:px-0">
+                    <button onclick="openBooking()" class="w-full sm:w-auto bg-primary text-white font-display font-bold px-10 py-5 rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] text-[10px] sm:text-xs shadow-[0_20px_50px_rgba(255,87,0,0.3)] group drop-shadow-xl inline-flex items-center justify-center gap-4">
                         <span>AGENDAR UMA REUNIÃO</span>
                     </button>
-                    <button onclick="slowScrollTo('modulos')" class="bg-white text-slate-900 border border-slate-200 font-display font-bold px-10 py-5 rounded-2xl hover:bg-slate-50 transition-all uppercase tracking-[0.2em] text-xs group inline-flex items-center gap-4">
+                    <button onclick="slowScrollTo('modulos')" class="w-full sm:w-auto bg-white text-slate-900 border border-slate-200 font-display font-bold px-10 py-5 rounded-2xl hover:bg-slate-50 transition-all uppercase tracking-[0.2em] text-[10px] sm:text-xs group inline-flex items-center justify-center gap-4">
                         <span>MAIS INFORMAÇÕES</span>
                     </button>
                 </div>
@@ -366,13 +398,13 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Problema 1: Conversão -->
-                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-red-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-red-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
                         <span class="font-mono text-[8px] text-red-500 tracking-widest uppercase font-bold">LATENCY_AUDIT_01</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 group-hover:shadow-[0_0_20px_#EF4444] transition-all">
-                            <span class="material-symbols-outlined text-3xl">timer_off</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl">timer_off</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Abandono de Lead</h4>
                     </div>
@@ -382,20 +414,17 @@
                             <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Perda Estimada</span>
                             <span class="text-xs font-black text-red-500 italic uppercase tracking-tighter">Impacto: -48% de Conversão</span>
                         </div>
-                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-red-500 w-[80%]"></div>
-                        </div>
                     </div>
                 </div>
 
                 <!-- Problema 2: Receita -->
-                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
                         <span class="font-mono text-[8px] text-primary tracking-widest uppercase font-bold">OFF_HOURS_LEAKS</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all">
-                            <span class="material-symbols-outlined text-3xl">payments</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl">payments</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Receita Abandonada</h4>
                     </div>
@@ -405,22 +434,19 @@
                             <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Vazamento Financeiro</span>
                             <span class="text-xs font-black text-primary italic uppercase tracking-tighter">Impacto: Lucro Cessante 24h</span>
                         </div>
-                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-primary w-[95%] animate-pulse"></div>
-                        </div>
                     </div>
                 </div>
 
                 <!-- Problema 3: Ociosidade -->
-                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-amber-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-amber-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
                         <span class="font-mono text-[8px] text-amber-500 tracking-widest uppercase font-bold">MED_RESOURCE_IDLE</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500 group-hover:shadow-[0_0_20px_#F59E0B] transition-all">
-                            <span class="material-symbols-outlined text-3xl">event_busy</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl">medical_services</span>
                         </div>
-                        <h4 class="font-display font-bold text-white text-lg">Ociosidade Médica</h4>
+                        <h4 class="font-display font-bold text-white text-lg">Cadeira Vazia</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Equipamentos caros e especialistas parados por no-shows não confirmados destroem sua margem líquida.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-amber-500/5 -mx-8 px-8">
@@ -823,32 +849,33 @@
         
         <div class="max-w-[90rem] mx-auto px-4 relative z-10">
             <!-- ENQUADRAMENTO DO TÍTULO: Unified Header Container -->
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="font-display font-black text-4xl md:text-5xl text-slate-900 uppercase tracking-tighter mb-4 leading-none text-balance">São mais de <span class="text-primary italic">9 soluções individuais</span></h2>
-                <div class="h-1 w-32 bg-primary mx-auto rounded-full shadow-[0_4px_20px_rgba(255,87,0,0.3)] mb-10"></div>
+            <div class="text-center mb-8" data-aos="fade-up">
+                <h2 class="font-display font-black text-2xl md:text-5xl text-slate-900 uppercase tracking-tighter mb-4 leading-tight text-balance">São mais de <span class="text-primary italic">9 soluções individuais</span></h2>
+                <div class="h-1 w-24 md:w-32 bg-primary mx-auto rounded-full shadow-[0_4px_20px_rgba(255,87,0,0.3)] mb-8"></div>
                 
                 <!-- Dynamic Category Header Container -->
-                <div id="dynamic-category-header" class="flex flex-col items-center justify-center transition-all duration-500 ease-in-out min-h-[120px]">
+                <div id="dynamic-category-header" class="flex flex-col items-center justify-center transition-all duration-500 ease-in-out min-h-[100px] md:min-h-[120px]">
                     <!-- Hidratado via JS -->
                 </div>
             </div>
 
             <!-- SWIPER CAROUSEL CONTAINER -->
-            <div class="swiper modulosSwiper pb-20 pt-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
+            <div class="relative group/swiper">
+                <div class="swiper modulosSwiper pb-10 pt-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
                     
                     <!-- MODULE 01 -->
                     <div class="swiper-slide h-auto">
-                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] hover:border-emerald-500/30">
-                            <div class="absolute top-8 right-8 text-emerald-500/10 font-mono text-4xl font-black italic">01</div>
+                        <div class="bg-darker border border-white/10 p-6 sm:p-10 rounded-3xl transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] hover:border-emerald-500/30">
+                            <div class="absolute top-6 right-6 sm:top-8 sm:right-8 text-emerald-500/10 font-mono text-3xl sm:text-4xl font-black italic">01</div>
                             <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-emerald-400 transition-colors pr-12">SDR de Elite</h4>
                             <p class="text-emerald-500 font-black text-[10px] uppercase tracking-widest mb-6">NÃO DEIXE NENHUM LEAD ESFRIAR</p>
                             <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Resposta em segundos que qualifica o paciente e garante que o desejo de agendamento vire receita real.</p>
                             <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
-                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Resiliência de Vendas</li>
-                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Qualificação de Convênios</li>
-                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Escala Infinita 24/7</li>
-                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Foco em Faturamento</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[10px] font-black uppercase tracking-tight"><span class="text-primary text-lg leading-none">→</span> Resiliência de Vendas</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[10px] font-black uppercase tracking-tight"><span class="text-primary text-lg leading-none">→</span> Qualificação de Convênios</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[10px] font-black uppercase tracking-tight"><span class="text-primary text-lg leading-none">→</span> Escala Infinita 24/7</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[10px] font-black uppercase tracking-tight"><span class="text-primary text-lg leading-none">→</span> Foco em Faturamento</li>
                             </ul>
                         </div>
                     </div>
@@ -964,8 +991,8 @@
                     </div>
                     <!-- MODULE 09 -->
                     <div class="swiper-slide h-auto">
-                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(14,165,233,0.15)] hover:border-sky-500/30">
-                            <div class="absolute top-8 right-8 text-sky-500/10 font-mono text-4xl font-black italic">09</div>
+                        <div class="bg-darker border border-white/10 p-6 sm:p-10 rounded-3xl transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(14,165,233,0.15)] hover:border-sky-500/30">
+                            <div class="absolute top-6 right-6 sm:top-8 sm:right-8 text-sky-500/10 font-mono text-3xl sm:text-4xl font-black italic">09</div>
                             <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-sky-400 transition-colors pr-12">Cérebro da Clínica</h4>
                             <p class="text-sky-500 font-black text-[10px] uppercase tracking-widest mb-6">REDUÇÃO DE ERROS</p>
                             <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Toda a inteligência de preparos e regras em um único local, sem falhas de comunicação.</p>
@@ -980,14 +1007,56 @@
 
                 </div>
                 
-                <!-- Swiper Pagination -->
-                <div class="swiper-pagination !-bottom-2 mt-8"></div>
+                <!-- Swiper Pagination (Dots) - Visible only on Desktop per user request -->
+                <div class="swiper-pagination !-bottom-2 hidden md:block"></div>
+
+                <!-- Navigation Arrows (WHITE NEON VISIBILITY) -->
+                <div class="swiper-button-prev !flex !z-[50] !w-12 !h-12 !text-white/60 hover:!text-primary transition-all duration-300 !-left-2 lg:!-left-14 after:!content-none">
+                    <span class="material-symbols-outlined !text-5xl sm:!text-6xl font-light">chevron_left</span>
+                </div>
+                <div class="swiper-button-next !flex !z-[50] !w-12 !h-12 !text-white/60 hover:!text-primary transition-all duration-300 !-right-2 lg:!-right-14 after:!content-none">
+                    <span class="material-symbols-outlined !text-5xl sm:!text-6xl font-light">chevron_right</span>
+                </div>
+            </div>
+
+            <!-- Neon Framed Counter (Visible only on Mobile) -->
+            <div class="-mt-8 md:-mt-12 flex md:hidden justify-center items-center relative z-20">
+                <div id="modulos-counter" class="bg-slate-900 border border-primary/50 px-6 py-2 rounded-xl shadow-[0_0_25px_rgba(255,87,0,0.4)] backdrop-blur-md">
+                    <p class="font-mono text-sm font-black tracking-widest uppercase text-white/90">
+                        <span id="current-slide" class="text-primary animate-pulse">1</span> <span class="mx-2 text-primary/30">/</span> 9
+                    </p>
+                </div>
             </div>
             
         </div>
     </section>
 
 
+
+    <!-- CTA FINAL SECTION -->
+    <section class="bg-slate-50 py-20 border-t border-slate-100 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="font-display font-black text-3xl md:text-4xl text-slate-900 uppercase tracking-tight mb-10" data-aos="fade-up">
+                Pronto para transformar sua <span class="text-primary italic">operação clínica?</span>
+            </h2>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6" data-aos="fade-up" data-aos-delay="100">
+                <a href="https://wa.me/5538984116978" target="_blank" class="w-full sm:w-auto bg-emerald-500 text-white font-display font-bold px-10 py-5 rounded-2xl hover:bg-emerald-600 transition-all uppercase tracking-widest text-xs shadow-[0_10px_30px_rgba(16,185,129,0.3)] flex items-center justify-center gap-3">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                    FALAR NO WHATSAPP
+                </a>
+                <button onclick="openBooking()" class="w-full sm:w-auto bg-primary text-white font-display font-bold px-10 py-5 rounded-2xl hover:bg-primary/90 transition-all uppercase tracking-widest text-xs shadow-[0_10px_30px_rgba(255,87,0,0.3)] flex items-center justify-center gap-3">
+                    <span class="material-symbols-outlined text-xl">calendar_month</span>
+                    AGENDAR REUNIÃO
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button (Mobile Only) -->
+    <a href="https://wa.me/5538984116978" target="_blank" class="fixed bottom-6 right-6 z-[40] md:hidden bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(16,185,129,0.5)] animate-bounce-slow">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
 
     <!-- 6. FAQ (CLEAN MODE) -->
     <section id="faq" class="bg-white py-24 relative overflow-hidden border-t border-slate-100">
@@ -1094,7 +1163,7 @@
                         <a href="https://wa.me/5538984116978" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 hover:border-primary transition-all group">
                             <i class="fab fa-whatsapp text-slate-400 group-hover:text-primary transition-colors text-xl"></i>
                         </a>
-                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 hover:border-primary transition-all group">
+                        <a href="https://www.instagram.com/orionx_br?igsh=MTEzZmUwdGE3ZXBnMw%3D%3D&utm_source=qr" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 hover:border-primary transition-all group">
                             <i class="fab fa-instagram text-slate-400 group-hover:text-primary transition-colors text-xl"></i>
                         </a>
                     </div>
@@ -1117,14 +1186,17 @@
         <!-- Modais removidos em favor de páginas HTML separadas -->
     </footer>
 
-    <!-- MODAL DE AGENDAMENTO INTELIGENTE -->
-    <div id="modal-agendamento" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
-        <div class="bg-slate-900 border border-white/10 w-full max-w-5xl h-[85vh] overflow-hidden rounded-[2.5rem] relative flex flex-col shadow-2xl">
+    <!-- MODAL DE AGENDAMENTO (POPUP REDESIGN) -->
+    <div id="modal-agendamento" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-3 md:p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-slate-900 border border-white/10 w-full max-w-lg h-fit max-h-[95vh] md:h-[620px] overflow-hidden rounded-[2rem] relative flex flex-col shadow-[0_30px_100px_rgba(0,0,0,0.8)]">
             <!-- Header Modal -->
-            <div class="p-6 border-b border-white/5 flex items-center justify-between bg-black/30">
+            <div class="p-4 md:p-6 border-b border-white/5 flex items-center justify-between bg-black/30">
+                <div class="flex items-center gap-3">
+                    <img src="../imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-6 md:h-8 w-auto">
+                </div>
                 <div class="flex items-center gap-4">
-                    <div id="step-dot-1" class="h-1.5 w-12 bg-primary rounded-full"></div>
-                    <div id="step-dot-2" class="h-1.5 w-12 bg-white/10 rounded-full"></div>
+                    <div id="step-dot-1" class="h-1 w-8 bg-primary rounded-full"></div>
+                    <div id="step-dot-2" class="h-1 w-8 bg-white/10 rounded-full"></div>
                 </div>
                 <button onclick="closeBooking()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white transition-all">
                     <span class="material-symbols-outlined">close</span>
@@ -1132,51 +1204,65 @@
             </div>
 
             <!-- Steps Container -->
-            <div class="flex-grow flex relative transition-transform duration-500 ease-in-out" id="steps-track">
+            <div class="flex relative transition-transform duration-500 ease-in-out" id="steps-track">
                 
-                <!-- STEP 1: CUSTOM PREMIUM CALENDAR -->
-                <div class="min-w-full h-full flex flex-col p-4 md:p-8 overflow-y-auto pb-32">
-                    <div class="text-center mb-8">
-                        <h3 class="font-display font-black text-2xl text-white uppercase italic">Selecione seu <span class="text-primary italic">Horário</span></h3>
-                        <p class="text-slate-500 text-xs font-accent uppercase tracking-widest mt-2">Interface Premium OrionX • Agendamento Inteligente</p>
+                <!-- STEP 1: COMPACT CALENDAR -->
+                <div class="min-w-full h-auto flex flex-col p-6 md:p-8 overflow-y-auto">
+                    <div class="text-center mb-6">
+                        <h3 class="font-display font-black text-xl md:text-2xl text-white uppercase italic">Agendar <span class="text-primary italic">Reunião</span></h3>
+                        <p class="text-slate-500 text-[10px] font-accent uppercase tracking-widest mt-1">Selecione uma data e horário</p>
                     </div>
                     
-                    <div class="flex-grow flex flex-col lg:flex-row gap-8 bg-black/40 border border-white/5 rounded-[2rem] p-6 md:p-10 relative overflow-hidden backdrop-blur-sm">
-                        <!-- Left: Date Picker -->
-                        <div class="flex-grow lg:max-w-md">
-                            <div class="flex items-center justify-between mb-6 px-2">
-                                <h4 id="calendar-month" class="text-white font-display font-bold text-sm uppercase tracking-widest"></h4>
-                                <div class="flex gap-2">
-                                    <button onclick="changeMonth(-1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
-                                    <button onclick="changeMonth(1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                    <div id="step-1-main" class="flex flex-col overflow-hidden relative">
+                        <!-- SCROLLABLE CONTENT AREA -->
+                        <div class="overflow-y-auto custom-scrollbar px-1">
+                            <!-- 1.1: DATE PICKER SECTION -->
+                            <div id="date-selection-section" class="flex flex-col animate-fade-in pb-4">
+                                <div class="flex items-center justify-between mb-6 px-2">
+                                    <h4 id="calendar-month" class="text-white font-display font-bold text-sm uppercase tracking-widest text-primary"></h4>
+                                    <div class="flex gap-2">
+                                        <button onclick="changeMonth(-1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                                        <button onclick="changeMonth(1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-4">
+                                    <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-2" id="calendar-grid">
+                                    <!-- Days injected via JS -->
                                 </div>
                             </div>
-                            <div class="grid grid-cols-7 text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-4">
-                                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
-                            </div>
-                            <div id="calendar-grid" class="grid grid-cols-7 gap-2">
-                                <!-- Days injected via JS -->
-                            </div>
-                        </div>
 
-                        <!-- Divider -->
-                        <div class="hidden lg:block w-px bg-white/5 mx-4"></div>
+                            <!-- 1.2: TIME PICKER SECTION -->
+                            <div id="time-selection-section" class="hidden flex flex-col animate-fade-in pb-4">
+                                <div class="flex items-center justify-between mb-8 px-2 border-b border-white/5 pb-4">
+                                    <button onclick="backToCalendar()" class="flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-base">arrow_back</span>
+                                        <span class="font-display font-bold text-[10px] uppercase tracking-[0.2em]">Voltar</span>
+                                    </button>
+                                    <h4 id="selected-date-display" class="text-white font-display font-bold text-[10px] uppercase tracking-[0.2em] text-right text-slate-400">Selecione o Horário</h4>
+                                </div>
+                                
+                                <div id="time-slots" class="grid grid-cols-3 gap-3">
+                                    <!-- Slots injected via JS -->
+                                </div>
 
-                        <!-- Right: Time Slots -->
-                        <div class="flex-grow flex flex-col min-w-[200px]">
-                            <h4 id="selected-date-display" class="text-white font-display font-bold text-[10px] uppercase tracking-[0.2em] mb-6 text-center lg:text-left text-slate-400">Selecione um dia</h4>
-                            <div id="time-slots" class="grid grid-cols-3 lg:grid-cols-2 gap-3 overflow-y-auto max-h-[300px] lg:max-h-none pr-2 custom-scrollbar">
-                                <!-- Slots injected via JS -->
+                                <!-- ACTION BUTTON (ONLY VISIBLE ON TIME SECTION) -->
+                                <div id="footer-step-1" class="pt-6 mt-8 border-t border-white/5 flex justify-end">
+                                    <button id="btn-next-step" disabled onclick="goToStep2()" class="bg-white/5 text-white/20 border border-white/5 font-display font-black px-10 py-3.5 rounded-xl transition-all text-[11px] uppercase tracking-widest flex items-center justify-center gap-3 cursor-not-allowed shadow-lg">
+                                        <span id="btn-next-text">SELECIONE DATA E HORA</span> <span class="material-symbols-outlined text-base">arrow_forward</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- STEP 2: QUALIFYING FORM (STEP-BY-STEP) -->
-                <div class="min-w-full h-full flex flex-col p-4 md:p-12 overflow-y-auto bg-black/20 pb-40">
-                    <div class="text-center mb-8">
-                        <h3 class="font-display font-black text-2xl text-white uppercase italic">Conta um pouco <span class="text-primary italic">sobre você</span></h3>
-                        <p class="text-slate-500 text-xs font-accent uppercase tracking-widest mt-2">Personalização OrionX • Pergunta <span id="current-q-num" class="text-primary">1</span> de 6</p>
+                <!-- STEP 2: QUALIFYING FORM -->
+                <div class="min-w-full h-auto flex flex-col p-6 md:p-8 overflow-y-auto bg-black/10">
+                    <div class="text-center mb-10">
+                        <h3 class="font-display font-black text-2xl text-white uppercase italic">Qualificação <span class="text-primary italic">Rápida</span></h3>
+                        <p class="text-slate-500 text-[10px] font-accent uppercase tracking-widest mt-2">Pergunta <span id="current-q-num" class="text-primary">1</span> de 6</p>
                     </div>
 
                     <!-- Progress Bar -->
@@ -1189,13 +1275,15 @@
                         <input type="hidden" name="agendamento_data" id="hidden-date">
                         <input type="hidden" name="agendamento_hora" id="hidden-time">
 
-                        <!-- Sub-Step 1: Dados Básicos -->
-                        <div class="form-sub-step space-y-8 animate-fade-in" data-step="1">
+                        <div class="form-sub-step space-y-6 md:space-y-8 animate-fade-in" data-step="1">
                             <div class="space-y-4">
-                                <label class="text-lg text-white font-display font-bold block">Qual o seu nome e seu melhor Telefone/WhatsApp?</label>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input required type="text" name="nome" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base">
-                                    <input required type="tel" name="telefone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                <label class="text-base md:text-lg text-white font-display font-bold block">Qual o seu nome, e-mail e melhor Telefone/WhatsApp?</label>
+                                <div class="grid grid-cols-1 gap-4">
+                                    <input required type="text" name="nome" id="fullname" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <input required type="tel" name="telefone" id="phone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                        <input required type="email" name="email" id="email" placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1252,11 +1340,21 @@
                                 <textarea required name="pergunta_detalhes" rows="4" placeholder="Sinta-se à vontade para detalhar suas expectativas..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
                             </div>
                         </div>
+
+                        <!-- Integrated Action Buttons for Step 2 -->
+                        <div id="footer-step-2" class="mt-12 hidden flex items-center justify-end gap-3">
+                            <button id="btn-prev-substep" onclick="prevSubStep()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all active:scale-95">
+                                <span class="material-symbols-outlined text-base">arrow_back</span>
+                            </button>
+                            <button id="btn-next-substep" onclick="nextSubStep()" class="bg-primary text-white font-display font-black px-8 py-3 rounded-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,87,0,0.4)] flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest">
+                                <span id="btn-substep-text">CONTINUAR</span> <span id="btn-substep-icon" class="material-symbols-outlined text-base">arrow_forward</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
 
                 <!-- STEP 3: SUCCESS / THANK YOU -->
-                <div class="min-w-full h-full flex flex-col items-center justify-center p-8 text-center bg-black/40 overflow-y-auto pb-40">
+                <div class="min-w-full h-auto flex flex-col items-center justify-center p-8 text-center bg-black/40 overflow-y-auto">
                     <div class="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(255,87,0,0.3)] animate-bounce-slow">
                         <span class="material-symbols-outlined text-5xl text-primary">check_circle</span>
                     </div>
@@ -1271,11 +1369,11 @@
                         <div class="flex flex-col gap-4 text-white font-display font-bold">
                             <div class="flex items-center justify-between border-b border-white/5 pb-3">
                                 <span class="text-xs text-slate-400 font-normal">Data:</span>
-                                <span id="summary-date" class="text-sm">--/--/--</span>
+                                <span id="summary-date" class="text-sm text-white">--/--/--</span>
                             </div>
                             <div class="flex items-center justify-between">
                                 <span class="text-xs text-slate-400 font-normal">Horário:</span>
-                                <span id="summary-time" class="text-sm">--:--</span>
+                                <span id="summary-time" class="text-sm text-white">--:--</span>
                             </div>
                         </div>
                     </div>
@@ -1296,27 +1394,6 @@
                 </div>
             </div>
 
-            </div>
-
-            <!-- FIXED FOOTER ACTIONS (FORCED VISIBILITY) -->
-            <div class="absolute bottom-0 left-0 w-full p-6 border-t border-white/10 bg-slate-900/90 backdrop-blur-xl flex items-center justify-center gap-4 z-[60]">
-                <!-- Step 1 Actions -->
-                <div id="footer-step-1" class="w-full flex justify-center">
-                    <button id="btn-next-step" disabled onclick="goToStep2()" class="w-full max-w-md bg-white/5 text-white/20 border border-white/5 font-display font-black px-12 py-5 rounded-2xl transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-3 cursor-not-allowed">
-                        SELECIONE DATA E HORA <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
-                </div>
-
-                <!-- Step 2 Actions -->
-                <div id="footer-step-2" class="w-full hidden flex items-center gap-4 max-w-2xl mx-auto">
-                    <button id="btn-prev-substep" onclick="prevSubStep()" class="h-14 w-14 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all shadow-lg active:scale-95">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                    </button>
-                    <button id="btn-next-substep" onclick="nextSubStep()" class="flex-grow h-14 bg-primary text-white font-display font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,87,0,0.4)] flex items-center justify-center gap-3">
-                        <span id="btn-substep-text">PRÓXIMA PERGUNTA</span> <span id="btn-substep-icon" class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -1334,7 +1411,7 @@
             const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const startPosition = window.pageYOffset;
             const distance = targetPosition - startPosition;
-            const duration = 1500; // 1.5 seconds for "slow" effect
+            const duration = 4500; // 4.5 seconds for a very cinematic effect
             let start = null;
 
             function step(timestamp) {
@@ -1345,11 +1422,12 @@
                 if (progress < duration) window.requestAnimationFrame(step);
             }
 
-            // Cubic easing out
+            // EaseInOutCubic: smooth start and smooth end
             function ease(t, b, c, d) {
-                t /= d;
-                t--;
-                return c * (t * t * t + 1) + b;
+                t /= d/2;
+                if (t < 1) return c/2*t*t*t + b;
+                t -= 2;
+                return c/2*(t*t*t + 2) + b;
             }
 
             window.requestAnimationFrame(step);
@@ -1393,9 +1471,9 @@
                 
                 const btn = document.createElement('button');
                 btn.innerText = day;
-                btn.className = `h-10 w-10 md:h-12 md:w-12 rounded-xl text-xs font-bold transition-all flex items-center justify-center
+                btn.className = `aspect-square w-full rounded-xl text-xs font-bold transition-all flex items-center justify-center
                     ${isPast || isWeekend || isFarFuture ? 'text-white/10 cursor-not-allowed opacity-30' : 'text-white hover:bg-primary/20 hover:text-primary'}
-                    ${isSelected ? 'bg-primary text-white shadow-[0_0_20px_rgba(255,87,0,0.6)] scale-110' : 'bg-white/5'}`;
+                    ${isSelected ? 'bg-primary text-white shadow-[0_0_20px_rgba(255,87,0,0.6)]' : 'bg-white/5'}`;
                 
                 if (!isPast && !isWeekend && !isFarFuture) {
                     btn.onclick = () => selectDate(date);
@@ -1409,18 +1487,57 @@
             renderCalendar();
         }
 
-        function selectDate(date) {
+        async function fetchOccupiedSlots(dateStr) {
+            if (!ORIONX_CONFIG.supabaseUrl || ORIONX_CONFIG.supabaseUrl.startsWith('COLE')) return [];
+            try {
+                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?agendamento_data=eq.${encodeURIComponent(dateStr)}&select=agendamento_hora,status`, {
+                    headers: {
+                        'apikey': ORIONX_CONFIG.supabaseKey,
+                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`
+                    }
+                });
+                if (!res.ok) return [];
+                const data = await res.json();
+                // Filtra agendamentos existentes que não foram cancelados
+                return data.filter(d => d.status !== 'cancelado').map(d => d.agendamento_hora);
+            } catch (err) {
+                console.error('Erro ao buscar disponibilidade:', err);
+                return [];
+            }
+        }
+
+        async function selectDate(date) {
             selectedDate = date;
             selectedTime = null;
-            document.getElementById('hidden-date').value = date.toLocaleDateString('pt-BR');
+            const dateStr = date.toLocaleDateString('pt-BR');
+            document.getElementById('hidden-date').value = dateStr;
             document.getElementById('selected-date-display').innerText = date.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            // Alterna visibilidade para os horários
+            document.getElementById('date-selection-section').classList.add('hidden');
+            document.getElementById('time-selection-section').classList.remove('hidden');
+            
+            // Feedback visual enquanto carrega os horários
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '<div class="col-span-full py-10 text-center text-[10px] font-bold text-slate-500 uppercase tracking-widest animate-pulse">Consultando disponibilidade...</div>';
             
             updateNextButton();
             renderCalendar();
-            renderTimeSlots();
+            
+            // Busca disponibilidade real no Supabase
+            const occupied = await fetchOccupiedSlots(dateStr);
+            renderTimeSlots(occupied);
         }
 
-        function renderTimeSlots() {
+        function backToCalendar() {
+            selectedTime = null;
+            document.getElementById('hidden-time').value = '';
+            document.getElementById('date-selection-section').classList.remove('hidden');
+            document.getElementById('time-selection-section').classList.add('hidden');
+            updateNextButton();
+        }
+
+        function renderTimeSlots(occupiedSlots = []) {
             const container = document.getElementById('time-slots');
             container.innerHTML = '';
             
@@ -1438,6 +1555,7 @@
 
             for (let hour = startHour; hour <= endHour; hour++) {
                 const timeStr = `${hour.toString().padStart(2, '0')}:00`;
+                const isOccupied = occupiedSlots.includes(timeStr);
                 
                 // Validação de 24h de antecedência
                 const slotDateTime = new Date(selectedDate.getTime());
@@ -1446,33 +1564,42 @@
                 if (slotDateTime < tomorrowLimit) continue; // Pula horários com menos de 24h de diferença
 
                 const btn = document.createElement('button');
-                btn.innerText = timeStr;
                 const isSelected = selectedTime === timeStr;
-                btn.className = `py-3 px-4 rounded-xl text-xs font-bold transition-all border
-                    ${isSelected ? 'bg-primary border-primary text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-400 hover:border-primary/50 hover:text-white'}`;
                 
-                btn.onclick = () => {
-                    selectedTime = timeStr;
-                    document.getElementById('hidden-time').value = timeStr;
-                    renderTimeSlots();
-                    updateNextButton();
-                };
+                if (isOccupied) {
+                    btn.innerText = 'OCUPADO';
+                    btn.disabled = true;
+                    btn.className = `py-3 px-4 rounded-xl text-[9px] font-black transition-all border bg-white/5 border-white/5 text-slate-600 cursor-not-allowed opacity-50`;
+                } else {
+                    btn.innerText = timeStr;
+                    btn.className = `py-3 px-4 rounded-xl text-xs font-bold transition-all border
+                        ${isSelected ? 'bg-primary border-primary text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-400 hover:border-primary/50 hover:text-white'}`;
+                    
+                    btn.onclick = () => {
+                        selectedTime = timeStr;
+                        document.getElementById('hidden-time').value = timeStr;
+                        renderTimeSlots(occupiedSlots);
+                        updateNextButton();
+                    };
+                }
                 container.appendChild(btn);
             }
         }
 
         function updateNextButton() {
             const btn = document.getElementById('btn-next-step');
+            const textSpan = document.getElementById('btn-next-text');
+            
             if (selectedDate && selectedTime) {
                 btn.disabled = false;
-                btn.innerText = 'AVANÇAR PARA O FORMULÁRIO';
-                btn.classList.remove('bg-white/5', 'text-white/20', 'cursor-not-allowed');
-                btn.classList.add('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse');
+                if (textSpan) textSpan.innerText = 'CONTINUAR';
+                btn.classList.remove('bg-white/5', 'text-white/20', 'cursor-not-allowed', 'border-white/5');
+                btn.classList.add('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse', 'border-primary/20');
             } else {
                 btn.disabled = true;
-                btn.innerText = 'SELECIONE DATA E HORA';
-                btn.classList.add('bg-white/5', 'text-white/20', 'cursor-not-allowed');
-                btn.classList.remove('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse');
+                if (textSpan) textSpan.innerText = 'SELECIONE DATA E HORA';
+                btn.classList.add('bg-white/5', 'text-white/20', 'cursor-not-allowed', 'border-white/5');
+                btn.classList.remove('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse', 'border-primary/20');
             }
         }
 
@@ -1481,6 +1608,11 @@
             const modal = document.getElementById('modal-agendamento');
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
+            
+            // Reset de visualização
+            document.getElementById('date-selection-section').classList.remove('hidden');
+            document.getElementById('time-selection-section').classList.add('hidden');
+            
             selectedDate = null;
             selectedTime = null;
             renderCalendar();
@@ -1501,6 +1633,10 @@
         function goToStep1() {
             const track = document.getElementById('steps-track');
             if (track) track.style.transform = 'translateX(0%)';
+
+            // Garante que volta para a data se estiver no Step 1
+            document.getElementById('date-selection-section').classList.remove('hidden');
+            document.getElementById('time-selection-section').classList.add('hidden');
             
             const dot1 = document.getElementById('step-dot-1');
             const dot2 = document.getElementById('step-dot-2');
@@ -1575,11 +1711,11 @@
             const nextBtn = document.getElementById('btn-next-substep');
             
             if (n === 6) {
-                btnText.innerText = 'FINALIZAR AGENDAMENTO';
+                btnText.innerText = 'FINALIZAR';
                 btnIcon.innerText = 'check_circle';
                 nextBtn.onclick = () => document.getElementById('qualify-form').requestSubmit();
             } else {
-                btnText.innerText = 'PRÓXIMA PERGUNTA';
+                btnText.innerText = 'CONTINUAR';
                 btnIcon.innerText = 'arrow_forward';
                 nextBtn.onclick = nextSubStep;
             }
@@ -1658,8 +1794,18 @@
 
         async function handleBookingSubmit(e) {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
+            const data = {
+                nome:              document.getElementById('fullname').value,
+                email:             document.getElementById('email').value,
+                telefone:          document.getElementById('phone').value,
+                agendamento_data:  document.getElementById('hidden-date').value,
+                agendamento_hora:  document.getElementById('hidden-time').value,
+                pergunta_desafio:  document.getElementById('pergunta_desafio').value,
+                pergunta_gargalo:  document.getElementById('pergunta_gargalo').value,
+                pergunta_sistemas: document.getElementById('pergunta_sistemas').value,
+                pergunta_equipe:   document.getElementById('pergunta_equipe').value,
+                pergunta_detalhes: document.getElementById('pergunta_detalhes').value
+            };
 
             // 1. Monta o timestamp ISO para a Google Calendar API no n8n
             const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
@@ -1702,10 +1848,11 @@
                             'Content-Type':  'application/json',
                             'apikey':        ORIONX_CONFIG.supabaseKey,
                             'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
-                            'Prefer':        'return=representation', // retorna o registro criado com o ID
+                            'Prefer':        'return=representation',
                         },
                         body: JSON.stringify({
                             nome:              data.nome,
+                            email:             data.email, // ← Adicionado e-mail
                             telefone:          data.telefone,
                             agendamento_data:  data.agendamento_data,
                             agendamento_hora:  data.agendamento_hora,
@@ -1716,21 +1863,26 @@
                             pergunta_equipe:   data.pergunta_equipe,
                             pergunta_detalhes: data.pergunta_detalhes,
                             pagina_origem:     'lp_clinicas',
-                            ...Object.fromEntries(
-                                Object.entries(_utmParams).filter(([, v]) => v)
-                            ),
+                            // Garante que só envia UTMs que tenham valor
+                            ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
                         }),
                     });
+
                     if (sbRes.ok) {
-                        const [sbData] = await sbRes.json();
-                        leadId = sbData?.id || null;
-                        console.log('✅ Lead salvo no Supabase. ID:', leadId);
+                        const sbJson = await sbRes.json();
+                        leadId = sbJson[0]?.id || null;
+                        console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
                     } else {
-                        const errText = await sbRes.text();
-                        console.warn('⚠️ Supabase retornou erro:', sbRes.status, errText);
+                        const errorDetails = await sbRes.json();
+                        console.error('❌ Erro retornado pelo Supabase:', {
+                            status: sbRes.status,
+                            statusText: sbRes.statusText,
+                            details: errorDetails
+                        });
+                        alert('Atenção: O agendamento foi processado, mas houve um erro ao salvar no banco. Verifique o console do desenvolvedor (F12).');
                     }
                 } catch (err) {
-                    console.error('❌ Falha ao salvar no Supabase:', err);
+                    console.error('❌ Erro crítico na requisição Supabase:', err);
                 }
             }
 
@@ -1766,6 +1918,22 @@
                 navbar.classList.add('bg-black/90');
             }
         });
+
+        // Toggle Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            
+            const isOpen = !menu.classList.contains('translate-x-full');
+            
+            if (isOpen) {
+                menu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            } else {
+                menu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            }
+        }
 
         // Tabs Logic
         function switchTab(tabId) {
@@ -1865,13 +2033,23 @@
             slidesPerView: 1,
             spaceBetween: 24,
             pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
             breakpoints: {
                 768: { slidesPerView: 2 },
                 1024: { slidesPerView: 3, slidesPerGroup: 3 }
             },
             on: {
-                init: function() { updateCategoryHeader(0); },
+                init: function() { 
+                    updateCategoryHeader(0);
+                    document.getElementById('current-slide').textContent = this.realIndex + 1;
+                },
                 slideChange: function () {
+                    // Update Counter
+                    document.getElementById('current-slide').textContent = this.realIndex + 1;
+                    
                     let catIndex = 0;
                     if(this.activeIndex >= 3 && this.activeIndex < 6) catIndex = 1;
                     if(this.activeIndex >= 6) catIndex = 2;
@@ -1895,12 +2073,12 @@
             setTimeout(() => {
                 headerEl.innerHTML = `
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <h3 class="font-display font-black text-3xl md:text-4xl text-slate-800 uppercase tracking-tight italic flex items-center gap-3 transition-colors duration-500">
+                        <h3 class="font-display font-black text-xl md:text-4xl text-slate-800 uppercase tracking-tight italic flex items-center gap-3 transition-colors duration-500">
                             <span class="material-symbols-outlined text-4xl ${data.iconClass} hidden md:block">${data.iconName}</span>
                             ${data.titlePart1} <span class="${data.titlePart2Class}">${data.titlePart2}</span>
                         </h3>
                     </div>
-                    <p class="text-slate-500 font-accent text-xs md:text-sm uppercase tracking-[0.4em] font-bold mt-4 break-words text-center transition-colors duration-500">${data.desc}</p>
+                    <p class="text-slate-500 font-accent text-[10px] md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] font-bold mt-2 md:mt-4 break-words text-center transition-colors duration-500">${data.desc}</p>
                 `;
                 headerEl.style.opacity = 1;
                 headerEl.style.transform = 'translateY(0)';
