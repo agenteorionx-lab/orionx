@@ -13,7 +13,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>OrionX | Engenharia de Software, IA e Soluções Digitais Escaláveis</title>
     <meta name="description" content="A OrionX une design premium à engenharia de software robusta. Especialistas em sistemas complexos, APIs escaláveis e agentes de IA que transformam a interação entre pessoas e tecnologia.">
-    <meta name="keywords" content="engenharia de software, desenvolvimento de softwares sob medida, atendimento inteligente IA, sistemas escaláveis, consultoria tecnologia, OrionX sistemas, IA corporativa">
+    <meta name="keywords" content="atendimento inteligente IA, software para clínicas, gestão de saúde, engenharia de software, desenvolvimento de softwares sob medida, sistemas escaláveis, consultoria tecnologia, OrionX sistemas, IA corporativa, agendamento automático, voz IA para clínicas">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -165,7 +165,7 @@
                     CONTATO
                 </a>
                 <!-- Hamburger Menu Button -->
-                <button id="mobile-menu-btn" aria-label="Abrir Menu" class="md:hidden flex flex-col gap-1.5 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <button id="mobile-menu-btn" aria-label="Abrir Menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMobileMenu()">
                     <span class="block w-6 h-0.5 bg-slate-900"></span>
                     <span class="block w-6 h-0.5 bg-slate-900"></span>
                     <span class="block w-4 h-0.5 bg-primary"></span>
@@ -173,12 +173,12 @@
             </div>
         </div>
         <!-- Mobile Menu Overlay -->
-        <nav id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-t border-primary/10 px-6 py-6 space-y-5">
-            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors" href="#hero" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Início</a>
-            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors" href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Serviços</a>
-            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors" href="#authority" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Autoridade</a>
-            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors" href="#process" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Processo</a>
-            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors" href="#portfolio" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Portfólio</a>
+        <nav id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-t border-primary/10 px-6 py-6 space-y-5" aria-label="Menu Mobile">
+            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors py-2" href="#hero" onclick="toggleMobileMenu()">Início</a>
+            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors py-2" href="#services" onclick="toggleMobileMenu()">Serviços</a>
+            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors py-2" href="#authority" onclick="toggleMobileMenu()">Autoridade</a>
+            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors py-2" href="#process" onclick="toggleMobileMenu()">Processo</a>
+            <a class="block font-accent font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors py-2" href="#portfolio" onclick="toggleMobileMenu()">Portfólio</a>
         </nav>
     </header>
 
@@ -194,7 +194,7 @@
             <div class="max-w-4xl">
                 <div
                     class="inline-block bg-white/10 backdrop-blur-sm border border-white/20 px-3 md:px-4 py-1 rounded-full mb-8 md:mb-6">
-                    <span class="text-white font-accent text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase">Engenharia de
+                    <span class="text-white font-accent text-xs font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase">Engenharia de
                         Software & IA</span>
                 </div>
                 <h1
@@ -257,7 +257,7 @@
                         onmouseleave="this.style.transform='rotateY(0) rotateX(0) translateY(0)'">
                         <div
                             class="bg-primary rounded-xl w-16 h-16 flex items-center justify-center mb-8 shadow-lg shadow-primary/40">
-                            <span class="material-symbols-outlined text-white text-4xl font-bold">architecture</span>
+                            <span class="material-symbols-outlined text-white text-4xl font-bold" aria-hidden="true">architecture</span>
                         </div>
                         <h3 class="font-display font-bold text-xl mb-4 uppercase tracking-tighter text-white">SaaS &
                             Aplicações Corporativas</h3>
@@ -287,7 +287,7 @@
                         onmouseleave="this.style.transform='rotateY(0) rotateX(0) translateY(0)'">
                         <div class="flex items-center justify-between mb-8">
                             <div class="bg-emerald-500 rounded-xl w-16 h-16 flex items-center justify-center shadow-lg shadow-emerald-500/40">
-                                <span class="material-symbols-outlined text-white text-4xl font-bold">forum</span>
+                                <span class="material-symbols-outlined text-white text-4xl font-bold" aria-hidden="true">forum</span>
                             </div>
                             <span class="text-[10px] font-mono font-bold text-emerald-400 border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider animate-pulse">★ DESTAQUE</span>
                         </div>
@@ -304,7 +304,7 @@
                         <a href="agentes-autonomos.html" class="relative inline-flex items-center gap-2 bg-emerald-600 text-white font-display font-bold px-6 py-3 rounded-xl hover:bg-emerald-500 hover:-translate-y-0.5 transition-all uppercase tracking-widest text-xs shadow-lg shadow-emerald-600/30 w-full justify-center">
                             <!-- Animação mais suave (soh uma borda pulsante sutil) -->
                             <span class="absolute inset-0 rounded-xl border-2 border-emerald-400 animate-pulse opacity-40"></span>
-                            <span class="material-symbols-outlined text-sm">chat</span>
+                            <span class="material-symbols-outlined text-sm" aria-hidden="true">chat</span>
                             Saber mais detalhes
                         </a>
                         <div class="w-full h-1 bg-gradient-to-r from-emerald-500 to-primary rounded-full mt-6"></div>
@@ -318,7 +318,7 @@
                         onmouseleave="this.style.transform='rotateY(0) rotateX(0) translateY(0)'">
                         <div
                             class="bg-primary rounded-xl w-16 h-16 flex items-center justify-center mb-8 shadow-lg shadow-primary/40">
-                            <span class="material-symbols-outlined text-white text-4xl font-bold">conversion_path</span>
+                            <span class="material-symbols-outlined text-white text-4xl font-bold" aria-hidden="true">conversion_path</span>
                         </div>
                         <h3 class="font-display font-bold text-xl mb-4 uppercase tracking-tighter text-white">Sales
                             Pages & Estratégia Digital</h3>
@@ -367,7 +367,7 @@
                         <!-- Item 1 -->
                         <div class="flex gap-6 items-start group cursor-default">
                             <div class="bg-white/10 p-3 rounded-2xl backdrop-blur-sm border border-white/20 group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg">
-                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold">verified</span>
+                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold" aria-hidden="true">verified</span>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold uppercase text-xl mb-2 text-white group-hover:drop-shadow-md transition-all">Engenharia de Elite</h4>
@@ -378,7 +378,7 @@
                         <!-- Item 2 -->
                         <div class="flex gap-6 items-start group cursor-default">
                             <div class="bg-white/10 p-3 rounded-2xl backdrop-blur-sm border border-white/20 group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg">
-                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold">terminal</span>
+                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold" aria-hidden="true">terminal</span>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold uppercase text-xl mb-2 text-white group-hover:drop-shadow-md transition-all">Sistemas Críticos</h4>
@@ -389,7 +389,7 @@
                         <!-- Item 3 -->
                         <div class="flex gap-6 items-start group cursor-default">
                             <div class="bg-white/10 p-3 rounded-2xl backdrop-blur-sm border border-white/20 group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg">
-                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold">trending_up</span>
+                                <span class="material-symbols-outlined text-white group-hover:text-primary transition-colors text-3xl font-bold" aria-hidden="true">trending_up</span>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold uppercase text-xl mb-2 text-white group-hover:drop-shadow-md transition-all">Visão Estratégica</h4>
@@ -442,7 +442,7 @@
                             <!-- Stat 4 -->
                             <div class="flex flex-col items-center lg:items-start justify-center pt-2">
                                 <div class="bg-gradient-to-br from-slate-800 to-slate-950 rounded-2xl w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-4 shadow-[inset_0_1px_rgba(255,255,255,0.1)] border border-slate-700/50 group-hover:border-primary/50 transition-colors duration-500">
-                                    <span class="material-symbols-outlined text-4xl md:text-5xl text-white group-hover:text-primary transition-colors duration-500">cloud_done</span>
+                                    <span class="material-symbols-outlined text-4xl md:text-5xl text-white group-hover:text-primary transition-colors duration-500" aria-hidden="true">cloud_done</span>
                                 </div>
                                 <span class="font-accent text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest md:tracking-[0.3em] text-center lg:text-left block">Setup VPS/Linux</span>
                             </div>
@@ -576,7 +576,7 @@
                             <p class="font-body text-slate-400 text-xs md:text-sm mb-6 max-w-sm leading-relaxed opacity-90">Dashboards construídos com performance absurda e taxas de transação otimizadas.</p>
                             
                             <div class="flex items-center gap-2 text-primary font-accent font-black text-xs uppercase tracking-[0.15em] transition-all group-hover:gap-4">
-                                Ver Projeto Completo <span class="material-symbols-outlined text-lg">arrow_right_alt</span>
+                                Ver Projeto Completo <span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_right_alt</span>
                             </div>
                         </div>
                         <!-- Barra laranja inferior permanente -->
@@ -597,7 +597,7 @@
                             <p class="font-body text-slate-400 text-xs md:text-sm mb-6 max-w-sm leading-relaxed opacity-90">Páginas ultrarápidas projetadas milimetricamente para ROI massivo através de engenharia de conversão.</p>
                             
                             <div class="flex items-center gap-2 text-primary font-accent font-black text-xs uppercase tracking-[0.15em] transition-all group-hover:gap-4">
-                                Ver Projeto Completo <span class="material-symbols-outlined text-lg">arrow_right_alt</span>
+                                Ver Projeto Completo <span class="material-symbols-outlined text-lg" aria-hidden="true">arrow_right_alt</span>
                             </div>
                         </div>
                         <!-- Barra laranja inferior permanente -->
@@ -639,7 +639,7 @@
                         <div
                             class="bg-primary rounded-lg w-16 h-16 flex items-center justify-center mb-6 shadow-xl shadow-primary/20">
                             <span
-                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform">bolt</span>
+                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">bolt</span>
                         </div>
                         <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Performance</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Carregamentos em milissegundos e arquiteturas
@@ -649,7 +649,7 @@
                         <div
                             class="bg-primary rounded-lg w-16 h-16 flex items-center justify-center mb-6 shadow-xl shadow-primary/20">
                             <span
-                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform">shield</span>
+                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">shield</span>
                         </div>
                         <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Segurança</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Modelagem de dados robusta e protocolos de
@@ -659,7 +659,7 @@
                         <div
                             class="bg-primary rounded-lg w-16 h-16 flex items-center justify-center mb-6 shadow-xl shadow-primary/20">
                             <span
-                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform">sync</span>
+                                class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">sync</span>
                         </div>
                         <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Estabilidade</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Monitoramento ativo e ambientes Linux/VPS
@@ -693,9 +693,9 @@
             <div class="space-y-4" id="faq-container-main">
                 <!-- FAQ 1 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">O que é a OrionX?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Uma agência especializada em arquiteturas digitais avançadas, desenvolvendo desde ecossistemas web premium (sites e landing pages de alto impacto) até plataformas SaaS escaláveis e agentes autônomos de Inteligência Artificial.</p>
@@ -704,9 +704,9 @@
 
                 <!-- FAQ 2 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">Quais são as áreas de atuação e serviços oferecidos?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Nosso portfólio baseia-se em 3 pilares: Ecossistemas Web Premium (presença digital de elite), Agentes de IA & Automação (atendimento e vendas on-demand 24/7) e Plataformas Escaláveis (sistemas web, CRMs e ERPs sob medida).</p>
@@ -715,9 +715,9 @@
 
                 <!-- FAQ 3 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">Como os Agentes Autônomos de IA podem ajudar meu negócio?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Eles operam 24/7 de maneira humanizada em diversos canais (WhatsApp, Telefone, Omnichannel) para qualificar leads, tirar dúvidas, fazer agendamentos e transferir para a equipe apenas leads maduros, reduzindo gargalos operacionais e otimizando o fluxo comercial.</p>
@@ -726,9 +726,9 @@
 
                 <!-- FAQ 4 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">O que é a "Engenharia de Conversão" nas Landing Pages?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Significa que não construímos apenas páginas bonitas. Desenvolvemos interfaces baseadas em psicologia de consumo, design persuasivo (UI/UX) e código otimizado (carregamento ultra rápido). Tudo milimetricamente projetado para extrair o máximo de ROI das suas campanhas.</p>
@@ -737,9 +737,9 @@
 
                 <!-- FAQ 5 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">A OrionX cria sistemas complexos ou de uso restrito?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Sim! Fazemos plataformas robustas do tipo SaaS e painéis administrativos que suportam tráfego massivo. Atuamos com segurança de dados de nível corporativo e arquiteturas desenhadas para evoluir juntamente com sua empresa.</p>
@@ -748,9 +748,9 @@
 
                 <!-- FAQ 6 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">Quanto tempo demora para desenvolver o projeto?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Isso varia de acordo com o escopo: desde alguns dias para estruturação de landing pages diretas, até algumas semanas ou meses para ecossistemas inteiros envolvendo integrações de IA e sistemas backend maiores. Estabelecemos todos os prazos no kick-off inicial.</p>
@@ -759,9 +759,9 @@
 
                 <!-- FAQ 7 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">A OrionX fornece acompanhamento e garantia dos serviços?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Com certeza. O projeto ganha vida e o suporte continua, monitorando métricas de performance e garantindo que tudo permaneça estável e altamente performático com 99,9% de uptime para as estruturas sob nossos cuidados de VPS/Infra.</p>
@@ -770,9 +770,9 @@
 
                 <!-- FAQ 8 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">Vocês atendem quais nichos de mercado?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Todos os segmentos que precisam gerar autoridade e vendas via internet: Clínicas médicas, Imobiliárias, E-commerces, Infoprodutores de alto ticket, Advocacia, B2B Corporativo, e startups tecnológicas.</p>
@@ -781,9 +781,9 @@
 
                 <!-- FAQ 9 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">As páginas desenvolvidas funcionam bem no celular?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">Totalmente Responsivas (Mobile-First approach). Sabendo que a maior parcela do tráfego hoje vem do celular, pensamos e desenvolvemos prioritariamente com a experiência para smartphones em mente para não perder nenhum acesso.</p>
@@ -792,9 +792,9 @@
 
                 <!-- FAQ 10 -->
                 <div class="faq-item-main bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden transition-all hover:border-slate-300">
-                    <button onclick="toggleFaqMain(this)" class="w-full flex items-center justify-between p-6 text-left group">
+                    <button onclick="toggleFaqMain(this)" aria-expanded="false" class="w-full flex items-center justify-between p-6 text-left group">
                         <h4 class="font-display font-bold text-slate-900 text-sm md:text-base pr-4 group-hover:text-primary transition-colors">Como faço para contratar os serviços da OrionX?</h4>
-                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0">expand_more</span>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors faq-icon-main shrink-0" aria-hidden="true">expand_more</span>
                     </button>
                     <div class="faq-answer-main px-6 pb-0 max-h-0 overflow-hidden transition-all duration-500">
                         <p class="font-body text-slate-600 text-sm leading-relaxed pb-6">É só entrar em contato através do nosso WhatsApp corporativo ou e-mail, solicitar um call de mapeamento e faremos todo o diagnóstico para criar a melhor solução tecnológica aplicável ao seu cenário atual.</p>
@@ -830,13 +830,30 @@
                 answer.style.maxHeight = '0px';
                 answer.style.paddingBottom = '0';
                 icon.style.transform = 'rotate(0deg)';
+                btn.setAttribute('aria-expanded', 'false');
                 item.classList.remove('border-primary/30', 'bg-white', 'shadow-sm');
                 item.classList.add('border-slate-200', 'bg-slate-50');
             } else {
                 answer.style.maxHeight = answer.scrollHeight + 'px';
                 icon.style.transform = 'rotate(180deg)';
+                btn.setAttribute('aria-expanded', 'true');
                 item.classList.add('border-primary/30', 'bg-white', 'shadow-sm');
                 item.classList.remove('border-slate-200', 'bg-slate-50');
+            }
+        }
+
+        // Toggle Mobile Menu com ARIA
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.contains('hidden');
+            
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                btn.setAttribute('aria-expanded', 'true');
+            } else {
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
             }
         }
     </script>
@@ -900,12 +917,12 @@
             <div class="border-t border-slate-800 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-4">
                     <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" width="160" height="32" loading="lazy" class="h-8 w-auto">
-                    <p class="text-slate-400 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Todos os
+                    <p class="text-slate-500 text-xs font-accent tracking-widest uppercase">© 2024 OrionX. Todos os
                         direitos reservados. High Performance Built.</p>
                 </div>
-                <div class="flex gap-8 text-[10px] font-accent font-bold uppercase tracking-widest text-slate-400">
+                <div class="flex gap-8 text-xs font-accent font-bold uppercase tracking-widest text-slate-500">
                     <a class="hover:text-primary transition-colors" href="termos.html">Termos de Uso</a>
-                    <span class="opacity-20">|</span>
+                    <span class="opacity-20" aria-hidden="true">|</span>
                     <a class="hover:text-primary transition-colors" href="privacidade.html">Políticas de Privacidade</a>
                 </div>
             </div>

@@ -13,7 +13,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>IA PARA CLÍNICAS E HOSPITAIS | Atendimento Inteligente | OrionX</title>
     <meta name="description" content="Otimize o atendimento da sua clínica ou hospital com a IA da OrionX. Automação de agendamentos 24/7, agentes de voz com tom humano e gestão eficiente de pacientes. Atenda mais e melhor.">
-    <meta name="keywords" content="atendimento para clínicas, software para clínicas, agendamento médico automático, IA para hospitais, agentes de voz para saúde, gestão clínica inteligente, OrionX Clinicas">
+    <meta name="keywords" content="atendimento inteligente IA, software para clínicas, gestão de saúde, engenharia de software, desenvolvimento de softwares sob medida, sistemas escaláveis, consultoria tecnologia, OrionX sistemas, IA corporativa, agendamento automático, voz IA para clínicas">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -255,8 +255,8 @@
                     FALE CONOSCO
                 </a>
                 <!-- Hamburger button -->
-                <button onclick="toggleMobileMenu()" aria-label="Abrir Menu" class="md:hidden text-white p-2 hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
-                    <span class="material-symbols-outlined text-3xl">menu</span>
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir Menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-white p-2 hover:text-primary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-3xl" aria-hidden="true">menu</span>
                 </button>
             </div>
         </div>
@@ -268,7 +268,7 @@
             <div class="flex items-center justify-between mb-16">
                 <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" width="160" height="32" class="h-8 w-auto">
                 <button onclick="toggleMobileMenu()" aria-label="Fechar Menu" class="text-white p-2 min-w-[44px] min-h-[44px]">
-                    <span class="material-symbols-outlined text-3xl">close</span>
+                    <span class="material-symbols-outlined text-3xl" aria-hidden="true">close</span>
                 </button>
             </div>
             <nav class="flex flex-col gap-6">
@@ -282,7 +282,7 @@
                     <i class="fab fa-whatsapp"></i> FALAR NO WHATSAPP
                 </a>
                 <button onclick="openBooking(); toggleMobileMenu();" class="flex items-center justify-center gap-3 w-full bg-primary text-white font-display font-bold px-8 py-5 rounded-2xl text-center uppercase tracking-widest text-xs shadow-lg text-balance">
-                    <span class="material-symbols-outlined">calendar_month</span> AGENDAR REUNIÃO
+                    <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span> AGENDAR REUNIÃO
                 </button>
             </div>
         </div>
@@ -301,7 +301,7 @@
             <div class="w-full lg:w-3/5 text-center lg:text-left" data-aos="fade-right">
                 <div class="inline-flex items-center gap-2 mb-8 border border-primary/20 bg-primary/5 py-1.5 px-4 rounded-full backdrop-blur shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-                    <span class="font-mono text-[10px] text-primary tracking-widest uppercase font-bold">TECNOLOGIA MULTIMODAL // PERFORMANCE EM SAÚDE 24/7</span>
+                    <span class="font-mono text-xs text-primary tracking-widest uppercase font-bold">TECNOLOGIA MULTIMODAL // PERFORMANCE EM SAÚDE 24/7</span>
                 </div>
                 
                 <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-snug sm:leading-tight md:leading-[1.1] mb-10">
@@ -330,11 +330,11 @@
                     <div class="bg-white/5 p-4 flex items-center justify-between border-b border-white/5">
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-                                <span class="material-symbols-outlined text-sm">chat_bubble</span>
+                                <span class="material-symbols-outlined text-sm" aria-hidden="true">chat_bubble</span>
                             </div>
                             <div>
                                 <h4 class="text-slate-100 text-xs font-bold leading-none mb-1">Agente IA — WhatsApp</h4>
-                                <span class="text-emerald-500 text-[9px] font-bold uppercase tracking-widest flex items-center gap-1">
+                                <span class="text-emerald-500 text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> online
                                 </span>
                             </div>
@@ -343,19 +343,19 @@
                     <div class="p-6 space-y-4">
                         <div class="flex flex-col gap-3">
                             <div class="bg-white/5 border border-white/5 rounded-xl rounded-tl-none p-3 max-w-[85%]">
-                                <p class="text-slate-300 text-[11px] leading-relaxed italic">Bom dia! Bem-vindo à Clínica Orion. Deseja agendar um exame ou consulta agora?</p>
-                                <span class="text-[8px] text-slate-500 mt-1 block text-right">09:01</span>
+                                <p class="text-slate-300 text-xs leading-relaxed italic">Bom dia! Bem-vindo à Clínica Orion. Deseja agendar um exame ou consulta agora?</p>
+                                <span class="text-[10px] text-slate-500 mt-1 block text-right">09:01</span>
                             </div>
                             <div class="bg-primary/10 border border-primary/20 rounded-xl rounded-tr-none p-3 max-w-[85%] ml-auto shadow-sm">
-                                <p class="text-slate-100 text-[11px] leading-relaxed font-medium">Olá, preciso marcar uma ressonância para amanhã. Vocês têm horário?</p>
-                                <span class="text-[8px] text-primary/60 mt-1 block text-right">09:02</span>
+                                <p class="text-slate-100 text-xs leading-relaxed font-medium">Olá, preciso marcar uma ressonância para amanhã. Vocês têm horário?</p>
+                                <span class="text-[10px] text-primary/60 mt-1 block text-right">09:02</span>
                             </div>
                         </div>
                     </div>
-                    <div class="px-6 py-3 bg-white/5 flex gap-4 text-[9px] font-bold text-slate-500 uppercase tracking-widest border-t border-white/5">
-                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">mic</span> ÁUDIO</span>
-                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">image</span> IMAGEM</span>
-                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> DOC</span>
+                    <div class="px-6 py-3 bg-white/5 flex gap-4 text-xs font-bold text-slate-500 uppercase tracking-widest border-t border-white/5">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs" aria-hidden="true">mic</span> ÁUDIO</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs" aria-hidden="true">image</span> IMAGEM</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs" aria-hidden="true">description</span> DOC</span>
                     </div>
                 </div>
 
@@ -363,11 +363,11 @@
                 <div class="bg-slate-950 border border-white/10 rounded-2xl p-4 shadow-2xl flex items-center justify-between animate-float translate-x-4 lg:translate-x-8">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined">call</span>
+                            <span class="material-symbols-outlined" aria-hidden="true">call</span>
                         </div>
                         <div>
                             <h4 class="text-slate-100 text-xs font-bold leading-none mb-1">Agente IA — Telefonia</h4>
-                            <span class="text-primary text-[9px] font-bold uppercase tracking-widest">Chamada ativa • 02:34</span>
+                            <span class="text-primary text-xs font-bold uppercase tracking-widest">Chamada ativa • 02:34</span>
                         </div>
                     </div>
                     <div class="flex gap-1.5 px-4 text-primary">
@@ -380,13 +380,13 @@
                 <!-- Card 3: Central Omnichannel (Dark) -->
                 <div class="bg-slate-950 border border-white/10 rounded-2xl p-4 shadow-2xl flex items-center gap-4 animate-float-fast -translate-x-2 lg:-translate-x-4">
                     <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
-                        <span class="material-symbols-outlined text-sm">headset_mic</span>
+                        <span class="material-symbols-outlined text-sm" aria-hidden="true">headset_mic</span>
                     </div>
                     <div class="flex-1">
                         <h4 class="text-slate-100 text-xs font-bold mb-2 uppercase tracking-tighter italic">Painel de Soberania</h4>
                         <div class="flex gap-2">
-                            <span class="bg-white/5 text-slate-300 text-[8px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-tighter">12 atendimentos ativos</span>
-                            <span class="bg-primary/10 text-primary text-[8px] font-black uppercase px-2 py-0.5 rounded border border-primary/20 tracking-tighter">Custo por agendamento: R$ 0,45</span>
+                            <span class="bg-white/5 text-slate-300 text-[10px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-tighter">12 atendimentos ativos</span>
+                            <span class="bg-primary/10 text-primary text-[10px] font-black uppercase px-2 py-0.5 rounded border border-primary/20 tracking-tighter">Custo por agendamento: R$ 0,45</span>
                         </div>
                     </div>
                 </div>
@@ -411,18 +411,18 @@
                 <!-- Problema 1: Conversão -->
                 <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-red-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-red-500 tracking-widest uppercase font-bold">LATENCY_AUDIT_01</span>
+                        <span class="font-mono text-xs text-red-500 tracking-widest uppercase font-bold">LATENCY_AUDIT_01</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 group-hover:shadow-[0_0_20px_#EF4444] transition-all">
-                            <span class="material-symbols-outlined text-2xl sm:text-3xl">timer_off</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl" aria-hidden="true">timer_off</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Abandono de Lead</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">48% dos pacientes desistem se não houver resposta imediata. Lead que espera é lead que agenda no concorrente.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-red-500/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Perda Estimada</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Perda Estimada</span>
                             <span class="text-xs font-black text-red-500 italic uppercase tracking-tighter">Impacto: -48% de Conversão</span>
                         </div>
                     </div>
@@ -431,18 +431,18 @@
                 <!-- Problema 2: Receita -->
                 <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-primary tracking-widest uppercase font-bold">OFF_HOURS_LEAKS</span>
+                        <span class="font-mono text-xs text-primary tracking-widest uppercase font-bold">OFF_HOURS_LEAKS</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all">
-                            <span class="material-symbols-outlined text-2xl sm:text-3xl">payments</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl" aria-hidden="true">payments</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Receita Abandonada</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Buscas noturnas e de fim de semana são leads de alta intenção que esfriam sem um atendimento 24/7 técnico.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-primary/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Vazamento Financeiro</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Vazamento Financeiro</span>
                             <span class="text-xs font-black text-primary italic uppercase tracking-tighter">Impacto: Lucro Cessante 24h</span>
                         </div>
                     </div>
@@ -451,18 +451,18 @@
                 <!-- Problema 3: Ociosidade -->
                 <div class="bg-slate-900 border border-white/5 p-6 sm:p-8 rounded-2xl hover:border-amber-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-amber-500 tracking-widest uppercase font-bold">MED_RESOURCE_IDLE</span>
+                        <span class="font-mono text-xs text-amber-500 tracking-widest uppercase font-bold">MED_RESOURCE_IDLE</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500 group-hover:shadow-[0_0_20px_#F59E0B] transition-all">
-                            <span class="material-symbols-outlined text-2xl sm:text-3xl">medical_services</span>
+                            <span class="material-symbols-outlined text-2xl sm:text-3xl" aria-hidden="true">medical_services</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Cadeira Vazia</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Equipamentos caros e especialistas parados por no-shows não confirmados destroem sua margem líquida.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-amber-500/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Custo da Hora Parada</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Custo da Hora Parada</span>
                             <span class="text-xs font-black text-amber-500 italic uppercase tracking-tighter">Impacto: Alta Ociosidade</span>
                         </div>
                         <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
@@ -474,18 +474,18 @@
                 <!-- Problema 4: No-Show -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-primary tracking-widest uppercase font-bold">Auto_Confirm_v2</span>
+                        <span class="font-mono text-xs text-primary tracking-widest uppercase font-bold">Auto_Confirm_v2</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all">
-                            <span class="material-symbols-outlined text-3xl">notification_important</span>
+                            <span class="material-symbols-outlined text-3xl" aria-hidden="true">notification_important</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">No-Show Invisível</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Agendas confirmadas manualmente falham em 22% das vezes. A IA garante a confirmação multicanal 100% à prova de falhas.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-primary/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Recuperação de Agenda</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Recuperação de Agenda</span>
                             <span class="text-xs font-black text-primary italic uppercase tracking-tighter">Impacto: -22% de Fugas</span>
                         </div>
                         <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
@@ -497,18 +497,18 @@
                 <!-- Problema 5: Retorno -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-emerald-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-emerald-500 tracking-widest uppercase font-bold">LTV_Booster_Active</span>
+                        <span class="font-mono text-xs text-emerald-500 tracking-widest uppercase font-bold">LTV_Booster_Active</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 group-hover:shadow-[0_0_20px_#10B981] transition-all">
-                            <span class="material-symbols-outlined text-3xl">history</span>
+                            <span class="material-symbols-outlined text-3xl" aria-hidden="true">history</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Retorno Esquecido</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Módulos de busca ativa evitam que o paciente esqueça o agendamento pós-exame. O ciclo de faturamento nunca para.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-emerald-500/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Aumento de Faturamento</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Aumento de Faturamento</span>
                             <span class="text-xs font-black text-emerald-500 italic uppercase tracking-tighter">Impacto: +15% Recorrência</span>
                         </div>
                         <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
@@ -520,18 +520,18 @@
                 <!-- Problema 6: Gargalo -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-sky-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                     <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <span class="font-mono text-[8px] text-sky-500 tracking-widest uppercase font-bold">Scaling_Protocol_On</span>
+                        <span class="font-mono text-xs text-sky-500 tracking-widest uppercase font-bold">Scaling_Protocol_On</span>
                     </div>
                     <div class="flex items-center gap-4 mb-6">
                         <div class="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 group-hover:shadow-[0_0_20_#0EA5E9] transition-all">
-                            <span class="material-symbols-outlined text-3xl">hub</span>
+                            <span class="material-symbols-outlined text-3xl" aria-hidden="true">hub</span>
                         </div>
                         <h4 class="font-display font-bold text-white text-lg">Barreira de Escala</h4>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">Sua recepção física é limitada. A IA escala infinitamente sem precisar contratar ou treinar novas pessoas.</p>
                     <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-sky-500/5 -mx-8 px-8">
                         <div class="flex flex-col">
-                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Redução de Custo de Escala</span>
+                            <span class="text-xs font-mono text-slate-500 uppercase tracking-widest mb-1">Redução de Custo de Escala</span>
                             <span class="text-xs font-black text-sky-500 italic uppercase tracking-tighter">Impacto: 0% Fila de Espera</span>
                         </div>
                         <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
@@ -549,7 +549,7 @@
         <div class="absolute inset-0 tech-grid opacity-10"></div>
         <div class="max-w-[85rem] mx-auto px-4 relative z-10">
             <div class="text-center mb-12" data-aos="fade-up">
-                <span class="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-3 block font-accent italic">ENGENHARIA DE LUCRO</span>
+                <span class="text-primary font-black text-xs uppercase tracking-[0.4em] mb-3 block font-accent italic">ENGENHARIA DE LUCRO</span>
                 <h2 class="font-display font-black text-3xl md:text-5xl text-slate-900 uppercase tracking-tight leading-none">Arquitetura de <span class="text-primary italic">Resultados</span></h2>
             </div>
             
@@ -570,11 +570,11 @@
 
                         <div class="flex gap-6 items-start">
                             <div class="w-12 h-12 shrink-0 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:shadow-[0_0_20px_#10B981] transition-all">
-                                <span class="material-symbols-outlined text-2xl">forum</span>
+                                <span class="material-symbols-outlined text-2xl" aria-hidden="true">forum</span>
                             </div>
                             <div class="flex-1 pr-16">
                                 <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">WHATSAPP CLH (CONVERSÃO)</h3>
-                                <p class="text-emerald-400 font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">CAPTAÇÃO E AGENDAMENTO 24/7</p>
+                                <p class="text-emerald-400 font-bold text-xs uppercase tracking-widest mb-3 font-accent">CAPTAÇÃO E AGENDAMENTO 24/7</p>
                                 <p class="text-slate-400 text-xs leading-relaxed font-medium">
                                     Respostas resolutivas que transformam curiosos em agendamentos em menos de 10 segundos.
                                 </p>
@@ -595,15 +595,15 @@
                         </div>
                         
                         <!-- Badge NOVO -->
-                        <div class="absolute top-4 left-20 bg-primary text-white text-[7px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest animate-pulse z-20">NOVO</div>
+                        <div class="absolute top-4 left-20 bg-primary text-white text-xs font-black px-2 py-0.5 rounded-full uppercase tracking-widest animate-pulse z-20">NOVO</div>
 
                         <div class="flex gap-6 items-start">
                             <div class="w-12 h-12 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all relative">
-                                <span class="material-symbols-outlined text-2xl">record_voice_over</span>
+                                <span class="material-symbols-outlined text-2xl" aria-hidden="true">record_voice_over</span>
                             </div>
                             <div class="flex-1 pr-16">
                                 <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">VOICE AI (PROATIVO)</h3>
-                                <p class="text-primary font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">BUSCA ATIVA DE RETORNOS</p>
+                                <p class="text-primary font-bold text-xs uppercase tracking-widest mb-3 font-accent">BUSCA ATIVA DE RETORNOS</p>
                                 <p class="text-slate-200 text-xs leading-relaxed font-semibold">
                                     A IA liga para o paciente para marcar o retorno de exames e garantir o faturamento da consulta.
                                 </p>
@@ -625,11 +625,11 @@
 
                         <div class="flex gap-6 items-start">
                             <div class="w-12 h-12 shrink-0 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-500 group-hover:shadow-[0_0_20px_#0EA5E9] transition-all">
-                                <span class="material-symbols-outlined text-2xl">dashboard_customize</span>
+                                <span class="material-symbols-outlined text-2xl" aria-hidden="true">dashboard_customize</span>
                             </div>
                             <div class="flex-1 pr-16">
                                 <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">GESTÃO OMNICHANNEL</h3>
-                                <p class="text-sky-400 font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">FLUXO UNIFICADO DE RECEITA</p>
+                                <p class="text-sky-400 font-bold text-xs uppercase tracking-widest mb-3 font-accent">FLUXO UNIFICADO DE RECEITA</p>
                                 <p class="text-slate-400 text-xs leading-relaxed font-medium">
                                     Dados centralizados para que seu staff foque apenas no atendimento presencial.
                                 </p>
@@ -645,7 +645,7 @@
                     <!-- Title enquadrado -->
                     <div class="mb-10 text-center" data-aos="fade-down">
                         <h2 class="font-display font-black text-slate-900 text-2xl mb-1 uppercase tracking-tighter italic">ATENDIMENTO POR VOZ</h2>
-                        <p class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">QUALIDADE DE VOZ HUMANA</p>
+                        <p class="text-slate-500 text-xs font-bold uppercase tracking-[0.4em]">QUALIDADE DE VOZ HUMANA</p>
                     </div>
 
                     <!-- PHONE CONTAINER (CSS ONLY) WITH FLOAT ANIMATION -->
@@ -659,8 +659,8 @@
                                 <div class="absolute top-4 left-0 right-0 px-8 flex justify-between items-center text-white/90 text-[9px] font-bold">
                                     <span>09:41</span>
                                     <div class="flex gap-1 items-center">
-                                        <span class="material-symbols-outlined text-[9px]">signal_cellular_4_bar</span>
-                                        <span class="material-symbols-outlined text-[9px]">battery_full</span>
+                                        <span class="material-symbols-outlined text-[9px]" aria-hidden="true">signal_cellular_4_bar</span>
+                                        <span class="material-symbols-outlined text-[9px]" aria-hidden="true">battery_full</span>
                                     </div>
                                 </div>
 
@@ -669,7 +669,7 @@
                                     <div class="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mb-5 relative">
                                         <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping"></div>
                                         <div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center relative z-10 text-white shadow-[0_0_25px_rgba(16,185,129,0.4)]">
-                                            <span class="material-symbols-outlined text-2xl">person</span>
+                                            <span class="material-symbols-outlined text-2xl" aria-hidden="true">person</span>
                                         </div>
                                     </div>
                                     <h3 class="text-white font-display font-black text-xl uppercase tracking-tight mb-1">Clínica OrionX</h3>
@@ -688,12 +688,12 @@
                                 <div class="w-full flex justify-around items-center">
                                     <div class="flex flex-col items-center gap-1.5">
                                         <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white">
-                                            <span class="material-symbols-outlined text-xl">call_end</span>
+                                            <span class="material-symbols-outlined text-xl" aria-hidden="true">call_end</span>
                                         </div>
                                     </div>
                                     <div class="flex flex-col items-center gap-1.5">
                                         <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white">
-                                            <span class="material-symbols-outlined text-xl">mic</span>
+                                            <span class="material-symbols-outlined text-xl" aria-hidden="true">mic</span>
                                         </div>
                                     </div>
                                 </div>
@@ -718,7 +718,7 @@
         
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-primary font-black text-[10px] uppercase tracking-[0.5em] mb-4 block font-accent italic">A MATEMÁTICA DO LUCRO</span>
+                <span class="text-primary font-black text-xs uppercase tracking-[0.5em] mb-4 block font-accent italic">A MATEMÁTICA DO LUCRO</span>
                 <h2 class="font-display font-black text-3xl md:text-5xl text-slate-900 uppercase tracking-tight leading-none">A Inteligência que <span class="text-primary italic">Multiplica seu Lucro</span></h2>
                 <p class="text-slate-600 mt-4 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed uppercase tracking-widest opacity-80 italic">POR QUE VALE A PENA SUBSTITUIR CUSTOS FIXOS POR ESCALA INFINITA?</p>
             </div>
@@ -727,56 +727,56 @@
                 <!-- Vantagem 01: Escala -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-emerald-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up">
                     <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 mb-8 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.3)] transition-all">
-                        <span class="material-symbols-outlined text-3xl">hub</span>
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true">hub</span>
                     </div>
                     <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Escala Infinita</h4>
                     <p class="text-slate-400 text-xs leading-relaxed font-medium">
                         Atenda 1 ou 1.000 pacientes ao mesmo tempo com a mesma qualidade de voz humana. Zero fila de espera.
                     </p>
                     <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
-                        <span class="text-[10px] font-black text-emerald-500 uppercase italic">+ Produtividade</span>
+                        <span class="text-xs font-black text-emerald-500 uppercase italic">+ Produtividade</span>
                     </div>
                 </div>
 
                 <!-- Vantagem 02: 24/7 -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-primary/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
                     <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:shadow-[0_0_25px_rgba(255,87,0,0.3)] transition-all">
-                        <span class="material-symbols-outlined text-3xl">schedule</span>
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true">schedule</span>
                     </div>
                     <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Operação 24/7</h4>
                     <p class="text-slate-400 text-xs leading-relaxed font-medium">
                         Seu paciente não dorme, sua clínica também não. Respostas imediatas em fins de semana e feriados.
                     </p>
                     <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
-                        <span class="text-[10px] font-black text-primary uppercase italic">0% Ociosidade</span>
+                        <span class="text-xs font-black text-primary uppercase italic">0% Ociosidade</span>
                     </div>
                 </div>
 
                 <!-- Vantagem 03: Passivo Zero -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-sky-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
                     <div class="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center text-sky-500 mb-8 group-hover:shadow-[0_0_25px_rgba(14,165,233,0.3)] transition-all">
-                        <span class="material-symbols-outlined text-3xl">gavel</span>
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true">gavel</span>
                     </div>
                     <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Passivo Zero</h4>
                     <p class="text-slate-400 text-xs leading-relaxed font-medium">
                         Esqueça férias, 13º, FGTS, hora extra ou processos trabalhistas. Uma IA soberana pronta para o lucro.
                     </p>
                     <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
-                        <span class="text-[10px] font-black text-sky-500 uppercase italic">Segurança Jurídica</span>
+                        <span class="text-xs font-black text-sky-500 uppercase italic">Segurança Jurídica</span>
                     </div>
                 </div>
 
                 <!-- Vantagem 04: ROI -->
                 <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-amber-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
                     <div class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 mb-8 group-hover:shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all">
-                        <span class="material-symbols-outlined text-3xl">trending_up</span>
+                        <span class="material-symbols-outlined text-3xl" aria-hidden="true">trending_up</span>
                     </div>
                     <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Retorno Real</h4>
                     <p class="text-slate-400 text-xs leading-relaxed font-medium">
                         Substitua o custo de 3 ou mais funcionários por uma fração do preço, com 10x mais eficiência.
                     </p>
                     <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
-                        <span class="text-[10px] font-black text-amber-500 uppercase italic">ROI Imediato</span>
+                        <span class="text-xs font-black text-amber-500 uppercase italic">ROI Imediato</span>
                     </div>
                 </div>
             </div>
@@ -784,8 +784,8 @@
             <!-- Bottom Note -->
             <div class="mt-20 text-center" data-aos="fade-up">
                 <div class="inline-flex items-center gap-4 bg-primary/10 border border-primary/20 px-8 py-4 rounded-full shadow-sm">
-                    <span class="material-symbols-outlined text-primary animate-pulse">monetization_on</span>
-                    <span class="text-slate-900 font-display font-black text-xs md:text-sm uppercase italic tracking-widest italic leading-none">ECONOMIA ESTIMADA DE ATÉ <span class="text-primary italic">80% EM CUSTOS OPERACIONAIS</span></span>
+                    <span class="material-symbols-outlined text-primary animate-pulse" aria-hidden="true">monetization_on</span>
+                    <span class="text-slate-900 font-display font-black text-xs md:text-sm uppercase italic tracking-widest leading-none">ECONOMIA ESTIMADA DE ATÉ <span class="text-primary italic">80% EM CUSTOS OPERACIONAIS</span></span>
                 </div>
             </div>
         </div>
@@ -1930,18 +1930,21 @@
             }
         });
 
-        // Toggle Mobile Menu
+        // Toggle Mobile Menu com ARIA
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            if (!menu) return;
+            const btn = document.getElementById('mobile-menu-btn');
+            if (!menu || !btn) return;
             
             const isOpen = !menu.classList.contains('translate-x-full');
             
             if (isOpen) {
                 menu.classList.add('translate-x-full');
+                btn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
             } else {
                 menu.classList.remove('translate-x-full');
+                btn.setAttribute('aria-expanded', 'true');
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -1975,15 +1978,17 @@
             }, 50);
         }
 
-        // FAQ accordion
+        // FAQ accordion com ARIA
         function toggleFaq(el) {
             const content = el.querySelector('.faq-content');
             const icon = el.querySelector('.faq-icon');
+            const btn = el; // Assuming the card itself is the trigger since it has toggleFaq(this)
             const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
 
             // close others
             document.querySelectorAll('.faq-content').forEach(c => {
                 c.style.maxHeight = '0px';
+                c.parentElement.setAttribute('aria-expanded', 'false');
             });
             document.querySelectorAll('.faq-icon').forEach(i => {
                 i.innerText = 'add';
@@ -1994,9 +1999,11 @@
                 content.style.maxHeight = content.scrollHeight + 'px';
                 icon.innerText = 'close';
                 icon.classList.add('rotate-45', 'text-primary');
+                btn.setAttribute('aria-expanded', 'true');
             } else {
                 icon.innerText = 'add';
                 icon.classList.remove('text-primary');
+                btn.setAttribute('aria-expanded', 'false');
             }
         }
     </script>
@@ -2085,11 +2092,11 @@
                 headerEl.innerHTML = `
                     <div class="flex flex-col md:flex-row items-center justify-center gap-4">
                         <h3 class="font-display font-black text-xl md:text-4xl text-slate-800 uppercase tracking-tight italic flex items-center gap-3 transition-colors duration-500">
-                            <span class="material-symbols-outlined text-4xl ${data.iconClass} hidden md:block">${data.iconName}</span>
+                            <span class="material-symbols-outlined text-4xl ${data.iconClass} hidden md:block" aria-hidden="true">${data.iconName}</span>
                             ${data.titlePart1} <span class="${data.titlePart2Class}">${data.titlePart2}</span>
                         </h3>
                     </div>
-                    <p class="text-slate-500 font-accent text-[10px] md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] font-bold mt-2 md:mt-4 break-words text-center transition-colors duration-500">${data.desc}</p>
+                    <p class="text-slate-500 font-accent text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] font-bold mt-2 md:mt-4 break-words text-center transition-colors duration-500">${data.desc}</p>
                 `;
                 headerEl.style.opacity = 1;
                 headerEl.style.transform = 'translateY(0)';
