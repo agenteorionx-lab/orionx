@@ -22,20 +22,34 @@
     <meta property="twitter:description" content="Engenharia de software robusta e agentes de IA que transformam a interação entre pessoas e tecnologia.">
     <meta property="twitter:image" content="https://orionxbrasil.com/imagens/OrionX_Logotipo%20principal%20preto%20(1).png">
 
-    <!-- Tailwind CSS Compilado e Otimizado -->
-    <link rel="stylesheet" href="../compiled-tailwind.css" />
-    <link rel="preload" as="image" href="../imagens/OrionX_X preto (1).png" fetchpriority="high" />
-
-    <!-- Fonts -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- Critical CSS Inlined -->
+    <style>
+        :root {
+            --primary: #FF5700;
+            --primary-dark: #D94A00;
+        }
+        .hero-gradient { background: var(--primary); position: relative; overflow: hidden; min-height: 80vh; }
+        .text-primary-contrast { color: var(--primary-dark) !important; }
+        body { margin: 0; font-family: 'Public Sans', sans-serif; background-color: #fff; color: #1e293b; overflow-x: hidden; }
+        .font-display { font-family: 'Orbitron', sans-serif; }
+    </style>
+
+    <!-- Async CSS Loading -->
+    <link rel="preload" href="../compiled-tailwind.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../compiled-tailwind.css"></noscript>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+
+    <link rel="preload" as="image" href="../imagens/OrionX_X preto (1).png" fetchpriority="high" />
+
     <style>
         .hero-gradient {
             background: #FF5700;

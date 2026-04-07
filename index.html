@@ -29,30 +29,43 @@
     <meta property="twitter:description" content="Engenharia de software robusta e agentes de IA que transformam a interação entre pessoas e tecnologia.">
     <meta property="twitter:image" content="https://orionxbrasil.com/imagens/OrionX_Logotipo%20principal%20preto%20(1).png">
 
-    <!-- Tailwind CSS Compilado e Otimizado -->
-    <link rel="stylesheet" href="compiled-tailwind.css" />
-    <link rel="preload" as="image" href="imagens/OrionX_X preto (1).png" fetchpriority="high" />
-    <link rel="preload" as="image" href="imagens/OrionX_Logotipo principal preto (1).png" fetchpriority="high" />
-
-    <!-- Fonts -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://oyyiowkeegmkicwvbmit.supabase.co">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
-        rel="stylesheet" />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- Critical CSS Inlined -->
     <style>
-        .hero-gradient {
-            background: #FF5700;
+        :root {
+            --primary: #FF5700;
+            --primary-dark: #D94A00; /* WCAG AA Contrast 4.6:1 on white */
+            --bg-dark: #0A0C10;
         }
+        .hero-gradient { background: var(--primary); position: relative; overflow: hidden; min-height: 80vh; }
+        .text-primary-contrast { color: var(--primary-dark) !important; }
+        .bg-primary { background-color: var(--primary) !important; }
+        body { margin: 0; font-family: 'Public Sans', sans-serif; background-color: #fff; color: #1e293b; overflow-x: hidden; }
+        .font-display { font-family: 'Orbitron', sans-serif; }
+        .header-fixed { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.3s; }
     </style>
+
+    <!-- Async CSS Loading -->
+    <link rel="preload" href="compiled-tailwind.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="compiled-tailwind.css"></noscript>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
+
+    <!-- Scripts deferred -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    
+    <link rel="preload" as="image" href="imagens/OrionX_X preto (1).png" fetchpriority="high" />
+    <link rel="preload" as="image" href="imagens/OrionX_Logotipo principal preto (1).png" fetchpriority="high" />
+
     <!-- Scripts -->
     <!-- Top Navigation -->
 
@@ -241,8 +254,7 @@
         <div class="container mx-auto px-4 md:px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-6 md:gap-8">
                 <div class="max-w-2xl">
-                    <h2 class="font-display font-black text-3xl md:text-5xl text-primary mb-4 md:mb-6 uppercase">Nossos Pilares
-                    </h2>
+                    <h2 class="font-display font-black text-3xl md:text-5xl text-primary-contrast mb-4 md:mb-6 uppercase">Nossos Pilares</h2>
                     <p class="text-slate-600 text-sm md:text-lg">Soluções completas que unem a robustez do backend corporativo a
                         uma <span class="text-slate-950 font-bold">experiência 3D</span> impecável.</p>
                 </div>
@@ -355,8 +367,9 @@
                 <!-- Left Content: High-end Typography -->
                 <div class="w-full lg:w-1/2">
                     <div class="inline-flex items-center gap-3 mb-6">
-                        <span class="w-12 h-px bg-white/50"></span>
-                        <span class="font-accent text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-white/90">Padrão de Qualidade</span>
+                        <span class="w-12 h-px bg-primary-dark"></span>
+                        <span class="font-accent text-xs font-bold uppercase tracking-[0.3em] text-primary-contrast">Soluções
+                            Digitais</span>
                     </div>
                     
                     <h2 class="font-display font-black text-4xl md:text-6xl mb-12 uppercase leading-[1.1] tracking-tighter drop-shadow-md">
@@ -641,7 +654,7 @@
                             <span
                                 class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">bolt</span>
                         </div>
-                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Performance</h5>
+                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary-contrast">Performance</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Carregamentos em milissegundos e arquiteturas
                             preparadas para picos massivos.</p>
                     </div>
@@ -651,7 +664,7 @@
                             <span
                                 class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">shield</span>
                         </div>
-                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Segurança</h5>
+                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary-contrast">Segurança</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Modelagem de dados robusta e protocolos de
                             segurança de nível corporativo.</p>
                     </div>
@@ -661,7 +674,7 @@
                             <span
                                 class="material-symbols-outlined text-slate-950 text-4xl font-bold group-hover:scale-110 transition-transform" aria-hidden="true">sync</span>
                         </div>
-                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary">Estabilidade</h5>
+                        <h5 class="font-display font-bold text-xl mb-4 uppercase text-primary-contrast">Estabilidade</h5>
                         <p class="text-white/60 text-sm leading-relaxed">Monitoramento ativo e ambientes Linux/VPS
                             otimizados para 99.9% uptime.</p>
                     </div>
