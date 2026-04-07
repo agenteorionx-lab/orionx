@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html class="scroll-smooth bg-black" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>IA PARA CLÍNICAS E HOSPITAIS | OrionX</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF5700",
+                        "dark": "#0a0c10",
+                        "darker": "#030201",
+                        "light": "#ffffff",
+                        "light-gray": "#f8fafc",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "accent": ["Exo 2", "sans-serif"],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        /* Force black background for the whole page bottom to avoid white strips */
+        html, body {
+            background-color: #000000 !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Pulse Animation */
+        .pulse-ring { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 87, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 0, 0); }
+        }
+
+        /* Glassmorphism */
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* WhatsApp Style Mockup (Light) */
+        .wpp-container {
+            background-color: #e5ddd5;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-size: contain;
+            background-blend-mode: overlay;
+        }
+
+        .chat-bubble-wpp {
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            animation: wppPop 0.4s forwards;
+            position: relative;
+        }
+
+        .chat-bubble-wpp::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .chat-bubble-left {
+            align-self: flex-start;
+            background-color: #ffffff;
+            color: #111b21;
+            border-radius: 0 8px 8px 8px;
+        }
+
+        .chat-bubble-left::after {
+            top: 0;
+            left: -8px;
+            border-width: 0 8px 10px 0;
+            border-color: transparent #ffffff transparent transparent;
+        }
+
+        .chat-bubble-right {
+            align-self: flex-end;
+            background-color: #dcf8c6;
+            color: #111b21;
+            border-radius: 8px 0 8px 8px;
+        }
+
+        .chat-bubble-right::after {
+            top: 0;
+            right: -8px;
+            border-width: 10px 8px 0 0;
+            border-color: #dcf8c6 transparent transparent transparent;
+        }
+
+        @keyframes wppPop {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Float Animation for interactive cards */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes float3d {
+            0%, 100% { transform: perspective(1000px) rotateX(-5deg) rotateY(10deg) translateY(0); }
+            50% { transform: perspective(1000px) rotateX(-5deg) rotateY(10deg) translateY(-15px); }
+        }
+
+        .iphone-float {
+            animation: float3d 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        /* Shadow Grow/Shrink Animation */
+        @keyframes shadowScale {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(0.85); opacity: 0.1; }
+        }
+
+        @keyframes neon-pulse {
+            0%, 100% { opacity: 0.6; shadow: 0 0 10px rgba(255,87,0,0.3); }
+            50% { opacity: 1; shadow: 0 0 20px rgba(255,87,0,0.8); }
+        }
+        .neon-blink {
+            animation: neon-pulse 1.5s infinite ease-in-out;
+        }
+        .shadow-float {
+            animation: shadowScale 5s ease-in-out infinite;
+        }
+
+        /* Timing for messages (10 messages total) */
+        .msg-1 { animation-delay: 1s; }
+        .msg-2 { animation-delay: 3s; }
+        .msg-3 { animation-delay: 5s; }
+        .msg-4 { animation-delay: 7s; }
+        .msg-5 { animation-delay: 9s; }
+        .msg-6 { animation-delay: 11s; }
+        .msg-7 { animation-delay: 13s; }
+        .msg-8 { animation-delay: 15s; }
+        .msg-9 { animation-delay: 17s; }
+        .msg-10 { animation-delay: 19s; }
+
+        /* Tech Background Grid (Dark and Light variants) */
+        .tech-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+        .tech-grid-dark {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+        }
+
+        /* Glow Effects */
+        .glow-emerald:hover { box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.5) !important; }
+        .glow-primary:hover { box-shadow: 0 0 30px rgba(255, 87, 0, 0.2); border-color: rgba(255, 87, 0, 0.5) !important; }
+        .glow-sky:hover { box-shadow: 0 0 30px rgba(14, 165, 233, 0.2); border-color: rgba(14, 165, 233, 0.5) !important; }
+
+        /* Tech Tags */
+        .tech-tag {
+            font-size: 8px;
+            letter-spacing: 0.2em;
+            font-weight: 900;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-family: 'Exo 2', sans-serif;
+        }
+
+        /* Soundwave animation (refined) */
+        .bar {
+            width: 3px;
+            min-height: 4px;
+            background: currentColor;
+            border-radius: 10px;
+            animation: sound 0ms -800ms linear infinite alternate;
+        }
+        @keyframes sound {
+            0% { height: 10%; }
+            100% { height: 100%; }
+        }
+
+        /* Stepper Connection */
+        .step-connect::after {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: -1;
+        }
+        .step-item:last-child .step-connect::after { display: none; }
+        .swiper-pagination-bullet-active { background-color: #FF5700 !important; }
+    </style>
+</head>
+
+<body class="bg-black font-body text-slate-200 antialiased selection:bg-primary selection:text-white overflow-x-hidden min-h-screen flex flex-col">
+
+
+    <!-- Header (Dark) -->
+    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-black/90 backdrop-blur-md border-b border-white/5 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2">
+                <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-10 w-auto">
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-white">
+                <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#gargalos">Diagnóstico</a>
+                <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#pilares">Arquitetura</a>
+                <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#modulos">Módulos</a>
+                <a class="font-accent font-bold text-[11px] uppercase tracking-widest hover:text-primary transition-colors" href="#faq">FAQ</a>
+            </nav>
+            <a href="https://wa.me/5538984116978" target="_blank" class="bg-primary text-white font-display font-bold px-6 py-2 rounded-full hover:bg-white hover:text-primary transition-all text-xs tracking-widest shadow-[0_0_15px_rgba(255,87,0,0.4)]">
+                FALE CONOSCO
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+    <!-- 1. Hero Section (BLACK) -->
+    <section class="bg-slate-50 relative overflow-hidden min-h-screen flex flex-col justify-center text-slate-900 border-b border-slate-200">
+        <!-- Grid Background -->
+        <div class="absolute inset-0 tech-grid opacity-10"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,87,0,0.15),transparent_60%)]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col lg:flex-row items-center gap-12 py-20">
+                      <!-- Col 1: Text Content -->
+            <div class="w-full lg:w-3/5 text-center lg:text-left" data-aos="fade-right">
+                <div class="inline-flex items-center gap-2 mb-8 border border-primary/20 bg-primary/5 py-1.5 px-4 rounded-full backdrop-blur shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                    <span class="font-mono text-[10px] text-primary tracking-widest uppercase font-bold">TECNOLOGIA MULTIMODAL // PERFORMANCE EM SAÚDE 24/7</span>
+                </div>
+                
+                <h1 class="font-display font-black text-4xl md:text-5xl lg:text-6xl text-slate-900 uppercase tracking-tight leading-[1.1] mb-8">
+                    Atendimento Clínico de <span class="text-primary italic">Alta Performance</span> e Inteligência em Escala
+                </h1>
+                
+                <p class="text-slate-600 text-lg md:text-xl font-medium leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
+                    Sua recepção nunca mais para. Agentes de IA OrionX gerenciam agendamentos e consultas 24h por dia, com precisão técnica e voz humana.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start">
+                    <button onclick="openBooking()" class="bg-primary text-white font-display font-bold px-10 py-5 rounded-2xl hover:scale-105 transition-all uppercase tracking-[0.2em] text-xs shadow-[0_20px_50px_rgba(255,87,0,0.3)] group drop-shadow-xl inline-flex items-center gap-4">
+                        <span>AGENDAR UMA REUNIÃO</span>
+                    </button>
+                    <button onclick="slowScrollTo('modulos')" class="bg-white text-slate-900 border border-slate-200 font-display font-bold px-10 py-5 rounded-2xl hover:bg-slate-50 transition-all uppercase tracking-[0.2em] text-xs group inline-flex items-center gap-4">
+                        <span>MAIS INFORMAÇÕES</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Col 2: Interactive Mockups (PREMIUM DARK MODE) -->
+            <div class="w-full lg:w-2/5 relative flex flex-col gap-6" data-aos="fade-left">
+                
+                <!-- Card 1: WhatsApp Agente (Dark) -->
+                <div class="bg-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl animate-float-slow group">
+                    <div class="bg-white/5 p-4 flex items-center justify-between border-b border-white/5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                <span class="material-symbols-outlined text-sm">chat_bubble</span>
+                            </div>
+                            <div>
+                                <h4 class="text-slate-100 text-xs font-bold leading-none mb-1">Agente IA — WhatsApp</h4>
+                                <span class="text-emerald-500 text-[9px] font-bold uppercase tracking-widest flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> online
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex flex-col gap-3">
+                            <div class="bg-white/5 border border-white/5 rounded-xl rounded-tl-none p-3 max-w-[85%]">
+                                <p class="text-slate-300 text-[11px] leading-relaxed italic">Bom dia! Bem-vindo à Clínica Orion. Deseja agendar um exame ou consulta agora?</p>
+                                <span class="text-[8px] text-slate-500 mt-1 block text-right">09:01</span>
+                            </div>
+                            <div class="bg-primary/10 border border-primary/20 rounded-xl rounded-tr-none p-3 max-w-[85%] ml-auto shadow-sm">
+                                <p class="text-slate-100 text-[11px] leading-relaxed font-medium">Olá, preciso marcar uma ressonância para amanhã. Vocês têm horário?</p>
+                                <span class="text-[8px] text-primary/60 mt-1 block text-right">09:02</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-3 bg-white/5 flex gap-4 text-[9px] font-bold text-slate-500 uppercase tracking-widest border-t border-white/5">
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">mic</span> ÁUDIO</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">image</span> IMAGEM</span>
+                        <span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">description</span> DOC</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Telefonia Agente (Dark) -->
+                <div class="bg-slate-950 border border-white/10 rounded-2xl p-4 shadow-2xl flex items-center justify-between animate-float translate-x-4 lg:translate-x-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">call</span>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-100 text-xs font-bold leading-none mb-1">Agente IA — Telefonia</h4>
+                            <span class="text-primary text-[9px] font-bold uppercase tracking-widest">Chamada ativa • 02:34</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-1.5 px-4 text-primary">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary/60 animate-bounce transition-all"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-bounce transition-all delay-100"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary/40 animate-bounce transition-all delay-200"></span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Central Omnichannel (Dark) -->
+                <div class="bg-slate-950 border border-white/10 rounded-2xl p-4 shadow-2xl flex items-center gap-4 animate-float-fast -translate-x-2 lg:-translate-x-4">
+                    <div class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-sm">headset_mic</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-slate-100 text-xs font-bold mb-2 uppercase tracking-tighter italic">Painel de Soberania</h4>
+                        <div class="flex gap-2">
+                            <span class="bg-white/5 text-slate-300 text-[8px] font-black uppercase px-2 py-0.5 rounded border border-white/10 tracking-tighter">12 atendimentos ativos</span>
+                            <span class="bg-primary/10 text-primary text-[8px] font-black uppercase px-2 py-0.5 rounded border border-primary/20 tracking-tighter">Custo por agendamento: R$ 0,45</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Glow effect background -->
+                <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary/20 blur-[120px] rounded-full"></div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 2. DIAGNÓSTICO (REDESENHADO: ROI MODE) -->
+    <section id="gargalos" class="bg-white py-24 relative overflow-hidden border-b border-slate-100">
+        <div class="absolute inset-0 tech-grid opacity-5"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="font-mono text-primary font-bold text-xs tracking-widest uppercase mb-2 block">O PREJUÍZO DA OCIOSIDADE</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-slate-900 uppercase tracking-tight">O Custo Oculto da <span class="text-primary">Cadeira Vazia</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">Cada minuto de sala ociosa e cada lead não respondido é patrimônio que sua clínica deixa de faturar. A OrionX estanca a sangria financeira em tempo real.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Problema 1: Conversão -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-red-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-red-500 tracking-widest uppercase font-bold">LATENCY_AUDIT_01</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 group-hover:shadow-[0_0_20px_#EF4444] transition-all">
+                            <span class="material-symbols-outlined text-3xl">timer_off</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">Abandono de Lead</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">48% dos pacientes desistem se não houver resposta imediata. Lead que espera é lead que agenda no concorrente.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-red-500/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Perda Estimada</span>
+                            <span class="text-xs font-black text-red-500 italic uppercase tracking-tighter">Impacto: -48% de Conversão</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-red-500 w-[80%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problema 2: Receita -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-primary tracking-widest uppercase font-bold">OFF_HOURS_LEAKS</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all">
+                            <span class="material-symbols-outlined text-3xl">payments</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">Receita Abandonada</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Buscas noturnas e de fim de semana são leads de alta intenção que esfriam sem um atendimento 24/7 técnico.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-primary/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Vazamento Financeiro</span>
+                            <span class="text-xs font-black text-primary italic uppercase tracking-tighter">Impacto: Lucro Cessante 24h</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary w-[95%] animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problema 3: Ociosidade -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-amber-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-amber-500 tracking-widest uppercase font-bold">MED_RESOURCE_IDLE</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-500 group-hover:shadow-[0_0_20px_#F59E0B] transition-all">
+                            <span class="material-symbols-outlined text-3xl">event_busy</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">Ociosidade Médica</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Equipamentos caros e especialistas parados por no-shows não confirmados destroem sua margem líquida.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-amber-500/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Custo da Hora Parada</span>
+                            <span class="text-xs font-black text-amber-500 italic uppercase tracking-tighter">Impacto: Alta Ociosidade</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-amber-500 w-[60%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problema 4: No-Show -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-primary/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-primary tracking-widest uppercase font-bold">Auto_Confirm_v2</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all">
+                            <span class="material-symbols-outlined text-3xl">notification_important</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">No-Show Invisível</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Agendas confirmadas manualmente falham em 22% das vezes. A IA garante a confirmação multicanal 100% à prova de falhas.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-primary/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Recuperação de Agenda</span>
+                            <span class="text-xs font-black text-primary italic uppercase tracking-tighter">Impacto: -22% de Fugas</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary w-[75%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problema 5: Retorno -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-emerald-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-emerald-500 tracking-widest uppercase font-bold">LTV_Booster_Active</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 group-hover:shadow-[0_0_20px_#10B981] transition-all">
+                            <span class="material-symbols-outlined text-3xl">history</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">Retorno Esquecido</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Módulos de busca ativa evitam que o paciente esqueça o agendamento pós-exame. O ciclo de faturamento nunca para.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-emerald-500/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Aumento de Faturamento</span>
+                            <span class="text-xs font-black text-emerald-500 italic uppercase tracking-tighter">Impacto: +15% Recorrência</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-emerald-500 w-[90%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problema 6: Gargalo -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-2xl hover:border-sky-500/60 transition-all duration-500 group shadow-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <span class="font-mono text-[8px] text-sky-500 tracking-widest uppercase font-bold">Scaling_Protocol_On</span>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 group-hover:shadow-[0_0_20_#0EA5E9] transition-all">
+                            <span class="material-symbols-outlined text-3xl">hub</span>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg">Barreira de Escala</h4>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">Sua recepção física é limitada. A IA escala infinitamente sem precisar contratar ou treinar novas pessoas.</p>
+                    <div class="pt-5 border-t border-white/10 flex items-center justify-between bg-gradient-to-r from-transparent to-sky-500/5 -mx-8 px-8">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-1">Redução de Custo de Escala</span>
+                            <span class="text-xs font-black text-sky-500 italic uppercase tracking-tighter">Impacto: 0% Fila de Espera</span>
+                        </div>
+                        <div class="h-1.5 w-12 bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-sky-500 w-[100%]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>             </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PILARES (BRIGHT BLUEPRINT) -->
+<section id="pilares" class="bg-white py-16 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-10"></div>
+        <div class="max-w-[85rem] mx-auto px-4 relative z-10">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-3 block font-accent italic">ENGENHARIA DE LUCRO</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-slate-900 uppercase tracking-tight leading-none">Arquitetura de <span class="text-primary italic">Resultados</span></h2>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center" data-aos="fade-up">
+                
+                <!-- Left: Professional Compact Cards -->
+                <div class="w-full lg:w-1/2 flex flex-col justify-center gap-6">
+                    
+                    <!-- Card A: WhatsApp -->
+                    <div class="bg-slate-900 border border-white/5 p-8 lg:p-6 rounded-[2rem] shadow-2xl hover:border-emerald-500/20 transition-all duration-500 group relative overflow-hidden flex flex-col justify-between min-h-[160px]">
+                        <!-- Impact Visual (Bubble Style Upper Right) -->
+                        <div class="absolute top-4 right-4 group-hover:-translate-y-1 transition-transform">
+                            <div class="bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.1)] flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="text-white font-display font-black text-xs italic">100% Impacto</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="w-12 h-12 shrink-0 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:shadow-[0_0_20px_#10B981] transition-all">
+                                <span class="material-symbols-outlined text-2xl">forum</span>
+                            </div>
+                            <div class="flex-1 pr-16">
+                                <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">WHATSAPP CLH (CONVERSÃO)</h3>
+                                <p class="text-emerald-400 font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">CAPTAÇÃO E AGENDAMENTO 24/7</p>
+                                <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                                    Respostas resolutivas que transformam curiosos em agendamentos em menos de 10 segundos.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Neon Base Line -->
+                        <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-emerald-500/60 shadow-[0_-5px_15px_rgba(16,185,129,0.3)]"></div>
+                    </div>
+
+                    <!-- Card B: Telephony (ROI FOCUS - MIDDLE CARD HIGHLIGHTED) -->
+                    <div class="bg-slate-900 border border-primary/30 p-8 lg:p-7 rounded-[2rem] shadow-2xl hover:border-primary transition-all duration-500 group relative overflow-hidden flex flex-col justify-between min-h-[180px] transform">
+                        <!-- Impact Visual (Bubble Style Upper Right) -->
+                        <div class="absolute top-4 right-4 group-hover:-translate-y-1 transition-transform">
+                            <div class="bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(255,87,0,0.1)] flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                <span class="text-white font-display font-black text-xs italic">+25% ROI</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Badge NOVO -->
+                        <div class="absolute top-4 left-20 bg-primary text-white text-[7px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest animate-pulse z-20">NOVO</div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="w-12 h-12 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:shadow-[0_0_20px_#FF5700] transition-all relative">
+                                <span class="material-symbols-outlined text-2xl">record_voice_over</span>
+                            </div>
+                            <div class="flex-1 pr-16">
+                                <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">VOICE AI (PROATIVO)</h3>
+                                <p class="text-primary font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">BUSCA ATIVA DE RETORNOS</p>
+                                <p class="text-slate-200 text-xs leading-relaxed font-semibold">
+                                    A IA liga para o paciente para marcar o retorno de exames e garantir o faturamento da consulta.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Neon Base Line (FIXED + BLINKING) -->
+                        <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-primary shadow-[0_-5px_20px_rgba(255,87,0,0.6)] neon-blink"></div>
+                    </div>
+
+                    <!-- Card C: Omnichannel -->
+                    <div class="bg-slate-900 border border-white/5 p-8 lg:p-6 rounded-[2rem] shadow-2xl hover:border-sky-500/20 transition-all duration-500 group relative overflow-hidden flex flex-col justify-between min-h-[160px]">
+                        <!-- Impact Visual (Bubble Style Upper Right) -->
+                        <div class="absolute top-4 right-4 group-hover:-translate-y-1 transition-transform">
+                            <div class="bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(14,165,233,0.1)] flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
+                                <span class="text-white font-display font-black text-xs italic">360º Eficiência</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6 items-start">
+                            <div class="w-12 h-12 shrink-0 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-500 group-hover:shadow-[0_0_20px_#0EA5E9] transition-all">
+                                <span class="material-symbols-outlined text-2xl">dashboard_customize</span>
+                            </div>
+                            <div class="flex-1 pr-16">
+                                <h3 class="font-display font-black text-base text-white uppercase tracking-tight mb-1">GESTÃO OMNICHANNEL</h3>
+                                <p class="text-sky-400 font-bold text-[9px] uppercase tracking-widest mb-3 font-accent">FLUXO UNIFICADO DE RECEITA</p>
+                                <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                                    Dados centralizados para que seu staff foque apenas no atendimento presencial.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Neon Base Line -->
+                        <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-sky-500/60 shadow-[0_-5px_15px_rgba(14,165,233,0.3)]"></div>
+                    </div>
+                </div>
+
+                <!-- Right: CSS-BASED SMARTPHONE MOCKUP -->
+                <div class="w-full lg:w-1/2 flex flex-col items-center justify-center relative py-6">
+                    <!-- Title enquadrado -->
+                    <div class="mb-10 text-center" data-aos="fade-down">
+                        <h2 class="font-display font-black text-slate-900 text-2xl mb-1 uppercase tracking-tighter italic">ATENDIMENTO POR VOZ</h2>
+                        <p class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.4em]">QUALIDADE DE VOZ HUMANA</p>
+                    </div>
+
+                    <!-- PHONE CONTAINER (CSS ONLY) WITH FLOAT ANIMATION -->
+                    <div class="relative group iphone-float" data-aos="zoom-in">
+                        <!-- Outer Frame -->
+                        <div class="w-[240px] h-[480px] md:w-[280px] md:h-[560px] bg-black rounded-[2.8rem] p-2.5 border-[8px] border-slate-800 shadow-[0_40px_80px_rgba(0,0,0,0.3)] relative overflow-hidden transition-all duration-700">
+                            <!-- Screen Content -->
+                            <div class="w-full h-full bg-black rounded-[2rem] overflow-hidden flex flex-col items-center justify-between py-10 px-6 relative">
+                                
+                                <!-- Top Bar (Clock/Icons) -->
+                                <div class="absolute top-4 left-0 right-0 px-8 flex justify-between items-center text-white/90 text-[9px] font-bold">
+                                    <span>09:41</span>
+                                    <div class="flex gap-1 items-center">
+                                        <span class="material-symbols-outlined text-[9px]">signal_cellular_4_bar</span>
+                                        <span class="material-symbols-outlined text-[9px]">battery_full</span>
+                                    </div>
+                                </div>
+
+                                <!-- Center Call Info -->
+                                <div class="flex flex-col items-center mt-6">
+                                    <div class="w-20 h-20 rounded-full bg-emerald-500/20 flex items-center justify-center mb-5 relative">
+                                        <div class="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping"></div>
+                                        <div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center relative z-10 text-white shadow-[0_0_25px_rgba(16,185,129,0.4)]">
+                                            <span class="material-symbols-outlined text-2xl">person</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-white font-display font-black text-xl uppercase tracking-tight mb-1">Clínica OrionX</h3>
+                                    <p class="text-emerald-500 font-black text-[8px] uppercase tracking-[0.2em] animate-pulse">CHAMADA POR VOZ IA</p>
+                                </div>
+
+                                <!-- Timer -->
+                                <div class="bg-white/5 border border-white/10 px-5 py-1.5 rounded-full backdrop-blur-md">
+                                    <span class="text-white font-mono text-[12px] tracking-widest flex items-center gap-2">
+                                        <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        02:14
+                                    </span>
+                                </div>
+
+                                <!-- Call Controls -->
+                                <div class="w-full flex justify-around items-center">
+                                    <div class="flex flex-col items-center gap-1.5">
+                                        <div class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white">
+                                            <span class="material-symbols-outlined text-xl">call_end</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-center gap-1.5">
+                                        <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+                                            <span class="material-symbols-outlined text-xl">mic</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shadow Floor -->
+                        <div class="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[70%] h-3 bg-black/20 blur-xl rounded-full shadow-float"></div>
+                    </div>
+
+                    <p class="text-slate-400 text-[8px] mt-12 max-w-[300px] leading-relaxed font-black text-center uppercase tracking-[0.3em] relative z-20">
+                        TECNOLOGIA DE LATÊNCIA ZERO
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    <!-- 4. VANTAGENS & ROI (DARK CARDS ON WHITE) -->
+    <section id="vantagens" class="bg-white py-24 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-10"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(255,87,0,0.05),transparent_70%)]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary font-black text-[10px] uppercase tracking-[0.5em] mb-4 block font-accent italic">A MATEMÁTICA DO LUCRO</span>
+                <h2 class="font-display font-black text-3xl md:text-5xl text-slate-900 uppercase tracking-tight leading-none">A Inteligência que <span class="text-primary italic">Multiplica seu Lucro</span></h2>
+                <p class="text-slate-600 mt-4 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed uppercase tracking-widest opacity-80 italic">POR QUE VALE A PENA SUBSTITUIR CUSTOS FIXOS POR ESCALA INFINITA?</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Vantagem 01: Escala -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-emerald-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up">
+                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 mb-8 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.3)] transition-all">
+                        <span class="material-symbols-outlined text-3xl">hub</span>
+                    </div>
+                    <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Escala Infinita</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                        Atenda 1 ou 1.000 pacientes ao mesmo tempo com a mesma qualidade de voz humana. Zero fila de espera.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
+                        <span class="text-[10px] font-black text-emerald-500 uppercase italic">+ Produtividade</span>
+                    </div>
+                </div>
+
+                <!-- Vantagem 02: 24/7 -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-primary/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:shadow-[0_0_25px_rgba(255,87,0,0.3)] transition-all">
+                        <span class="material-symbols-outlined text-3xl">schedule</span>
+                    </div>
+                    <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Operação 24/7</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                        Seu paciente não dorme, sua clínica também não. Respostas imediatas em fins de semana e feriados.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
+                        <span class="text-[10px] font-black text-primary uppercase italic">0% Ociosidade</span>
+                    </div>
+                </div>
+
+                <!-- Vantagem 03: Passivo Zero -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-sky-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center text-sky-500 mb-8 group-hover:shadow-[0_0_25px_rgba(14,165,233,0.3)] transition-all">
+                        <span class="material-symbols-outlined text-3xl">gavel</span>
+                    </div>
+                    <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Passivo Zero</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                        Esqueça férias, 13º, FGTS, hora extra ou processos trabalhistas. Uma IA soberana pronta para o lucro.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
+                        <span class="text-[10px] font-black text-sky-500 uppercase italic">Segurança Jurídica</span>
+                    </div>
+                </div>
+
+                <!-- Vantagem 04: ROI -->
+                <div class="bg-slate-900 border border-white/5 p-8 rounded-[2.5rem] shadow-2xl hover:border-amber-500/30 transition-all duration-700 group hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 mb-8 group-hover:shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all">
+                        <span class="material-symbols-outlined text-3xl">trending_up</span>
+                    </div>
+                    <h4 class="font-display font-black text-white text-lg uppercase tracking-tight mb-3 italic">Retorno Real</h4>
+                    <p class="text-slate-400 text-xs leading-relaxed font-medium">
+                        Substitua o custo de 3 ou mais funcionários por uma fração do preço, com 10x mais eficiência.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
+                        <span class="text-[10px] font-black text-amber-500 uppercase italic">ROI Imediato</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Note -->
+            <div class="mt-20 text-center" data-aos="fade-up">
+                <div class="inline-flex items-center gap-4 bg-primary/10 border border-primary/20 px-8 py-4 rounded-full shadow-sm">
+                    <span class="material-symbols-outlined text-primary animate-pulse">monetization_on</span>
+                    <span class="text-slate-900 font-display font-black text-xs md:text-sm uppercase italic tracking-widest italic leading-none">ECONOMIA ESTIMADA DE ATÉ <span class="text-primary italic">80% EM CUSTOS OPERACIONAIS</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. JORNADA DE IMPLEMENTAÇÃO (DARK CARDS ON WHITE) -->
+    <section id="jornada" class="bg-white py-24 relative overflow-hidden">
+        <div class="absolute inset-0 tech-grid opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="font-display font-black text-4xl md:text-5xl text-slate-900 uppercase tracking-tight">O Fluxo da Sua <span class="text-primary italic">Transformação Digital</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 01: Setup (Emerald) -->
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl relative group hover:border-emerald-500/50 transition-all duration-700 h-full flex flex-col" data-aos="fade-up">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl text-emerald-500">settings_input_component</span>
+                        </div>
+                        <span class="bg-emerald-500/10 text-emerald-500 text-[9px] font-black px-4 py-1.5 rounded-full border border-emerald-500/20">Fase 01</span>
+                    </div>
+                    <h4 class="font-display font-black text-xl text-white mb-4 uppercase tracking-tight italic">Integração</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Conectamos a IA aos seus fluxos de atendimento e software de gestão de forma nativa.</p>
+                </div>
+
+                <!-- Card 02: Treinamento (Cyan) -->
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl relative group hover:border-sky-500/50 transition-all duration-700 h-full flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-sky-500/10 border border-sky-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl text-sky-500">neurology</span>
+                        </div>
+                        <span class="bg-sky-500/10 text-sky-500 text-[9px] font-black px-4 py-1.5 rounded-full border border-sky-500/20">Fase 02</span>
+                    </div>
+                    <h4 class="font-display font-black text-xl text-white mb-4 uppercase tracking-tight italic">Treinamento</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Alimentamos a IA com seus protocolos, regras de convênios e o tom de voz exclusivo da sua clínica.</p>
+                </div>
+
+                <!-- Card 03: Integração (Orange/Primary) -->
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl relative group hover:border-primary/50 transition-all duration-700 h-full flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl text-primary">hub</span>
+                        </div>
+                        <span class="bg-primary/10 text-primary text-[9px] font-black px-4 py-1.5 rounded-full border border-primary/20">Fase 03</span>
+                    </div>
+                    <h4 class="font-display font-black text-xl text-white mb-4 uppercase tracking-tight italic">Integração HIS/CRM</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Conexão direta às APIs do seu software de gestão para marcação de consultas e exames em tempo real.</p>
+                </div>
+
+                <!-- Card 04: Escala (Purple/Fuchsia) -->
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl relative group hover:border-fuchsia-500/50 transition-all duration-700 h-full flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-start mb-10">
+                        <div class="w-14 h-14 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                            <span class="material-symbols-outlined text-3xl text-fuchsia-500">speed</span>
+                        </div>
+                        <span class="bg-fuchsia-500/10 text-fuchsia-500 text-[9px] font-black px-4 py-1.5 rounded-full border border-fuchsia-500/20">Fase 04</span>
+                    </div>
+                    <h4 class="font-display font-black text-xl text-white mb-4 uppercase tracking-tight italic">Gestão & Escala</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-10">Lançamento assistido, monitoramento constante de métricas e expansão de capacidade sob demanda.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. MÓDULOS (CARROSSEL DINÂMICO REDESENHADO) -->
+    <section id="modulos" class="bg-white py-24 relative overflow-hidden">
+        <!-- Global Background Elements -->
+        <div class="absolute inset-0 tech-grid opacity-10"></div>
+        <div class="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-slate-50 to-transparent"></div>
+        
+        <div class="max-w-[90rem] mx-auto px-4 relative z-10">
+            <!-- ENQUADRAMENTO DO TÍTULO: Unified Header Container -->
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="font-display font-black text-4xl md:text-5xl text-slate-900 uppercase tracking-tighter mb-4 leading-none text-balance">São mais de <span class="text-primary italic">9 soluções individuais</span></h2>
+                <div class="h-1 w-32 bg-primary mx-auto rounded-full shadow-[0_4px_20px_rgba(255,87,0,0.3)] mb-10"></div>
+                
+                <!-- Dynamic Category Header Container -->
+                <div id="dynamic-category-header" class="flex flex-col items-center justify-center transition-all duration-500 ease-in-out min-h-[120px]">
+                    <!-- Hidratado via JS -->
+                </div>
+            </div>
+
+            <!-- SWIPER CAROUSEL CONTAINER -->
+            <div class="swiper modulosSwiper pb-20 pt-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="swiper-wrapper">
+                    
+                    <!-- MODULE 01 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] hover:border-emerald-500/30">
+                            <div class="absolute top-8 right-8 text-emerald-500/10 font-mono text-4xl font-black italic">01</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-emerald-400 transition-colors pr-12">SDR de Elite</h4>
+                            <p class="text-emerald-500 font-black text-[10px] uppercase tracking-widest mb-6">NÃO DEIXE NENHUM LEAD ESFRIAR</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Resposta em segundos que qualifica o paciente e garante que o desejo de agendamento vire receita real.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Resiliência de Vendas</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Qualificação de Convênios</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Escala Infinita 24/7</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Foco em Faturamento</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- MODULE 02 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] hover:border-emerald-500/30">
+                            <div class="absolute top-8 right-8 text-emerald-500/10 font-mono text-4xl font-black italic">02</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-emerald-400 transition-colors pr-12">Agendador 24/7</h4>
+                            <p class="text-emerald-500 font-black text-[10px] uppercase tracking-widest mb-6">AGENDA SEMPRE CHEIA</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">A IA consulta sua grade e finaliza o agendamento no software, eliminando a espera e a desistência.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Integração Nativa</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Zero Fila de Espera</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Alta Eficiência Oper.</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Mais Consultas/Hora</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- MODULE 03 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(16,185,129,0.15)] hover:border-emerald-500/30">
+                            <div class="absolute top-8 right-8 text-emerald-500/10 font-mono text-4xl font-black italic">03</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-emerald-400 transition-colors pr-12">Filtro de Convênios</h4>
+                            <p class="text-emerald-500 font-black text-[10px] uppercase tracking-widest mb-6">VALIDAÇÃO DE ELEGIBILIDADE</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Valida regras de planos aceitos e solicita fotos da carteirinha e pedido médico automaticamente.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> OCR de Documentos</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Consulta de Planos</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Coleta de Pedidos</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Redução de Glosas</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- MODULE 04 (VOICE) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(255,87,0,0.15)] hover:border-primary/30">
+                            <div class="absolute top-8 right-8 text-primary/10 font-mono text-4xl font-black italic">04</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-primary transition-colors pr-12">Agente Receptivo</h4>
+                            <p class="text-primary font-black text-[10px] uppercase tracking-widest mb-6">ATENDIMENTO INBOUND POR VOZ</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Recebe ligações com voz humana ultra-realista e latência sub-segundo (~600ms).</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Voz ultra-realista</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Latência ~600ms</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Turn-taking intel.</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Roteamento Dinâmico</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- MODULE 05 (VOICE ROI) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-primary/30 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(255,87,0,0.25)] hover:border-primary/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
+                            <div class="absolute top-8 right-8 text-primary/20 font-mono text-4xl font-black italic">05</div>
+                            <div class="relative z-10 w-full flex-1 flex flex-col">
+                                <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-primary transition-colors pr-12">Busca Ativa de Retorno</h4>
+                                <p class="text-primary font-black text-[10px] uppercase tracking-widest mb-6">RECUPERAÇÃO DE RECEITA</p>
+                                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Liga proativamente para o paciente agendar o retorno após exames, garantindo o ciclo.</p>
+                                <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                    <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Agendamento Pró-ativo</li>
+                                    <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Follow-up de Exames</li>
+                                    <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Fidelização Garantida</li>
+                                    <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Aumento de Ticket</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- MODULE 06 (VOICE) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(255,87,0,0.15)] hover:border-primary/30">
+                            <div class="absolute top-8 right-8 text-primary/10 font-mono text-4xl font-black italic">06</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-primary transition-colors pr-12">Ag. Transferência</h4>
+                            <p class="text-primary font-black text-[10px] uppercase tracking-widest mb-6">QUALIFICAÇÃO + HANDOFF</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Qualifica por voz com function calling real-time e transfere para seu time com todo o contexto.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Qualificação por voz</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Fc Calling real-time</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Transferência intel.</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Integração SIP/PABX</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- MODULE 07 (OMNICHANNEL) -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(14,165,233,0.15)] hover:border-sky-500/30">
+                            <div class="absolute top-8 right-8 text-sky-500/10 font-mono text-4xl font-black italic">07</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-sky-400 transition-colors pr-12">Visão 360º</h4>
+                            <p class="text-sky-500 font-black text-[10px] uppercase tracking-widest mb-6">DASHBOARD DE RECEITA</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Controle total sobre o status de agendamento e o impacto financeiro de cada canal em tempo real.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Monitorização</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Análise de Gargalos</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> ROI por Canal</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Visão Operacional</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- MODULE 08 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(14,165,233,0.15)] hover:border-sky-500/30">
+                            <div class="absolute top-8 right-8 text-sky-500/10 font-mono text-4xl font-black italic">08</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-sky-400 transition-colors pr-12">Staff Copilot</h4>
+                            <p class="text-sky-500 font-black text-[10px] uppercase tracking-widest mb-6">REDUÇÃO DE CARGA HUMANA</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Sua equipe física gasta menos tempo no chat e foca em quem já está dentro da clínica.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Automação de Tarefas</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Triagem para Atendim.</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Padronização de Voz</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Eficiência em Dobro</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- MODULE 09 -->
+                    <div class="swiper-slide h-auto">
+                        <div class="bg-darker border border-white/10 p-10 rounded-[2.5rem] transition-all duration-700 group relative flex flex-col h-full hover:-translate-y-4 hover:shadow-[0_20px_40px_rgba(14,165,233,0.15)] hover:border-sky-500/30">
+                            <div class="absolute top-8 right-8 text-sky-500/10 font-mono text-4xl font-black italic">09</div>
+                            <h4 class="text-white font-display font-black text-xl mb-2 uppercase tracking-tight group-hover:text-sky-400 transition-colors pr-12">Cérebro da Clínica</h4>
+                            <p class="text-sky-500 font-black text-[10px] uppercase tracking-widest mb-6">REDUÇÃO DE ERROS</p>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-8 font-medium">Toda a inteligência de preparos e regras em um único local, sem falhas de comunicação.</p>
+                            <ul class="space-y-3 mt-auto border-t border-white/10 pt-6">
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Zero Erro de Preparo</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Protocolos Atualizados</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Treinamento Zero</li>
+                                <li class="flex items-center gap-3 text-slate-300 text-[11px] font-black uppercase tracking-tight"><span class="text-primary text-xl leading-none">→</span> Padronização Total</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <!-- Swiper Pagination -->
+                <div class="swiper-pagination !-bottom-2 mt-8"></div>
+            </div>
+            
+        </div>
+    </section>
+
+
+
+    <!-- 6. FAQ (CLEAN MODE) -->
+    <section id="faq" class="bg-white py-24 relative overflow-hidden border-t border-slate-100">
+        <div class="absolute inset-0 tech-grid opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-primary font-black text-xs uppercase tracking-[0.4em] mb-4 block font-accent italic">DÚVIDAS FREQUENTES</span>
+                <h2 class="font-display font-black text-4xl md:text-5xl text-slate-900 uppercase tracking-tight">Perguntas <span class="text-primary italic">Comuns</span></h2>
+            </div>
+
+            <div class="space-y-4" id="faq-container">
+                <!-- Q1 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md" onclick="toggleFaq(this)">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-white">
+                        <h4 class="font-display font-bold text-slate-800 text-base">A IA consegue ler exames e dar diagnósticos?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary faq-icon transition-transform duration-300">add</span>
+                    </div>
+                    <div class="faq-content overflow-hidden max-h-0 transition-all duration-300 px-6">
+                        <p class="text-slate-500 text-sm pb-6 leading-relaxed">Não. A nossa IA é focada na gestão operacional e administrativa. Ela auxilia no agendamento, tira dúvidas sobre preparo de exames e realiza busca ativa de retornos, mas nunca realiza funções médicas ou diagnósticas.</p>
+                    </div>
+                </div>
+                <!-- Q2 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md" onclick="toggleFaq(this)">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-white">
+                        <h4 class="font-display font-bold text-slate-800 text-base">Como funciona a integração com meu software atual?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary faq-icon transition-transform duration-300">add</span>
+                    </div>
+                    <div class="faq-content overflow-hidden max-h-0 transition-all duration-300 px-6">
+                        <p class="text-slate-500 text-sm pb-6 leading-relaxed">Nossa engenharia realiza a integração via API ou RPA diretamente no seu sistema de gestão (HIS/CRM). Isso permite que a IA consulte a agenda em tempo real e insira os dados sem intervenção humana.</p>
+                    </div>
+                </div>
+                <!-- Q3 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md" onclick="toggleFaq(this)">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-white">
+                        <h4 class="font-display font-bold text-slate-800 text-base">O paciente percebe que está falando com uma IA?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary faq-icon transition-transform duration-300">add</span>
+                    </div>
+                    <div class="faq-content overflow-hidden max-h-0 transition-all duration-300 px-6">
+                        <p class="text-slate-500 text-sm pb-6 leading-relaxed">Nossos Agentes de Voz e Chat utilizam tecnologia de ponta para soar o mais natural possível. A experiência é acolhedora e muitas vezes superior ao atendimento humano sobrecarregado, focando na agilidade resolutiva.</p>
+                    </div>
+                </div>
+                <!-- Q4 -->
+                <div class="bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden hover:border-primary/30 transition-all duration-300 cursor-pointer group shadow-sm hover:shadow-md" onclick="toggleFaq(this)">
+                    <div class="p-6 flex justify-between items-center group-hover:bg-white">
+                        <h4 class="font-display font-bold text-slate-800 text-base">A IA faz busca ativa de pacientes?</h4>
+                        <span class="material-symbols-outlined text-slate-400 group-hover:text-primary faq-icon transition-transform duration-300">add</span>
+                    </div>
+                    <div class="faq-content overflow-hidden max-h-0 transition-all duration-300 px-6">
+                        <p class="text-slate-500 text-sm pb-6 leading-relaxed">Sim. Este é um dos nossos maiores diferenciais de ROI. A IA identifica pacientes que realizaram exames e entra em contato proativamente para agendar o retorno, garantindo o ciclo completo de faturamento.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <!-- Footer (PREMIUM DARK) -->
+    <footer class="bg-black text-white pt-12 pb-6 border-t border-white/5 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Col 1: Bio -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-12 w-auto">
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Liderando a fronteira digital com engenharia de elite e <span class="text-primary font-bold">experiências tridimensionais</span>.
+                    </p>
+                </div>
+
+                <!-- Col 2: Nav -->
+                <div class="space-y-6">
+                    <h4 class="font-display font-black text-xs uppercase tracking-[0.3em] pb-4 border-b border-white/10">Navegação</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Início</a></li>
+                        <li><a href="#pilares" class="text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Pilares</a></li>
+                        <li><a href="#modulos" class="text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">Portfólio</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact -->
+                <div class="space-y-6">
+                    <h4 class="font-display font-black text-xs uppercase tracking-[0.3em] pb-4 border-b border-white/10">Contato</h4>
+                    <ul class="space-y-4 text-xs font-medium text-slate-400">
+                        <li class="flex items-center gap-3 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-sm text-primary">mail</span> 
+                            contato@orionx.com.br
+                        </li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-sm text-primary">call</span> 
+                            (38) 98411-6978
+                        </li>
+                        <li class="flex items-center gap-3 hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-sm text-primary">location_on</span> 
+                            São Paulo, Brasil
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Social -->
+                <div class="space-y-6">
+                    <h4 class="font-display font-black text-xs uppercase tracking-[0.3em] pb-4 border-b border-white/10">Siga-nos</h4>
+                    <div class="flex gap-6">
+                        <a href="https://wa.me/5538984116978" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 hover:border-primary transition-all group">
+                            <i class="fab fa-whatsapp text-slate-400 group-hover:text-primary transition-colors text-xl"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 hover:border-primary transition-all group">
+                            <i class="fab fa-instagram text-slate-400 group-hover:text-primary transition-colors text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-8">
+                    <p class="text-[10px] text-slate-500 uppercase tracking-widest">© 2024 OrionX. Todos os direitos reservados. High Performance Built.</p>
+                </div>
+                <div class="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <a href="termos.html" class="hover:text-white transition-colors">Termos de Uso</a>
+                    <span class="text-white/10 px-2 flex items-center">|</span>
+                    <a href="privacidade.html" class="hover:text-white transition-colors">Políticas de Privacidade</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modais removidos em favor de páginas HTML separadas -->
+    </footer>
+
+    <!-- MODAL DE AGENDAMENTO INTELIGENTE -->
+    <div id="modal-agendamento" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-xl">
+        <div class="bg-slate-900 border border-white/10 w-full max-w-5xl h-[85vh] overflow-hidden rounded-[2.5rem] relative flex flex-col shadow-2xl">
+            <!-- Header Modal -->
+            <div class="p-6 border-b border-white/5 flex items-center justify-between bg-black/30">
+                <div class="flex items-center gap-4">
+                    <div id="step-dot-1" class="h-1.5 w-12 bg-primary rounded-full"></div>
+                    <div id="step-dot-2" class="h-1.5 w-12 bg-white/10 rounded-full"></div>
+                </div>
+                <button onclick="closeBooking()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-white transition-all">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Steps Container -->
+            <div class="flex-grow flex relative transition-transform duration-500 ease-in-out" id="steps-track">
+                
+                <!-- STEP 1: CUSTOM PREMIUM CALENDAR -->
+                <div class="min-w-full h-full flex flex-col p-4 md:p-8 overflow-y-auto pb-32">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-black text-2xl text-white uppercase italic">Selecione seu <span class="text-primary italic">Horário</span></h3>
+                        <p class="text-slate-500 text-xs font-accent uppercase tracking-widest mt-2">Interface Premium OrionX • Agendamento Inteligente</p>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col lg:flex-row gap-8 bg-black/40 border border-white/5 rounded-[2rem] p-6 md:p-10 relative overflow-hidden backdrop-blur-sm">
+                        <!-- Left: Date Picker -->
+                        <div class="flex-grow lg:max-w-md">
+                            <div class="flex items-center justify-between mb-6 px-2">
+                                <h4 id="calendar-month" class="text-white font-display font-bold text-sm uppercase tracking-widest"></h4>
+                                <div class="flex gap-2">
+                                    <button onclick="changeMonth(-1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                                    <button onclick="changeMonth(1)" class="h-8 w-8 rounded-lg bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-7 text-center text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-4">
+                                <div>Dom</div><div>Seg</div><div>Ter</div><div>Qua</div><div>Qui</div><div>Sex</div><div>Sáb</div>
+                            </div>
+                            <div id="calendar-grid" class="grid grid-cols-7 gap-2">
+                                <!-- Days injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="hidden lg:block w-px bg-white/5 mx-4"></div>
+
+                        <!-- Right: Time Slots -->
+                        <div class="flex-grow flex flex-col min-w-[200px]">
+                            <h4 id="selected-date-display" class="text-white font-display font-bold text-[10px] uppercase tracking-[0.2em] mb-6 text-center lg:text-left text-slate-400">Selecione um dia</h4>
+                            <div id="time-slots" class="grid grid-cols-3 lg:grid-cols-2 gap-3 overflow-y-auto max-h-[300px] lg:max-h-none pr-2 custom-scrollbar">
+                                <!-- Slots injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: QUALIFYING FORM (STEP-BY-STEP) -->
+                <div class="min-w-full h-full flex flex-col p-4 md:p-12 overflow-y-auto bg-black/20 pb-40">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-black text-2xl text-white uppercase italic">Conta um pouco <span class="text-primary italic">sobre você</span></h3>
+                        <p class="text-slate-500 text-xs font-accent uppercase tracking-widest mt-2">Personalização OrionX • Pergunta <span id="current-q-num" class="text-primary">1</span> de 6</p>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="max-w-md mx-auto w-full h-1.5 bg-white/5 rounded-full mb-12 overflow-hidden">
+                        <div id="form-progress-bar" class="h-full bg-primary transition-all duration-500 shadow-[0_0_15px_rgba(255,87,0,0.5)]" style="width: 16.6%;"></div>
+                    </div>
+
+                    <form id="qualify-form" onsubmit="handleBookingSubmit(event)" class="max-w-2xl mx-auto w-full relative">
+                        <!-- Campos Ocultos de Agendamento -->
+                        <input type="hidden" name="agendamento_data" id="hidden-date">
+                        <input type="hidden" name="agendamento_hora" id="hidden-time">
+
+                        <!-- Sub-Step 1: Dados Básicos -->
+                        <div class="form-sub-step space-y-8 animate-fade-in" data-step="1">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Qual o seu nome e seu melhor Telefone/WhatsApp?</label>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input required type="text" name="nome" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                    <input required type="tel" name="telefone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Step 2: Desafio -->
+                        <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="2">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Qual o seu principal desafio hoje na clínica?</label>
+                                <textarea required name="pergunta_desafio" rows="3" placeholder="Ex: Filas no agendamento, leads esfriando..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Step 3: Gargalo [NOVA] -->
+                        <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="3">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Qual é o principal "gargalo" ou processo manual que você deseja resolver hoje?</label>
+                                <textarea required name="pergunta_gargalo" rows="3" placeholder="Descreva o processo que mais toma seu tempo..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Step 4: Sistemas [NOVA] -->
+                        <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="4">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Você já possui alguma ferramenta ou sistema em uso para este processo? (Ex: CRM, ERP, Planilhas)</label>
+                                <textarea required name="pergunta_sistemas" rows="3" placeholder="Liste as ferramentas que utiliza atualmente..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Step 5: Equipe -->
+                        <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="5">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Qual o tamanho da sua equipe de recepção?</label>
+                                <div class="grid grid-cols-1 gap-3">
+                                    <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
+                                        <input type="radio" name="pergunta_equipe" value="1-3" class="w-5 h-5 accent-primary" required>
+                                        <span class="text-white">1 a 3 pessoas</span>
+                                    </label>
+                                    <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
+                                        <input type="radio" name="pergunta_equipe" value="4-10" class="w-5 h-5 accent-primary">
+                                        <span class="text-white">4 a 10 pessoas</span>
+                                    </label>
+                                    <label class="flex items-center gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl cursor-pointer hover:bg-white/10 transition-all">
+                                        <input type="radio" name="pergunta_equipe" value="11+" class="w-5 h-5 accent-primary">
+                                        <span class="text-white">Mais de 10 pessoas</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Step 6: Expectativas -->
+                        <div class="form-sub-step space-y-8 animate-fade-in hidden" data-step="6">
+                            <div class="space-y-4">
+                                <label class="text-lg text-white font-display font-bold block">Explique um pouco mais sobre o que você deseja e busca</label>
+                                <textarea required name="pergunta_detalhes" rows="4" placeholder="Sinta-se à vontade para detalhar suas expectativas..." class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base resize-none"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 3: SUCCESS / THANK YOU -->
+                <div class="min-w-full h-full flex flex-col items-center justify-center p-8 text-center bg-black/40 overflow-y-auto pb-40">
+                    <div class="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mb-8 shadow-[0_0_50px_rgba(255,87,0,0.3)] animate-bounce-slow">
+                        <span class="material-symbols-outlined text-5xl text-primary">check_circle</span>
+                    </div>
+                    
+                    <h3 class="font-display font-black text-3xl md:text-4xl text-white uppercase italic mb-4">Agendamento <span class="text-primary italic">Confirmado!</span></h3>
+                    <p class="text-slate-400 text-sm max-w-md mx-auto mb-10 leading-relaxed font-accent">
+                        Suas informações foram salvas com sucesso no sistema OrionX. Nossa equipe já foi notificada e estamos aguardando por você!
+                    </p>
+
+                    <div class="bg-white/5 border border-white/10 rounded-3xl p-6 mb-10 w-full max-w-sm backdrop-blur-sm">
+                        <p class="text-[10px] text-slate-500 uppercase tracking-widest font-black mb-3">Resumo da Reunião</p>
+                        <div class="flex flex-col gap-4 text-white font-display font-bold">
+                            <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                                <span class="text-xs text-slate-400 font-normal">Data:</span>
+                                <span id="summary-date" class="text-sm">--/--/--</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-400 font-normal">Horário:</span>
+                                <span id="summary-time" class="text-sm">--:--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary/10 border border-primary/20 rounded-2xl p-6 mb-8 w-full max-w-sm backdrop-blur-sm">
+                        <div class="flex items-center gap-3 text-primary mb-2">
+                            <span class="material-symbols-outlined text-xl">contact_phone</span>
+                            <p class="text-[11px] uppercase tracking-widest font-black">Próximo Passo</p>
+                        </div>
+                        <p class="text-white text-sm font-medium leading-relaxed">
+                            Fique atento! Nossa equipe entrará em contato via <span class="text-green-400">WhatsApp</span> em breve para realizar a confirmação final da sua reunião.
+                        </p>
+                    </div>
+                    
+                    <button onclick="closeBooking()" class="w-full max-w-md bg-white/5 border border-white/10 text-white font-display font-black px-10 py-5 rounded-2xl hover:bg-white/10 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center justify-center gap-3">
+                        ENTENDI, VOLTAR PARA O SITE <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- FIXED FOOTER ACTIONS (FORCED VISIBILITY) -->
+            <div class="absolute bottom-0 left-0 w-full p-6 border-t border-white/10 bg-slate-900/90 backdrop-blur-xl flex items-center justify-center gap-4 z-[60]">
+                <!-- Step 1 Actions -->
+                <div id="footer-step-1" class="w-full flex justify-center">
+                    <button id="btn-next-step" disabled onclick="goToStep2()" class="w-full max-w-md bg-white/5 text-white/20 border border-white/5 font-display font-black px-12 py-5 rounded-2xl transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-3 cursor-not-allowed">
+                        SELECIONE DATA E HORA <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+
+                <!-- Step 2 Actions -->
+                <div id="footer-step-2" class="w-full hidden flex items-center gap-4 max-w-2xl mx-auto">
+                    <button id="btn-prev-substep" onclick="prevSubStep()" class="h-14 w-14 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all shadow-lg active:scale-95">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <button id="btn-next-substep" onclick="nextSubStep()" class="flex-grow h-14 bg-primary text-white font-display font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_10px_30px_rgba(255,87,0,0.4)] flex items-center justify-center gap-3">
+                        <span id="btn-substep-text">PRÓXIMA PERGUNTA</span> <span id="btn-substep-icon" class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS
+        AOS.init({ once: true, duration: 800, offset: 50 });
+
+        // Slow Smooth Scroll
+        function slowScrollTo(id) {
+            const element = document.getElementById(id);
+            if (!element) return;
+            
+            const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 1500; // 1.5 seconds for "slow" effect
+            let start = null;
+
+            function step(timestamp) {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const run = ease(progress, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (progress < duration) window.requestAnimationFrame(step);
+            }
+
+            // Cubic easing out
+            function ease(t, b, c, d) {
+                t /= d;
+                t--;
+                return c * (t * t * t + 1) + b;
+            }
+
+            window.requestAnimationFrame(step);
+        }
+
+        // --- CALENDAR LOGIC ---
+        let currentMonth = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const monthDisplay = document.getElementById('calendar-month');
+            grid.innerHTML = '';
+
+            const year = currentMonth.getFullYear();
+            const month = currentMonth.getMonth();
+            
+            monthDisplay.innerText = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(currentMonth);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0,0,0,0);
+            
+            const limitDate = new Date();
+            limitDate.setDate(today.getDate() + 30);
+            limitDate.setHours(23, 59, 59, 999);
+
+            // Empty slots for days before first day of month
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += '<div></div>';
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const isPast = date < today;
+                const isFarFuture = date > limitDate;
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                const isSelected = selectedDate && date.getTime() === selectedDate.getTime();
+                
+                const btn = document.createElement('button');
+                btn.innerText = day;
+                btn.className = `h-10 w-10 md:h-12 md:w-12 rounded-xl text-xs font-bold transition-all flex items-center justify-center
+                    ${isPast || isWeekend || isFarFuture ? 'text-white/10 cursor-not-allowed opacity-30' : 'text-white hover:bg-primary/20 hover:text-primary'}
+                    ${isSelected ? 'bg-primary text-white shadow-[0_0_20px_rgba(255,87,0,0.6)] scale-110' : 'bg-white/5'}`;
+                
+                if (!isPast && !isWeekend && !isFarFuture) {
+                    btn.onclick = () => selectDate(date);
+                }
+                grid.appendChild(btn);
+            }
+        }
+
+        function changeMonth(dir) {
+            currentMonth.setMonth(currentMonth.getMonth() + dir);
+            renderCalendar();
+        }
+
+        function selectDate(date) {
+            selectedDate = date;
+            selectedTime = null;
+            document.getElementById('hidden-date').value = date.toLocaleDateString('pt-BR');
+            document.getElementById('selected-date-display').innerText = date.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            updateNextButton();
+            renderCalendar();
+            renderTimeSlots();
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById('time-slots');
+            container.innerHTML = '';
+            
+            if (!selectedDate) return;
+
+            const dayOfWeek = selectedDate.getDay(); // 0: Dom, 1: Seg, 2: Ter, 3: Qua, 4: Qui, 5: Sex, 6: Sáb
+            let startHour = 10;
+            let endHour = 20;
+
+            if (dayOfWeek === 1) startHour = 14;      // Segunda: 14h às 20h
+            else if (dayOfWeek === 2) startHour = 13; // Terça: 13h às 20h
+            
+            const now = new Date();
+            const tomorrowLimit = new Date(now.getTime() + (24 * 60 * 60 * 1000)); // Regra de 24h
+
+            for (let hour = startHour; hour <= endHour; hour++) {
+                const timeStr = `${hour.toString().padStart(2, '0')}:00`;
+                
+                // Validação de 24h de antecedência
+                const slotDateTime = new Date(selectedDate.getTime());
+                slotDateTime.setHours(hour, 0, 0, 0);
+
+                if (slotDateTime < tomorrowLimit) continue; // Pula horários com menos de 24h de diferença
+
+                const btn = document.createElement('button');
+                btn.innerText = timeStr;
+                const isSelected = selectedTime === timeStr;
+                btn.className = `py-3 px-4 rounded-xl text-xs font-bold transition-all border
+                    ${isSelected ? 'bg-primary border-primary text-white shadow-lg' : 'bg-white/5 border-white/5 text-slate-400 hover:border-primary/50 hover:text-white'}`;
+                
+                btn.onclick = () => {
+                    selectedTime = timeStr;
+                    document.getElementById('hidden-time').value = timeStr;
+                    renderTimeSlots();
+                    updateNextButton();
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        function updateNextButton() {
+            const btn = document.getElementById('btn-next-step');
+            if (selectedDate && selectedTime) {
+                btn.disabled = false;
+                btn.innerText = 'AVANÇAR PARA O FORMULÁRIO';
+                btn.classList.remove('bg-white/5', 'text-white/20', 'cursor-not-allowed');
+                btn.classList.add('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse');
+            } else {
+                btn.disabled = true;
+                btn.innerText = 'SELECIONE DATA E HORA';
+                btn.classList.add('bg-white/5', 'text-white/20', 'cursor-not-allowed');
+                btn.classList.remove('bg-primary', 'text-white', 'hover:scale-[1.02]', 'shadow-[0_0_30px_rgba(255,87,0,0.6)]', 'animate-pulse');
+            }
+        }
+
+        // --- BOOKING SYSTEM LOGIC ---
+        function openBooking() {
+            const modal = document.getElementById('modal-agendamento');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            selectedDate = null;
+            selectedTime = null;
+            renderCalendar();
+            document.getElementById('time-slots').innerHTML = '';
+            document.getElementById('selected-date-display').innerText = 'Selecione um dia';
+            updateNextButton();
+            goToStep1();
+        }
+
+        function closeBooking() {
+            const modal = document.getElementById('modal-agendamento');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        let currentSubStep = 1;
+
+        function goToStep1() {
+            const track = document.getElementById('steps-track');
+            if (track) track.style.transform = 'translateX(0%)';
+            
+            const dot1 = document.getElementById('step-dot-1');
+            const dot2 = document.getElementById('step-dot-2');
+            if (dot1) { dot1.classList.add('bg-primary'); dot1.classList.remove('bg-white/10'); }
+            if (dot2) { dot2.classList.add('bg-white/10'); dot2.classList.remove('bg-primary'); }
+            
+            const f1 = document.getElementById('footer-step-1');
+            const f2 = document.getElementById('footer-step-2');
+            const f_modal = document.querySelector('.absolute.bottom-0.left-0.w-full.p-6');
+            if (f1) f1.classList.remove('hidden');
+            if (f2) f2.classList.add('hidden');
+            if (f_modal) f_modal.classList.remove('hidden');
+        }
+
+        function goToStep2() {
+            const track = document.getElementById('steps-track');
+            if (track) track.style.transform = 'translateX(-100%)';
+            
+            const dot1 = document.getElementById('step-dot-1');
+            const dot2 = document.getElementById('step-dot-2');
+            if (dot2) { dot2.classList.add('bg-primary'); dot2.classList.remove('bg-white/10'); }
+            if (dot1) { dot1.classList.add('bg-white/10'); dot1.classList.remove('bg-primary'); }
+            
+            const f1 = document.getElementById('footer-step-1');
+            const f2 = document.getElementById('footer-step-2');
+            const f_modal = document.querySelector('.absolute.bottom-0.left-0.w-full.p-6');
+            if (f1) f1.classList.add('hidden');
+            if (f2) f2.classList.remove('hidden');
+            if (f_modal) f_modal.classList.remove('hidden');
+
+            currentSubStep = 1;
+            showSubStep(1);
+        }
+
+        function goToStep3(data) {
+            const track = document.getElementById('steps-track');
+            if (track) track.style.transform = 'translateX(-200%)';
+            
+            // Update Summary
+            document.getElementById('summary-date').innerText = data.agendamento_data;
+            document.getElementById('summary-time').innerText = data.agendamento_hora;
+            
+            // Hide Bottom Footer Action Bar entirely to focus on Step 3 CTA
+            const f_modal = document.querySelector('.absolute.bottom-0.left-0.w-full.p-6');
+            if (f_modal) f_modal.classList.add('hidden');
+
+            // Setup WhatsApp link for final button
+            const msg = `Olá OrionX! Desejo confirmar meu agendamento.\n\n📅 Data: ${data.agendamento_data}\n⏰ Horário: ${data.agendamento_hora}\n\nMeus dados:\n👤 Nome: ${data.nome}\n📞 Tel: ${data.telefone}\n🚀 Desafio: ${data.pergunta_desafio}\n🛠️ Gargalo: ${data.pergunta_gargalo}\n⚙️ Sistemas: ${data.pergunta_sistemas}\n👥 Equipe: ${data.pergunta_equipe}\n📝 Detalhes: ${data.pergunta_detalhes}`;
+            window.finalWhatsappUrl = `https://wa.me/5538984116978?text=${encodeURIComponent(msg)}`;
+        }
+
+        function openFinalWhatsapp() {
+            if (window.finalWhatsappUrl) {
+                window.open(window.finalWhatsappUrl, '_blank');
+            }
+        }
+
+        function showSubStep(n) {
+            const steps = document.querySelectorAll('.form-sub-step');
+            steps.forEach(step => step.classList.add('hidden'));
+            
+            const activeStep = document.querySelector(`.form-sub-step[data-step="${n}"]`);
+            if (activeStep) activeStep.classList.remove('hidden');
+            
+            // Progress Update
+            document.getElementById('current-q-num').innerText = n;
+            document.getElementById('form-progress-bar').style.width = (n / 6 * 100) + '%';
+            
+            // Button Update
+            const btnText = document.getElementById('btn-substep-text');
+            const btnIcon = document.getElementById('btn-substep-icon');
+            const nextBtn = document.getElementById('btn-next-substep');
+            
+            if (n === 6) {
+                btnText.innerText = 'FINALIZAR AGENDAMENTO';
+                btnIcon.innerText = 'check_circle';
+                nextBtn.onclick = () => document.getElementById('qualify-form').requestSubmit();
+            } else {
+                btnText.innerText = 'PRÓXIMA PERGUNTA';
+                btnIcon.innerText = 'arrow_forward';
+                nextBtn.onclick = nextSubStep;
+            }
+        }
+
+        function nextSubStep() {
+            const activeStep = document.querySelector(`.form-sub-step[data-step="${currentSubStep}"]`);
+            const inputs = activeStep.querySelectorAll('input[required], textarea[required], select[required]');
+            
+            let allValid = true;
+            inputs.forEach(input => {
+                if (!input.value.trim() && (input.type !== 'radio' || !activeStep.querySelector('input[name="pergunta_equipe"]:checked'))) {
+                    input.classList.add('border-red-500');
+                    allValid = false;
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+
+            if (!allValid) return;
+
+            if (currentSubStep < 6) {
+                currentSubStep++;
+                showSubStep(currentSubStep);
+            }
+        }
+
+        function prevSubStep() {
+            if (currentSubStep > 1) {
+                currentSubStep--;
+                showSubStep(currentSubStep);
+            } else {
+                goToStep1();
+            }
+        }
+
+        async function handleBookingSubmit(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            // --- INTEGRAÇÃO N8N (WEBHOOK) ---
+            // Substitua a URL abaixo pelo seu webhook real do n8n
+            const n8nWebhookUrl = 'https://n8n.seudominio.com.br/webhook/seu-identificador';
+            
+            try {
+                // Envia os dados para o n8n sem travar a navegação do usuário
+                fetch(n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        event: 'booking_qualification',
+                        timestamp: new Date().toISOString(),
+                        ...data
+                    })
+                });
+            } catch (err) {
+                console.error("Falha ao enviar para o n8n:", err);
+            }
+
+            console.log("Lead Qualificado OrionX:", data);
+            
+            // Transição para tela de sucesso personalizada (Em vez de ALERT)
+            goToStep3(data);
+        }
+
+        // Navbar bg change
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-black/95', 'shadow-xl');
+                navbar.classList.remove('bg-black/90');
+            } else {
+                navbar.classList.remove('bg-black/95', 'shadow-xl');
+                navbar.classList.add('bg-black/90');
+            }
+        });
+
+        // Tabs Logic
+        function switchTab(tabId) {
+            // Update buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-dark', 'shadow-xl');
+                btn.classList.add('bg-white/20', 'text-white');
+                const icon = btn.querySelector('.material-symbols-outlined:last-child');
+                if(icon) icon.classList.add('opacity-0');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-white', 'text-dark', 'shadow-xl');
+            activeBtn.classList.remove('bg-white/20', 'text-white');
+            const activeIcon = activeBtn.querySelector('.material-symbols-outlined:last-child');
+            if(activeIcon) activeIcon.classList.remove('opacity-0');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden', 'opacity-0');
+            });
+            const activeContent = document.getElementById('content-' + tabId);
+            activeContent.classList.remove('hidden');
+            
+            // tiny delay for fade effect
+            setTimeout(() => {
+                activeContent.classList.remove('opacity-0');
+            }, 50);
+        }
+
+        // FAQ accordion
+        function toggleFaq(el) {
+            const content = el.querySelector('.faq-content');
+            const icon = el.querySelector('.faq-icon');
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+            // close others
+            document.querySelectorAll('.faq-content').forEach(c => {
+                c.style.maxHeight = '0px';
+            });
+            document.querySelectorAll('.faq-icon').forEach(i => {
+                i.innerText = 'add';
+                i.classList.remove('rotate-45');
+            });
+
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.innerText = 'close';
+                icon.classList.add('rotate-45', 'text-primary');
+            } else {
+                icon.innerText = 'add';
+                icon.classList.remove('text-primary');
+            }
+        }
+    </script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Swiper Configuration for Modulos
+        const categoriesData = [
+            {
+                badgeClass: 'bg-emerald-100 text-emerald-700 border-emerald-500/20',
+                badgeText: 'Camada de Conversão (Inbound)',
+                iconClass: 'text-emerald-500',
+                iconName: 'forum',
+                titlePart1: 'Agentes IA',
+                titlePart2Class: 'text-emerald-500',
+                titlePart2: 'WhatsApp',
+                desc: 'Máxima Conversão de Leads em Agendamentos'
+            },
+            {
+                badgeClass: 'bg-primary/10 text-primary border-primary/20 bg-opacity-50',
+                badgeText: 'Camada de Retenção (Outbound)',
+                iconClass: 'text-primary',
+                iconName: 'record_voice_over',
+                titlePart1: 'Agentes de',
+                titlePart2Class: 'text-primary',
+                titlePart2: 'Telefonia IA',
+                desc: 'Confirmações e Recuperação de Agenda'
+            },
+            {
+                badgeClass: 'bg-sky-100 text-sky-700 border-sky-500/20',
+                badgeText: 'Central de Gestão Unificada',
+                iconClass: 'text-sky-500',
+                iconName: 'dashboard_customize',
+                titlePart1: 'Hub',
+                titlePart2Class: 'text-sky-500',
+                titlePart2: 'Omnichannel',
+                desc: 'Ecossistema de Alta Performance e Lucro'
+            }
+        ];
+
+        let lastCatIndex = -1;
+
+        const modulosSwiper = new Swiper('.modulosSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: {
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3, slidesPerGroup: 3 }
+            },
+            on: {
+                init: function() { updateCategoryHeader(0); },
+                slideChange: function () {
+                    let catIndex = 0;
+                    if(this.activeIndex >= 3 && this.activeIndex < 6) catIndex = 1;
+                    if(this.activeIndex >= 6) catIndex = 2;
+                    
+                    if(catIndex !== lastCatIndex) {
+                        updateCategoryHeader(catIndex);
+                        lastCatIndex = catIndex;
+                    }
+                }
+            }
+        });
+
+        function updateCategoryHeader(index) {
+            const data = categoriesData[index];
+            const headerEl = document.getElementById('dynamic-category-header');
+            if(!headerEl) return;
+            
+            headerEl.style.opacity = 0;
+            headerEl.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                headerEl.innerHTML = `
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                        <h3 class="font-display font-black text-3xl md:text-4xl text-slate-800 uppercase tracking-tight italic flex items-center gap-3 transition-colors duration-500">
+                            <span class="material-symbols-outlined text-4xl ${data.iconClass} hidden md:block">${data.iconName}</span>
+                            ${data.titlePart1} <span class="${data.titlePart2Class}">${data.titlePart2}</span>
+                        </h3>
+                    </div>
+                    <p class="text-slate-500 font-accent text-xs md:text-sm uppercase tracking-[0.4em] font-bold mt-4 break-words text-center transition-colors duration-500">${data.desc}</p>
+                `;
+                headerEl.style.opacity = 1;
+                headerEl.style.transform = 'translateY(0)';
+            }, 300);
+        }
+    </script>
+    <style>
+        /* Correção Radical para a Faixa Branca */
+        html, body { 
+            background-color: #000 !important; 
+            margin: 0 !important; 
+            padding: 0 !important;
+        }
+    </style>
+</body>
+</html>
