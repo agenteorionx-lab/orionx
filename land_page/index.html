@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
     <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
         rel="stylesheet" />
@@ -118,7 +120,7 @@
         class="fixed top-0 w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <img src="imagens/OrionX_Logotipo principal preto (1).png" alt="OrionX Logo" class="h-8 md:h-10 w-auto">
+                <img src="imagens/OrionX_Logotipo principal preto (1).png" alt="OrionX Logo" width="160" height="40" class="h-8 md:h-10 w-auto">
             </div>
             <nav class="hidden md:flex items-center gap-10">
                 <a class="font-accent font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors"
@@ -138,7 +140,7 @@
                     CONTATO
                 </button>
                 <!-- Hamburger Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <button id="mobile-menu-btn" aria-label="Abrir Menu" class="md:hidden flex flex-col gap-1.5 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <span class="block w-6 h-0.5 bg-slate-900"></span>
                     <span class="block w-6 h-0.5 bg-slate-900"></span>
                     <span class="block w-4 h-0.5 bg-primary"></span>
@@ -159,7 +161,7 @@
     <section class="hero-gradient min-h-[100svh] md:min-h-screen flex items-start md:items-center pt-28 md:pt-20 pb-20 angular-divider-bottom relative overflow-hidden" id="hero">
         <!-- Background Hero X (Escala Equilibrada e Absoluta) -->
         <div class="absolute inset-0 pointer-events-none z-0" style="perspective: 1500px;">
-            <img id="hero-x-img" src="imagens/OrionX_X preto (1).png" alt="" 
+            <img id="hero-x-img" src="imagens/OrionX_X preto (1).png" alt="X Background" width="800" height="800" 
                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] max-w-none md:w-auto md:left-auto md:translate-x-0 md:right-[0%] md:h-[98%] object-contain opacity-10 md:opacity-20 mix-blend-multiply transition-transform duration-75 ease-out">
         </div>
         <div class="absolute inset-0 neural-pattern opacity-5 pointer-events-none"></div>
@@ -538,7 +540,7 @@
                     <!-- Card 1 -->
                     <div class="relative min-h-[400px] md:h-[450px] rounded-[2.5rem] overflow-hidden group border border-white/10 bg-slate-950 flex flex-col justify-end shadow-[0_30px_60px_rgba(0,0,0,0.6)] cursor-pointer text-left transition-all duration-700 hover:-translate-y-3 hover:shadow-primary/30" onclick="window.location.href='plataformas-escalaveis.html'">
                         <!-- Imagem de fundo com overlay mais escuro -->
-                        <img src="imagens/lp_placeholder_1_1774644503727.png" alt="SaaS Dashboard 3D" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
+                        <img src="imagens/lp_placeholder_1_1774644503727.png" alt="SaaS Dashboard 3D" loading="lazy" width="600" height="450" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                         
                         <div class="relative z-10 p-8 md:p-12 flex flex-col justify-end h-full">
@@ -559,7 +561,7 @@
                     <!-- Card 2 -->
                     <div class="relative min-h-[400px] md:h-[450px] rounded-[2.5rem] overflow-hidden group border border-white/10 bg-slate-950 flex flex-col justify-end shadow-[0_30px_60px_rgba(0,0,0,0.6)] cursor-pointer text-left transition-all duration-700 hover:-translate-y-3 hover:shadow-primary/30" onclick="window.location.href='engenharia-de-conversao.html'">
                         <!-- Imagem de fundo com overlay mais escuro -->
-                        <img src="imagens/lp_placeholder_3_1774644538050.png" alt="Sales Pages 3D" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
+                        <img src="imagens/lp_placeholder_3_1774644538050.png" alt="Sales Pages 3D" loading="lazy" width="600" height="450" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
                         
                         <div class="relative z-10 p-8 md:p-12 flex flex-col justify-end h-full">
@@ -592,7 +594,7 @@
     <section class="bg-slate-950 py-16 md:py-32 text-white relative angular-divider-top overflow-hidden" id="choice">
         <!-- Background Branding Image (Left Aligned - Shifted 5% Down) -->
         <div class="absolute inset-0 flex items-center justify-start pointer-events-none z-0 px-4 md:px-6">
-            <img src="imagens/OrionX_X vazado preto.png" alt=""
+            <img src="imagens/OrionX_X vazado preto.png" alt="X Background Pattern" loading="lazy" width="500" height="500"
                 class="w-[90%] md:w-[48%] lg:w-[35%] max-w-none h-auto object-contain opacity-10 animate-pulse-slow relative top-[5%]">
         </div>
 
@@ -808,7 +810,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-20 mb-12 md:mb-20">
                 <div>
                     <div class="flex items-center justify-center md:justify-start gap-2 mb-8">
-                        <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo"
+                        <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" loading="lazy" width="160" height="48"
                             class="h-12 w-auto">
                     </div>
                     <p class="text-slate-400 font-body leading-relaxed max-w-xs mx-auto md:mx-0 font-light">Liderando a
@@ -863,7 +865,7 @@
             </div>
             <div class="border-t border-slate-800 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-4">
-                    <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" class="h-8 w-auto">
+                    <img src="imagens/OrionX_Logotipo principal laranja (1).png" alt="OrionX Logo" loading="lazy" width="160" height="32" class="h-8 w-auto">
                     <p class="text-slate-400 text-[10px] font-accent tracking-widest uppercase">© 2024 OrionX. Todos os
                         direitos reservados. High Performance Built.</p>
                 </div>
@@ -892,7 +894,7 @@
                 <div class="hidden md:flex w-1/3 bg-gradient-to-b from-primary/20 to-transparent p-10 flex-col justify-between border-r border-white/5">
                     <div>
                         <div class="flex items-center gap-2 mb-8">
-                            <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-8 w-auto">
+                            <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX" loading="lazy" width="160" height="32" class="h-8 w-auto">
                         </div>
                         <h3 class="font-display font-black text-3xl text-white uppercase leading-tight mb-4">Mapeamento <br><span class="text-primary">Estratégico</span></h3>
                         <p class="text-white/60 text-sm leading-relaxed mb-6">Reserve 30 minutos para diagnosticarmos seus gargalos operacionais e traçar seu roteiro de escala.</p>
