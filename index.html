@@ -21,6 +21,41 @@
         .hero-gradient {
             background: #FF5700;
         }
+        
+        /* Modal Agendamento Premium Styles */
+        #modal-agendamento {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        #modal-agendamento::-webkit-scrollbar {
+            display: none;
+        }
+        .calendar-day.active {
+            background-color: #FF5700 !important;
+            color: white !important;
+            box-shadow: 0 0 15px rgba(255, 87, 0, 0.4);
+        }
+        .time-slot.active {
+            background-color: #FF5700 !important;
+            color: white !important;
+            border-color: #FF5700 !important;
+        }
+        .form-sub-step {
+            display: none;
+        }
+        .form-sub-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .bg-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
     </style>
     <!-- Scripts -->
     <!-- Top Navigation -->
@@ -98,10 +133,10 @@
                     href="#portfolio">Portfólio</a>
             </nav>
             <div class="flex items-center gap-3">
-                <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                <button onclick="openBookingModal()"
                     class="bg-primary text-white font-display font-bold px-4 py-1.5 md:px-6 md:py-2 rounded-lg hover:scale-110 active:scale-95 transition-all outline-none uppercase text-xs md:text-sm shadow-lg hover:shadow-primary/40 inline-block">
                     CONTATO
-                </a>
+                </button>
                 <!-- Hamburger Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                     <span class="block w-6 h-0.5 bg-slate-900"></span>
@@ -148,10 +183,10 @@
                         class="bg-slate-900 text-white font-display font-bold px-6 py-4 md:px-10 md:py-4 rounded-xl hover:bg-black hover:-translate-y-1 transition-all uppercase tracking-widest text-xs md:text-sm shadow-xl hover:shadow-black/50 w-full sm:w-auto text-center">
                         EXPLORAR SOLUÇÕES
                     </button>
-                    <a href="https://wa.me/5538984116978?text=Ol%C3%A1!%20Vim%20atrav%C3%A9s%20do%20site%20da%20OrionX%20e%20gostaria%20de%20saber%20mais%20detalhes." target="_blank"
+                    <button onclick="openBookingModal()"
                         class="bg-transparent border-2 border-white text-white font-display font-bold px-6 py-4 md:px-10 md:py-4 rounded-xl hover:bg-white hover:text-primary transition-all uppercase tracking-widest text-xs md:text-sm shadow-xl hover:shadow-white/20 w-full sm:w-auto text-center inline-block">
                         FALAR COM ESPECIALISTA
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -788,6 +823,9 @@
                         <li><a class="hover:text-primary transition-colors" href="#hero">Início</a></li>
                         <li><a class="hover:text-white transition-colors" href="#services">Pilares</a></li>
                         <li><a class="hover:text-primary transition-colors" href="#portfolio">Portfólio</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="clinicas/">Clínicas</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="legal/privacidade.html">Privacidade</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="legal/termos.html">Termos</a></li>
                     </ul>
                 </div>
                 <div>
@@ -830,9 +868,9 @@
                         direitos reservados. High Performance Built.</p>
                 </div>
                 <div class="flex gap-8 text-[10px] font-accent font-bold uppercase tracking-widest text-slate-400">
-                    <a class="hover:text-primary transition-colors" href="termos.html">Termos de Uso</a>
+                    <a class="hover:text-primary transition-colors" href="legal/termos.html">Termos de Uso</a>
                     <span class="opacity-20">|</span>
-                    <a class="hover:text-primary transition-colors" href="privacidade.html">Políticas de Privacidade</a>
+                    <a class="hover:text-primary transition-colors" href="legal/privacidade.html">Políticas de Privacidade</a>
                 </div>
             </div>
         </div>
@@ -840,6 +878,438 @@
 
     <!-- External Scripts -->
     <script src="script.js"></script>
+    <!-- Modal de Agendamento Premium -->
+    <div id="modal-agendamento" class="fixed inset-0 z-[100] hidden overflow-y-auto bg-black/95 backdrop-blur-xl">
+        <div class="min-h-screen flex items-center justify-center p-4">
+            <div class="relative w-full max-w-4xl bg-[#0a0a0a] rounded-[2rem] border border-white/10 shadow-[0_0_100px_rgba(255,87,0,0.15)] overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-auto max-h-[90vh]">
+                
+                <!-- Botão Fechar -->
+                <button onclick="closeBookingModal()" class="absolute top-6 right-6 z-50 p-2 text-white/50 hover:text-white transition-colors bg-white/5 rounded-full">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+
+                <!-- Lado Esquerdo: Info (Hidden on Mobile) -->
+                <div class="hidden md:flex w-1/3 bg-gradient-to-b from-primary/20 to-transparent p-10 flex-col justify-between border-r border-white/5">
+                    <div>
+                        <div class="flex items-center gap-2 mb-8">
+                            <img src="assets/img/OrionX_Logotipo principal laranja (1).png" alt="OrionX" class="h-8 w-auto">
+                        </div>
+                        <h3 class="font-display font-black text-3xl text-white uppercase leading-tight mb-4">Mapeamento <br><span class="text-primary">Estratégico</span></h3>
+                        <p class="text-white/60 text-sm leading-relaxed mb-6">Reserve 30 minutos para diagnosticarmos seus gargalos operacionais e traçar seu roteiro de escala.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 text-white/80">
+                                <span class="material-symbols-outlined text-primary">timer</span>
+                                <span class="text-xs font-bold uppercase tracking-widest">30 Minutos de Call</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-white/80">
+                                <span class="material-symbols-outlined text-primary">videocam</span>
+                                <span class="text-xs font-bold uppercase tracking-widest">Google Meet</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-8 border-t border-white/5">
+                        <p class="text-[10px] text-white/40 uppercase tracking-[0.2em]">© 2024 OrionX. High Performance Built.</p>
+                    </div>
+                </div>
+
+                <!-- Lado Direito: Passos -->
+                <div class="flex-1 overflow-y-auto p-6 md:p-12 relative flex flex-col" id="steps-container">
+                    
+                    <!-- STEP 1: CALENDÁRIO -->
+                    <div id="step-1" class="booking-step active">
+                        <div class="mb-8">
+                            <span class="text-primary font-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-2">Passo 01</span>
+                            <h4 class="text-2xl md:text-3xl font-display font-black text-white uppercase">Selecione o <span class="text-primary">Horário</span></h4>
+                        </div>
+                        
+                        <div class="grid lg:grid-cols-2 gap-8">
+                            <!-- Mini Calendário -->
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h5 id="current-month" class="text-white font-display font-bold uppercase text-sm tracking-widest">Março 2024</h5>
+                                    <div class="flex gap-2">
+                                        <button onclick="changeMonth(-1)" class="p-1 text-white/50 hover:text-white transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+                                        <button onclick="changeMonth(1)" class="p-1 text-white/50 hover:text-white transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">D</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">S</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">T</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">Q</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">Q</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">S</span>
+                                    <span class="text-[10px] text-white/30 font-bold uppercase">S</span>
+                                </div>
+                                <div id="calendar-grid" class="grid grid-cols-7 gap-1">
+                                    <!-- Dias injetados via JS -->
+                                </div>
+                            </div>
+                            
+                            <!-- Horários -->
+                            <div class="space-y-4">
+                                <div id="selected-day-label" class="text-white/50 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                                    Selecione um dia
+                                </div>
+                                <div id="time-slots-container" class="grid grid-cols-2 gap-3 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+                                    <!-- Horários injetados via JS -->
+                                    <p class="col-span-2 text-white/20 text-center py-8 text-xs italic">Escolha uma data para ver os horários disponíveis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: FORMULÁRIO QUALIFICAÇÃO -->
+                    <div id="step-2" class="booking-step hidden">
+                        <div class="mb-8">
+                            <span class="text-primary font-accent text-[10px] font-bold tracking-[0.3em] uppercase block mb-2">Passo 02</span>
+                            <h4 class="text-2xl md:text-3xl font-display font-black text-white uppercase">Dados de <span class="text-primary">Qualificação</span></h4>
+                        </div>
+                        
+                        <!-- Barra de Progresso do Form -->
+                        <div class="flex gap-2 mb-10 h-1">
+                            <div class="progress-segment flex-1 bg-white/5 rounded-full overflow-hidden">
+                                <div id="progress-bar-inner" class="h-full bg-primary transition-all duration-500" style="width: 16.6%"></div>
+                            </div>
+                        </div>
+
+                        <form id="qualify-form" class="space-y-8">
+                            <!-- Sub-step 1: Identificação -->
+                            <div class="form-sub-step active" data-step="1">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Conte-nos um pouco sobre você:</h5>
+                                <div class="space-y-4">
+                                    <input type="text" name="nome" placeholder="Seu Nome Completo" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                                    <input type="email" name="email" placeholder="Seu Melhor E-mail" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                                    <input type="tel" name="whatsapp" placeholder="Seu WhatsApp" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                                </div>
+                            </div>
+
+                            <!-- Sub-step 2: Empresa -->
+                            <div class="form-sub-step" data-step="2">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Qual o nome da sua empresa?</h5>
+                                <input type="text" name="empresa" placeholder="Nome da Empresa / Projeto" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                            </div>
+
+                            <!-- Sub-step 3: Faturamento -->
+                            <div class="form-sub-step" data-step="3">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Qual o faturamento mensal médio?</h5>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="faturamento" value="Iniciante / Até 20k" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">Iniciante / Até 20k</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="faturamento" value="Escala / 20k a 100k" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">Escala / 20k a 100k</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="faturamento" value="Consolidado / 100k a 500k" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">Consolidado / 100k a 500k</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="faturamento" value="High Scale / +500k" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">High Scale / +500k</div>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Sub-step 4: Gargalo -->
+                            <div class="form-sub-step" data-step="4">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Qual o principal "gargalo" manual hoje?</h5>
+                                <textarea name="gargalo" placeholder="Descreva brevemente o processo que toma tempo da sua equipe..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors h-32"></textarea>
+                            </div>
+
+                            <!-- Sub-step 5: Ferramentas -->
+                            <div class="form-sub-step" data-step="5">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Já usa alguma ferramenta? (CRM, Planilhas...)</h5>
+                                <input type="text" name="ferramentas" placeholder="Ex: Hubspot, RD Station, Excel, Sistema Próprio..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-white focus:outline-none focus:border-primary transition-colors">
+                            </div>
+
+                            <!-- Sub-step 6: Investimento -->
+                            <div class="form-sub-step" data-step="6">
+                                <h5 class="text-white font-display font-bold mb-6 text-lg">Quanto deseja investir em solução?</h5>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="investimento" value="Sob consulta" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">Sob consulta</div>
+                                    </label>
+                                    <label class="cursor-pointer group">
+                                        <input type="radio" name="investimento" value="Escala customizada" class="hidden peer">
+                                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl peer-checked:border-primary peer-checked:bg-primary/10 transition-all text-white/60 peer-checked:text-white text-sm">Escala customizada</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- STEP 3: SUCESSO -->
+                    <div id="step-3" class="booking-step hidden h-full flex flex-col items-center justify-center text-center py-20">
+                        <div class="bg-primary/20 w-24 h-24 rounded-full flex items-center justify-center mb-8 animate-bounce">
+                            <span class="material-symbols-outlined text-primary text-5xl font-bold">celebration</span>
+                        </div>
+                        <h4 class="text-3xl md:text-5xl font-display font-black text-white uppercase mb-4">Agendamento <br> <span class="text-primary italic">Solicitado!</span></h4>
+                        <p class="text-white/60 text-lg mb-8 max-w-md">Para sua segurança, um consultor da OrionX irá revisar os dados e confirmar a call via WhatsApp.</p>
+                        
+                        <div class="bg-white/5 p-6 rounded-2xl border border-white/10 w-full max-w-sm mb-10">
+                            <div class="flex items-center gap-4 text-left mb-4">
+                                <span class="material-symbols-outlined text-primary">event_available</span>
+                                <div>
+                                    <p class="text-[10px] text-white/40 uppercase tracking-widest">Data Reservada</p>
+                                    <p id="summary-date" class="text-white font-bold"></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 text-left">
+                                <span class="material-symbols-outlined text-primary">schedule</span>
+                                <div>
+                                    <p class="text-[10px] text-white/40 uppercase tracking-widest">Horário</p>
+                                    <p id="summary-time" class="text-white font-bold"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-3 text-green-400 font-bold text-xs uppercase tracking-widest bg-green-400/10 px-6 py-3 rounded-full border border-green-400/20">
+                            <span class="material-symbols-outlined text-sm">check_circle</span>
+                            Confirmaremos via WhatsApp em breve
+                        </div>
+                    </div>
+
+                    <!-- Botões de Navegação (Fixed Footer inside modal container) -->
+                    <div class="sticky bottom-0 left-0 right-0 pt-10 pb-4 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent z-[60]" id="modal-footer">
+                        <div class="flex items-center justify-between">
+                            <button id="prev-btn" onclick="handlePrevStep()" class="flex items-center gap-2 text-white/40 hover:text-white transition-colors uppercase text-[10px] font-black tracking-widest opacity-0 pointer-events-none">
+                                <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar
+                            </button>
+                            <button id="next-btn" onclick="handleNextStep()" class="bg-primary text-white font-display font-bold px-10 py-4 rounded-xl hover:bg-orange-600 hover:-translate-y-1 transition-all uppercase tracking-widest text-xs shadow-xl shadow-primary/20">
+                                Próximo <span class="material-symbols-outlined text-sm align-middle ml-1">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lógica do Modal de Agendamento
+        let currentStep = 1;
+        let currentSubStep = 1;
+        const totalSubSteps = 6;
+        let selectedDate = null;
+        let selectedTime = null;
+        let currentMonthDate = new Date();
+
+        function openBookingModal() {
+            document.getElementById('modal-agendamento').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            renderCalendar();
+            goToStep1();
+        }
+
+        function closeBookingModal() {
+            document.getElementById('modal-agendamento').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function goToStep1() {
+            currentStep = 1;
+            document.getElementById('step-1').classList.remove('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById('modal-footer').classList.remove('hidden');
+            document.getElementById('prev-btn').style.opacity = '0';
+            document.getElementById('prev-btn').style.pointerEvents = 'none';
+            document.getElementById('next-btn').innerHTML = 'Próximo <span class="material-symbols-outlined text-sm align-middle ml-1">arrow_forward</span>';
+        }
+
+        function goToStep2() {
+            if(!selectedDate || !selectedTime) {
+                alert('Por favor, selecione uma data e um horário.');
+                return;
+            }
+            currentStep = 2;
+            currentSubStep = 1;
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById('prev-btn').style.opacity = '1';
+            document.getElementById('prev-btn').style.pointerEvents = 'auto';
+            showSubStep(1);
+        }
+
+        function goToStep3() {
+            currentStep = 3;
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.remove('hidden');
+            document.getElementById('modal-footer').classList.add('hidden');
+            document.getElementById('summary-date').textContent = selectedDate.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('summary-time').textContent = selectedTime;
+        }
+
+        function showSubStep(n) {
+            document.querySelectorAll('.form-sub-step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`.form-sub-step[data-step="${n}"]`).classList.add('active');
+            updateProgress();
+            
+            if (n === totalSubSteps) {
+                document.getElementById('next-btn').innerHTML = 'Finalizar Agendamento <span class="material-symbols-outlined text-sm align-middle ml-1">check</span>';
+            } else {
+                document.getElementById('next-btn').innerHTML = 'Próximo <span class="material-symbols-outlined text-sm align-middle ml-1">arrow_forward</span>';
+            }
+        }
+
+        function updateProgress() {
+            const width = (currentSubStep / totalSubSteps) * 100;
+            document.getElementById('progress-bar-inner').style.width = width + '%';
+        }
+
+        function handleNextStep() {
+            if (currentStep === 1) {
+                goToStep2();
+            } else if (currentStep === 2) {
+                if (currentSubStep < totalSubSteps) {
+                    currentSubStep++;
+                    showSubStep(currentSubStep);
+                } else {
+                    handleBookingSubmit();
+                }
+            }
+        }
+
+        function handlePrevStep() {
+            if (currentStep === 2) {
+                if (currentSubStep > 1) {
+                    currentSubStep--;
+                    showSubStep(currentSubStep);
+                } else {
+                    goToStep1();
+                }
+            }
+        }
+
+        // Calendário
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+            
+            const monthLabel = document.getElementById('current-month');
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+            monthLabel.textContent = `${monthNames[currentMonthDate.getMonth()]} ${currentMonthDate.getFullYear()}`;
+
+            const firstDay = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), 1).getDay();
+            const daysInMonth = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth() + 1, 0).getDate();
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            // Empty days
+            for(let i = 0; i < firstDay; i++) {
+                grid.innerHTML += '<div></div>';
+            }
+
+            for(let d = 1; d <= daysInMonth; d++) {
+                const date = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), d);
+                const isPast = date < today;
+                const isFar = date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                const isDisabled = isPast || isFar || isWeekend;
+                
+                const activeClass = (selectedDate && date.getTime() === selectedDate.getTime()) ? 'active' : '';
+                const disabledClass = isDisabled ? 'opacity-10 cursor-not-allowed' : 'hover:bg-primary/20 cursor-pointer text-white';
+                
+                grid.innerHTML += `<div onclick="${isDisabled ? '' : `selectDate(${d})`}" class="calendar-day text-[10px] md:text-xs font-bold w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg transition-all ${activeClass} ${disabledClass}">${d}</div>`;
+            }
+        }
+
+        function changeMonth(n) {
+            currentMonthDate.setMonth(currentMonthDate.getMonth() + n);
+            renderCalendar();
+        }
+
+        function selectDate(d) {
+            selectedDate = new Date(currentMonthDate.getFullYear(), currentMonthDate.getMonth(), d);
+            selectedTime = null;
+            document.getElementById('selected-day-label').innerHTML = `<span class="w-2 h-2 bg-primary rounded-full"></span> Horários Disponíveis para ${d}/${currentMonthDate.getMonth()+1}`;
+            renderCalendar();
+            renderTimeSlots();
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById('time-slots-container');
+            container.innerHTML = '';
+            
+            if(!selectedDate) return;
+
+            const day = selectedDate.getDay();
+            let slots = [];
+            
+            const now = new Date();
+            const minTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+
+            if (day === 1) { // Segunda: 14h às 20h
+                for(let h=14; h<20; h++) slots.push(`${h}:00`, `${h}:30`);
+            } else if (day === 2) { // Terça: 13h às 20h
+                for(let h=13; h<20; h++) slots.push(`${h}:00`, `${h}:30`);
+            } else if (day >= 3 && day <= 5) { // Qua, Qui, Sex: 10h às 20h
+                for(let h=10; h<20; h++) slots.push(`${h}:00`, `${h}:30`);
+            }
+
+            slots.forEach(time => {
+                const [h, m] = time.split(':');
+                const slotDate = new Date(selectedDate);
+                slotDate.setHours(h, m, 0, 0);
+
+                if (slotDate > minTime) {
+                    const activeClass = (selectedTime === time) ? 'active' : '';
+                    container.innerHTML += `<div onclick="selectTime('${time}')" class="time-slot border border-white/10 rounded-xl py-3 text-center text-[10px] md:text-sm font-bold text-white/60 hover:border-primary hover:text-white cursor-pointer transition-all ${activeClass}">${time}</div>`;
+                }
+            });
+
+            if (container.innerHTML === '') {
+                container.innerHTML = '<p class="col-span-2 text-white/20 text-center py-8 text-xs italic">Sem horários disponíveis para esta data (mínimo 24h de antecedência).</p>';
+            }
+        }
+
+        function selectTime(t) {
+            selectedTime = t;
+            renderTimeSlots();
+        }
+
+        async function handleBookingSubmit() {
+            const formData = new FormData(document.getElementById('qualify-form'));
+            const data = Object.fromEntries(formData.entries());
+            
+            const payload = {
+                ...data,
+                data_agendamento: selectedDate.toLocaleDateString('pt-BR'),
+                horario_agendamento: selectedTime,
+                projeto: 'OrionX Institucional',
+                timestamp: new Date().toISOString()
+            };
+
+            const n8nWebhookUrl = 'https://n8n.agenteorion.com.br/webhook/d1be5454-0545-4299-8898-12cd27546aa8';
+
+            try {
+                // Feedback visual de carregamento no botão
+                document.getElementById('next-btn').innerHTML = '<span class="animate-spin material-symbols-outlined text-sm">sync</span> Enviando...';
+                document.getElementById('next-btn').disabled = true;
+
+                await fetch(n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                goToStep3();
+            } catch (error) {
+                console.error('Erro ao enviar agendamento:', error);
+                alert('Erro ao processar agendamento. Favor entrar em contato via WhatsApp.');
+                document.getElementById('next-btn').innerHTML = 'Finalizar Agendamento <span class="material-symbols-outlined text-sm align-middle ml-1">check</span>';
+                document.getElementById('next-btn').disabled = false;
+            }
+        }
+    </script>
 </body>
 
 </html>
