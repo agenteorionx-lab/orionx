@@ -126,7 +126,9 @@
         class="fixed top-0 w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/10">
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <img src="imagens/OrionX_Logotipo principal preto (1).png" alt="OrionX Logo" width="160" height="40" class="h-8 md:h-10 w-auto">
+                <a href="../index.html" aria-label="Ir para a Página Principal da OrionX">
+                    <img src="../imagens/OrionX_Logotipo principal preto (1).png" alt="Logo OrionX" width="160" height="40" fetchpriority="high" class="h-8 md:h-10 w-auto">
+                </a>
             </div>
             <nav class="hidden md:flex items-center gap-10">
                 <a class="font-accent font-bold text-xs uppercase tracking-widest hover:text-primary transition-colors"
@@ -141,7 +143,7 @@
                     href="#portfolio">Portfólio</a>
             </nav>
             <div class="flex items-center gap-3">
-                <button onclick="openBookingModal()"
+                <button onclick="openBookingModal()" aria-label="Abrir modal de agendamento"
                     class="bg-primary text-white font-display font-bold px-4 py-1.5 md:px-6 md:py-2 rounded-lg hover:scale-110 active:scale-95 transition-all outline-none uppercase text-xs md:text-sm shadow-lg hover:shadow-primary/40 inline-block">
                     CONTATO
                 </button>
@@ -167,8 +169,8 @@
     <section class="hero-gradient min-h-[100svh] md:min-h-screen flex items-start md:items-center pt-28 md:pt-20 pb-20 angular-divider-bottom relative overflow-hidden" id="hero">
         <!-- Background Hero X (Escala Equilibrada e Absoluta) -->
         <div class="absolute inset-0 pointer-events-none z-0" style="perspective: 1500px;">
-            <img id="hero-x-img" src="imagens/OrionX_X preto (1).png" alt="X Background" width="800" height="800" 
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] max-w-none md:w-auto md:left-auto md:translate-x-0 md:right-[0%] md:h-[98%] object-contain opacity-10 md:opacity-20 mix-blend-multiply transition-transform duration-75 ease-out">
+            <img id="hero-x-img" src="../imagens/OrionX_X preto (1).png" alt="Logo X OrionX" width="800" height="800" loading="eager" fetchpriority="high"
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] max-w-none md:w-[800px] md:h-[800px] md:left-auto md:translate-x-0 md:right-[0%] md:h-[98%] object-contain opacity-10 md:opacity-20 mix-blend-multiply transition-transform duration-75 ease-out">
         </div>
         <div class="absolute inset-0 neural-pattern opacity-5 pointer-events-none"></div>
         <div class="container mx-auto px-4 md:px-6 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-12">
