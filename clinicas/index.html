@@ -53,6 +53,7 @@
     </style>
 
     <!-- Async CSS Loading -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="preload" href="../compiled-tailwind.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="../compiled-tailwind.css"></noscript>
 
@@ -1607,7 +1608,7 @@
                 if (isOccupied) {
                     btn.innerText = 'OCUPADO';
                     btn.disabled = true;
-                    btn.className = `py-3 px-4 rounded-xl text-[9px] font-black transition-all border bg-white/5 border-white/5 text-slate-600 cursor-not-allowed opacity-50`;
+                    btn.className = `py-3 px-4 rounded-xl text-[9px] font-black transition-all border bg-white/5 border-white/5 text-slate-500 cursor-not-allowed opacity-40`;
                 } else {
                     btn.innerText = timeStr;
                     btn.className = `py-3 px-4 rounded-xl text-xs font-bold transition-all border

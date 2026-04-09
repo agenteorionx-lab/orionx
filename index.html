@@ -50,6 +50,7 @@
     </style>
 
     <!-- Async CSS Loading -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="preload" href="compiled-tailwind.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="compiled-tailwind.css"></noscript>
     
@@ -1037,10 +1038,10 @@
                                 <div class="space-y-4">
                                     <label class="text-base md:text-lg text-white font-display font-bold block">Qual o seu nome, e-mail e melhor Telefone/WhatsApp?</label>
                                     <div class="grid grid-cols-1 gap-4">
-                                        <input required type="text" name="nome" id="fullname" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                        <input required type="text" name="nome" id="fullname" placeholder="Nome Completo" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base placeholder:text-slate-500">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            <input required type="tel" name="telefone" id="phone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
-                                            <input required type="email" name="email" id="email" placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-3 md:py-4 text-white focus:border-primary transition-all outline-none text-base">
+                                            <input required type="tel" name="telefone" id="phone" placeholder="(00) 00000-0000" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base placeholder:text-slate-500">
+                                            <input required type="email" name="email" id="email" placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-primary transition-all outline-none text-base placeholder:text-slate-500">
                                         </div>
                                     </div>
                                 </div>
@@ -1301,7 +1302,7 @@
                 if (isOccupied) {
                     btn.innerText = 'OCUPADO';
                     btn.disabled = true;
-                    btn.className = 'py-3 px-4 rounded-xl text-[9px] font-black bg-white/5 text-slate-600 cursor-not-allowed opacity-50 border border-white/5';
+                    btn.className = 'py-3 px-4 rounded-xl text-[9px] font-black bg-white/5 text-slate-500 cursor-not-allowed opacity-40 border border-white/5';
                 } else {
                     btn.innerText = timeStr;
                     const isSelected = selectedTime === timeStr;
