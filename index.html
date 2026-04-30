@@ -2,15 +2,18 @@
 <html class="light" lang="pt-BR">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-P5SG3RWQ');</script>
+    <!-- Google Tag Manager (Delayed for Performance) -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-P5SG3RWQ');
+            }, 1000); // Carrega 1s após o DOM para priorizar LCP
+        });
+    </script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -39,8 +42,9 @@
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://oyyiowkeegmkicwvbmit.supabase.co">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://oyyiowkeegmkicwvbmit.supabase.co">
     
     <!-- Font Awesome (Preloaded for performance) -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -106,9 +110,11 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            aspect-ratio: 1/1;
             mix-blend-multiply;
             transition: transform 0.1s ease-out;
             opacity: 0.15;
+            content-visibility: auto;
         }
 
         @media (max-width: 767px) {
@@ -142,9 +148,20 @@
         <link rel="stylesheet" href="compiled-tailwind.css">
     </noscript>
 
+    <!-- Preconnect to Font Services -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload Critical Fonts (Orbitron and Public Sans) -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/orbitron/v31/yMJMM8ObzPNCdQXcQcuWM_6X.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/publicsans/v15/ijWH6rPbs1guSNDZ_t94S9Y.woff2" as="font" type="font/woff2" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
 
     <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -335,7 +352,10 @@
         <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" style="perspective: 1500px;">
             <!-- Elemento X centralizado no mobile e fixo à direita no desktop via CSS -->
             <div class="hero-x-wrapper">
-                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp" alt="Logo X OrionX" width="800" height="800" fetchpriority="high">
+                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp" 
+                    srcset="imagens/OrionX_X preto (1).webp 800w, imagens/OrionX_X preto (1).webp 1200w"
+                    sizes="(max-width: 768px) 80vh, 100vh"
+                    alt="Logo X OrionX" width="800" height="800" fetchpriority="high" style="cursor: grab;">
             </div>
         </div>
         <div class="absolute inset-0 neural-pattern opacity-5 pointer-events-none"></div>
@@ -405,7 +425,7 @@
     </div>
 
     <!-- Section 2: Services (Pillars) -->
-    <section class="py-12 md:py-24 bg-white" id="services">
+    <section class="py-12 md:py-24 bg-white" id="services" style="content-visibility: auto; contain-intrinsic-size: 1px 800px;">
         <div class="container mx-auto px-4 md:px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-6 md:gap-8">
                 <div class="max-w-2xl">
@@ -528,7 +548,7 @@
     </section>
 
     <!-- Section 3: Authority - Premium Redesign -->
-    <section class="py-16 md:py-32 text-white relative overflow-hidden bg-primary" id="authority">
+    <section class="py-16 md:py-32 text-white relative overflow-hidden bg-primary" id="authority" style="content-visibility: auto; contain-intrinsic-size: 1px 600px;">
         <!-- Background Fade (Arrows / Fundo Orion) with higher opacity (~25%) -->
         <div
             class="absolute inset-0 bg-[url('imagens/fundoorion.webp')] bg-cover bg-center bg-no-repeat opacity-25 mix-blend-multiply pointer-events-none transition-transform duration-1000 ease-out hover:scale-105">
@@ -806,8 +826,7 @@
                         onclick="window.location.href='plataformas-escalaveis.html'">
                         <!-- Imagem de fundo com overlay mais escuro -->
                         <img src="imagens/lp_placeholder_1_1774644503727.webp" alt="SaaS Dashboard 3D" width="600"
-                            height="450" loading="lazy"
-                            class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
+                            height="450" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
                         </div>
 
@@ -890,10 +909,14 @@
 
         <div class="container mx-auto px-4 md:px-6 relative z-10">
             <div class="max-w-4xl mx-auto text-center mb-10 md:mb-16">
-                <h2
-                    class="font-display font-black text-3xl md:text-7xl mb-6 md:mb-10 uppercase tracking-tighter text-primary">
-                    Por que a OrionX?</h2>
-                <p class="text-lg md:text-2xl opacity-80 font-light leading-relaxed">Não entregamos apenas software.
+                <div class="space-y-4 md:space-y-6" data-aos="fade-right">
+                    <h2 class="font-display font-black text-4xl md:text-6xl text-white leading-[1.1] tracking-tight">
+                        POR QUE <br class="hidden md:block">
+                        <span class="text-primary italic">A ORIONX?</span>
+                    </h2>
+                    <div class="h-2 w-24 bg-primary rounded-full mx-auto"></div>
+                </div>
+                <p class="text-lg md:text-2xl opacity-80 font-light leading-relaxed mt-10">Não entregamos apenas software.
                     Entregamos
                     <span class="text-slate-100 font-bold underline">vantagem competitiva</span> através de experiências
                     3D intuitivas e infraestrutura de elite.
