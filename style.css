@@ -55,6 +55,8 @@
 
 .marquee-content {
     display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     width: max-content;
     animation: marquee 40s linear infinite;
 }
