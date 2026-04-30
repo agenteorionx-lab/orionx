@@ -1847,6 +1847,8 @@
                 };
 
                 // Salva no Supabase
+                // Salva no Supabase e captura o ID gerado
+                let leadId = null;
                 try {
                     const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
                         method: 'POST',
@@ -1858,7 +1860,11 @@
                         },
                         body: JSON.stringify({ ...data, pagina_origem: 'home', ..._utmParams })
                     });
-                    if (res.ok) console.log('✅ Salvo no Supabase');
+                    if (res.ok) {
+                        const insertedData = await res.json();
+                        leadId = insertedData[0]?.id;
+                        console.log('✅ Salvo no Supabase. ID:', leadId);
+                    }
                 } catch (err) { console.error('❌ Erro Supabase', err); }
 
                 // Webhook n8n
@@ -1866,7 +1872,7 @@
                     fetch(ORIONX_CONFIG.n8nWebhookUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ ...payload, lead_id: leadId })
                     });
                 } catch (err) { }
 
