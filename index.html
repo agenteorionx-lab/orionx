@@ -41,6 +41,10 @@
         content="https://orionxbrasil.com/imagens/OrionX_Logotipo%20principal%20preto%20(1).webp">
 
 
+    <!-- Preconnect (only essential origins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Font Awesome (Preloaded for performance) -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
@@ -135,30 +139,19 @@
         }
     </style>
 
-    <!-- Async CSS Loading -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" /></noscript>
+    <!-- Tailwind (blocking - critical for layout stability / zero CLS) -->
     <link rel="stylesheet" href="compiled-tailwind.css">
 
-    <!-- Preconnect to Font Services -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts with display=swap (non-blocking text rendering) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- Fonts (Synchronous to prevent CLS / Layout Shifts) -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Material Symbols + AOS + Swiper (all async / non-critical) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"></noscript>
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
     <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
-
-    <!-- Scripts deferred -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-
-    <link rel="preload" as="image" href="imagens/OrionX_X preto (1).webp" fetchpriority="high" />
-    <link rel="preload" as="image" href="imagens/OrionX_Logotipo principal preto (1).webp" fetchpriority="high" />
 
     <!-- Scripts -->
     <!-- Top Navigation -->
@@ -1880,6 +1873,8 @@
                 goToStep3(data);
             }
         </script>
+    <!-- Supabase SDK (loaded at end of body to not block rendering) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 </body>
 
 </html>
