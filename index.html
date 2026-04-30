@@ -109,7 +109,6 @@
             mix-blend-multiply;
             transition: transform 0.1s ease-out;
             opacity: 0.15;
-            content-visibility: auto;
         }
 
         @media (max-width: 767px) {
@@ -139,25 +138,14 @@
     <!-- Async CSS Loading -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" /></noscript>
-    <link rel="preload" href="compiled-tailwind.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="compiled-tailwind.css">
-    </noscript>
+    <link rel="stylesheet" href="compiled-tailwind.css">
 
     <!-- Preconnect to Font Services -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Preload Critical Fonts (Orbitron and Public Sans) -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/orbitron/v31/yMJMM8ObzPNCdQXcQcuWM_6X.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://fonts.gstatic.com/s/publicsans/v15/ijWH6rPbs1guSNDZ_t94S9Y.woff2" as="font" type="font/woff2" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
-    </noscript>
+    <!-- Fonts (Synchronous to prevent CLS / Layout Shifts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
