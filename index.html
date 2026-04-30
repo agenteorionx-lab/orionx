@@ -42,8 +42,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://oyyiowkeegmkicwvbmit.supabase.co">
     
-    <!-- Font Awesome for Social Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Font Awesome (Preloaded for performance) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
     <!-- Critical CSS Inlined -->
     <style>
@@ -143,7 +144,7 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Montserrat:wght@300;400;700&family=Public+Sans:wght@400;700&display=swap"
-        rel="stylesheet" media="print" onload="this.media='all'">
+        rel="stylesheet">
 
     <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -280,7 +281,7 @@
             <div class="flex items-center gap-2">
                 <a href="#hero" aria-label="Ir para o Início">
                     <img src="imagens/OrionX_Logotipo principal preto (1).webp" alt="Logo OrionX" width="160" height="40"
-                        fetchpriority="high" class="h-8 md:h-10 w-auto">
+                        fetchpriority="high" loading="eager" class="h-8 md:h-10 w-auto">
                 </a>
             </div>
             <nav class="hidden md:flex items-center gap-10">
@@ -334,7 +335,7 @@
         <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" style="perspective: 1500px;">
             <!-- Elemento X centralizado no mobile e fixo à direita no desktop via CSS -->
             <div class="hero-x-wrapper">
-                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp" alt="Logo X OrionX">
+                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp" alt="Logo X OrionX" width="800" height="800" fetchpriority="high">
             </div>
         </div>
         <div class="absolute inset-0 neural-pattern opacity-5 pointer-events-none"></div>
@@ -1298,7 +1299,7 @@
             <div class="p-4 md:p-6 border-b border-white/5 flex items-center justify-between bg-black/30">
                 <div class="flex items-center gap-3">
                     <img src="imagens/OrionX_Logotipo principal laranja (1).webp" alt="OrionX Logo" width="160"
-                        height="32" loading="lazy" class="h-6 md:h-8 w-auto">
+                        height="32" loading="eager" class="h-6 md:h-8 w-auto">
                 </div>
                 <div class="flex items-center gap-4">
                     <div id="step-dot-1" class="h-1 w-8 bg-primary rounded-full transition-all"></div>
