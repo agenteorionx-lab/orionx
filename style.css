@@ -36,9 +36,10 @@
         clip-path: polygon(0 0, 100% 0, 100% 93%, 0% 100%);
     }
     .angular-divider-top {
-        clip-path: polygon(0 7%, 100% 0, 100% 100%, 0% 100%);
+        clip-path: polygon(0 4%, 100% 0, 100% 100%, 0% 100%);
     }
 }
+
 
 /* Marquee Animation */
 @keyframes marquee {
@@ -53,19 +54,21 @@
 }
 
 .marquee-content {
-    display: inline-block;
-    animation: marquee 30s linear infinite;
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
 }
 
 @media (max-width: 767px) {
     .marquee-content {
-        animation-duration: 10s;
+        animation-duration: 20s;
     }
 }
 
 .marquee-content:hover {
     animation-play-state: paused;
 }
+
 
 /* Depth and Glossy Effects */
 .depth-1 {
@@ -100,3 +103,6 @@
 .animate-pulse-slow {
     animation: pulse-slow 6s ease-in-out infinite;
 }
+
+
+

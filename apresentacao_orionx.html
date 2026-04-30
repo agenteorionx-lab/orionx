@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação OrionX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF5700;
+            --bg: #0A0C10;
+            --text: #FFFFFF;
+            --slate-400: #94a3b8;
+            --slate-800: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .page {
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            page-break-after: always;
+            background-color: var(--bg);
+        }
+
+        .bg-logo {
+            position: absolute;
+            top: 50%;
+            right: 0%;
+            transform: translateY(-50%);
+            width: 500px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .accent {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .font-display {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            color: var(--primary);
+            border-left: 8px solid var(--primary);
+            padding-left: 24px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-size: 1.25rem;
+            color: var(--slate-400);
+            max-width: 800px;
+            margin-bottom: 32px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+        }
+
+        .card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin-bottom: 0;
+            color: #cbd5e1;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 87, 0, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+        }
+
+        .list-item span {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 24px;
+            font-size: 0.85rem;
+            color: var(--slate-400);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.05);
+            margin-bottom: -20px;
+        }
+
+        @media print {
+            body { background-color: #0A0C10 !important; }
+            .page { min-height: 100vh; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Capa -->
+    <div class="page">
+        <div class="tag">Engenharia de Software & IA</div>
+        <h1 class="font-display">OrionX <br><span class="accent">Resumo Executivo</span></h1>
+        <p>Transformando a interação entre pessoas e tecnologia através de sistemas robustos, APIs escaláveis e agentes de IA que resolvem.</p>
+        <div class="footer">
+            <span>© 2026 OrionX Brasil</span>
+            <span>orionxbrasil.com</span>
+        </div>
+    </div>
+
+    <!-- Pilares -->
+    <div class="page">
+        <h2>Nossos Pilares</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="tag">Corporativo</div>
+                <h4>SaaS & Aplicações</h4>
+                <p>Desenvolvimento de arquiteturas vivas que escalam sob demanda, focadas em performance e segurança enterprise.</p>
+            </div>
+            <div class="card">
+                <div class="tag">Inteligência</div>
+                <h4>Agentes de IA</h4>
+                <p>Integração de LLMs para automação de suporte e vendas 24/7 com fluxos humanizados e qualificação de leads.</p>
+            </div>
+            <div class="card">
+                <div class="tag">Impacto</div>
+                <h4>Landing Pages</h4>
+                <p>Engenharia de Conversão: páginas desenvolvidas milimetricamente para ROI massivo e velocidade extrema.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>OrionX | Engenharia de Software</span>
+            <span>Página 02</span>
+        </div>
+    </div>
+
+    <!-- Referências Técnicas -->
+    <div class="page">
+        <h2>Ecossistema Técnico</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+            <div>
+                <h3>Inteligência Artificial</h3>
+                <div class="list-item"><span>•</span> Agentes Autônomos (WhatsApp/Voz)</div>
+                <div class="list-item"><span>•</span> Base de Conhecimento Inteligente</div>
+                <div class="list-item"><span>•</span> Triagem e Qualificação (Handoff)</div>
+                <div class="list-item"><span>•</span> LLMs de Última Geração</div>
+                
+                <h3 style="margin-top: 40px;">Soluções SaaS</h3>
+                <div class="list-item"><span>•</span> Checkout Integrado (ASAAS)</div>
+                <div class="list-item"><span>•</span> Gerenciamento de Afiliados</div>
+                <div class="list-item"><span>•</span> Dashboards de Performance</div>
+            </div>
+            <div>
+                <h3>Tecnologias Core</h3>
+                <div class="list-item"><span>•</span> Node.js / NestJS</div>
+                <div class="list-item"><span>•</span> TypeScript / Python</div>
+                <div class="list-item"><span>•</span> Redis / PostgreSQL</div>
+                <div class="list-item"><span>•</span> Docker / Linux VPS</div>
+                
+                <h3 style="margin-top: 40px;">Infraestrutura</h3>
+                <div class="list-item"><span>•</span> Supabase (Realtime DB)</div>
+                <div class="list-item"><span>•</span> Core Web Vitals (SEO)</div>
+                <div class="list-item"><span>•</span> 99.9% Uptime Garantido</div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>OrionX | Engenharia de Software</span>
+            <span>Página 03</span>
+        </div>
+    </div>
+
+    <!-- Processo -->
+    <div class="page">
+        <h2>O Protocolo Orion</h2>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h4 class="accent">Mapeamento</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Diagnóstico de gargalos e roteiro técnico estratégico.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h4 class="accent">Arquitetura</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Desenho de fluxos escaláveis e seguros.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h4 class="accent">Execução</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Clean Code, SOLID e testes rigorosos.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h4 class="accent">Escala</h4>
+                <p style="font-size: 0.85rem; margin-top: 8px;">Deploy otimizado e monitoramento ativo.</p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 60px; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+            <p style="margin-bottom: 0px; font-size: 1.1rem; color: #fff;">"Não entregamos apenas software. Entregamos <span class="accent">vantagem competitiva</span> através de infraestrutura de elite."</p>
+        </div>
+
+        <div class="footer">
+            <span>OrionX | Engenharia de Software</span>
+            <span>Página 04</span>
+        </div>
+    </div>
+
+</body>
+</html>
