@@ -886,7 +886,7 @@
 
         <div class="container mx-auto px-4 md:px-6 relative z-10">
             <div class="max-w-4xl mx-auto text-center mb-10 md:mb-16">
-                <div class="space-y-4 md:space-y-6" data-aos="fade-right">
+                <div class="space-y-4 md:space-y-6">
                     <h2 class="font-display font-black text-4xl md:text-6xl text-white leading-[1.1] tracking-tight">
                         POR QUE <br class="hidden md:block">
                         <span class="text-primary italic">A ORIONX?</span>
@@ -1875,6 +1875,18 @@
         </script>
     <!-- Supabase SDK (loaded at end of body to not block rendering) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Inicializa AOS com delay para não impactar performance inicial
+        window.addEventListener('load', () => {
+            AOS.init({
+                duration: 800,
+                once: true,
+                disable: window.innerWidth < 768 // Desativado em mobile para performance extrema
+            });
+        });
+    </script>
 </body>
 
 </html>
