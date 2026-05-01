@@ -1594,6 +1594,7 @@
             let selectedDate = null;
             let selectedTime = null;
             let currentSubStep = 1;
+            let currentLeadId = null;
 
             // --- MODAL CONTROL ---
             function openBookingModal() {
@@ -1815,6 +1816,7 @@
                 if (!valid) return;
 
                 if (currentSubStep < 6) {
+                    if (currentSubStep === 1) savePartialLead();
                     showSubStep(currentSubStep + 1);
                 } else {
                     const form = document.getElementById('qualify-form');
@@ -1831,11 +1833,42 @@
             }
 
             // --- SUBMISSION ---
+            async function savePartialLead() {
+                const form = document.getElementById('qualify-form');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                if (!data.nome || !data.email) return;
+                try {
+                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': ORIONX_CONFIG.supabaseKey,
+                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                            'Prefer': 'return=representation'
+                        },
+                        body: JSON.stringify({ 
+                            nome: data.nome, 
+                            email: data.email, 
+                            telefone: data.telefone,
+                            pagina_origem: 'home',
+                            ..._utmParams 
+                        })
+                    });
+                    if (res.ok) {
+                        const inserted = await res.json();
+                        currentLeadId = inserted[0]?.id;
+                        console.log('Lead parcial salvo. ID:', currentLeadId);
+                    }
+                } catch (e) { console.error('Erro savePartialLead', e); }
+            }
+
             async function handleBookingSubmit(e) {
                 e.preventDefault();
                 const form = e.target;
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
+
 
                 const payload = {
                     event: 'booking_home',
@@ -1854,11 +1887,14 @@
                 };
 
                 // Salva no Supabase
-                // Salva no Supabase e captura o ID gerado
-                let leadId = null;
+                let leadId = currentLeadId;
                 try {
-                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                        method: 'POST',
+                    const url = leadId 
+                        ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`
+                        : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
+                    
+                    const res = await fetch(url, {
+                        method: leadId ? 'PATCH' : 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'apikey': ORIONX_CONFIG.supabaseKey,

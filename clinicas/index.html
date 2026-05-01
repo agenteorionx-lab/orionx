@@ -1476,6 +1476,7 @@
         let currentMonth = new Date();
         let selectedDate = null;
         let selectedTime = null;
+        let currentLeadId = null;
 
         function renderCalendar() {
             const grid = document.getElementById('calendar-grid');
@@ -1775,6 +1776,7 @@
             if (!allValid) return;
 
             if (currentSubStep < 6) {
+                if (currentSubStep === 1) savePartialLead();
                 currentSubStep++;
                 showSubStep(currentSubStep);
             } else {
@@ -1832,6 +1834,37 @@
             }
         }
 
+        // --- BOOKING SYSTEM LOGIC ---
+        async function savePartialLead() {
+            const form = document.getElementById('qualify-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            if (!data.nome || !data.email) return;
+            try {
+                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': ORIONX_CONFIG.supabaseKey,
+                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                        'Prefer': 'return=representation'
+                    },
+                    body: JSON.stringify({ 
+                        nome: data.nome, 
+                        email: data.email, 
+                        telefone: data.telefone,
+                        pagina_origem: 'lp_clinicas',
+                        ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
+                    })
+                });
+                if (res.ok) {
+                    const inserted = await res.json();
+                    currentLeadId = inserted[0]?.id;
+                    console.log('Lead parcial salvo (Clínicas). ID:', currentLeadId);
+                }
+            } catch (e) { console.error('Erro savePartialLead Clínicas', e); }
+        }
+
         async function handleBookingSubmit(e) {
             e.preventDefault();
             const form = e.target;
@@ -1875,11 +1908,15 @@
             };
 
             // 3. Salva no Supabase (não bloqueia a UX)
-            let leadId = null;
+            let leadId = currentLeadId;
             if (ORIONX_CONFIG.supabaseUrl && !ORIONX_CONFIG.supabaseUrl.startsWith('COLE')) {
                 try {
-                    const sbRes = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                        method: 'POST',
+                    const url = leadId 
+                        ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`
+                        : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
+
+                    const sbRes = await fetch(url, {
+                        method: leadId ? 'PATCH' : 'POST',
                         headers: {
                             'Content-Type':  'application/json',
                             'apikey':        ORIONX_CONFIG.supabaseKey,
@@ -1888,7 +1925,7 @@
                         },
                         body: JSON.stringify({
                             nome:              data.nome,
-                            email:             data.email, // ← Adicionado e-mail
+                            email:             data.email, 
                             telefone:          data.telefone,
                             agendamento_data:  data.agendamento_data,
                             agendamento_hora:  data.agendamento_hora,
