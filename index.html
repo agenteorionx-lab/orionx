@@ -1613,6 +1613,7 @@
             let selectedTime = null;
             let currentSubStep = 1;
             let currentLeadId = null;
+            let scheduleFired = false;
 
             // --- MODAL CONTROL ---
             function openBookingModal() {
@@ -1931,9 +1932,10 @@
                         leadId = insertedData[0]?.id;
                         console.log('✅ Salvo no Supabase. ID:', leadId);
 
-                        // Facebook Pixel Event: Schedule
-                        if (typeof fbq === 'function') {
+                        // Facebook Pixel Event: Schedule (Trava contra duplicidade)
+                        if (typeof fbq === 'function' && !scheduleFired) {
                             fbq('track', 'Schedule');
+                            scheduleFired = true;
                         }
                     }
                 } catch (err) { console.error('❌ Erro Supabase', err); }

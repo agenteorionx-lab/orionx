@@ -1495,6 +1495,7 @@
         let selectedDate = null;
         let selectedTime = null;
         let currentLeadId = null;
+        let scheduleFired = false;
 
         function renderCalendar() {
             const grid = document.getElementById('calendar-grid');
@@ -1969,9 +1970,10 @@
                         leadId = sbJson[0]?.id || null;
                         console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
 
-                        // Facebook Pixel Event: Schedule
-                        if (typeof fbq === 'function') {
+                        // Facebook Pixel Event: Schedule (Trava contra duplicidade)
+                        if (typeof fbq === 'function' && !scheduleFired) {
                             fbq('track', 'Schedule');
+                            scheduleFired = true;
                         }
                     } else {
                         const errorDetails = await sbRes.json();
