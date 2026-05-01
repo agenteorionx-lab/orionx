@@ -1818,15 +1818,10 @@
                     showSubStep(currentSubStep + 1);
                 } else {
                     const form = document.getElementById('qualify-form');
-                    if (typeof form.requestSubmit === 'function') {
-                        try {
-                            form.requestSubmit();
-                        } catch (e) {
-                            form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                        }
-                    } else {
-                        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                    }
+                    handleBookingSubmit({
+                        preventDefault: () => {},
+                        target: form
+                    });
                 }
             }
 
