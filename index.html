@@ -1873,6 +1873,17 @@
                 }
             }
 
+            // Converte data "dd/mm/aaaa" + hora "HH:MM" para ISO 8601 (fuso Brasília -03:00)
+            function buildAgendamentoISO(dataBR, hora, extraHours = 0) {
+                try {
+                    const [dia, mes, ano] = dataBR.split('/');
+                    const [h, m] = hora.split(':');
+                    let targetHour = parseInt(h) + extraHours;
+                    const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${targetHour.toString().padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
+                    return iso;
+                } catch (_) { return null; }
+            }
+
             // --- SUBMISSION ---
             async function handleBookingSubmit(e) {
                 if (e && typeof e.preventDefault === 'function') e.preventDefault();
@@ -1880,12 +1891,34 @@
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
+                const agendamentoISO_Start = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 0);
+                const agendamentoISO_End   = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 1);
+
+                // Payload Achatado para o n8n (conforme estrutura esperada no workflow)
+                const n8nPayload = {
+                    event:         'booking_home',
+                    timestamp:     new Date().toISOString(),
+                    pagina_origem: 'home',
+                    name:          data.nome,
+                    phone:         data.telefone,
+                    email:         data.email,
+                    hora:          data.agendamento_hora,
+                    desafio:       data.pergunta_desafio,
+                    gargalo:       data.pergunta_gargalo,
+                    sistema:       data.pergunta_sistemas,
+                    equipe:        data.pergunta_equipe,
+                    detalhes:      data.pergunta_detalhes,
+                    data_inicio:   agendamentoISO_Start,
+                    data_fim:      agendamentoISO_End,
+                    ..._utmParams
+                };
+
                 const payload = {
                     event: 'booking_home',
                     timestamp: new Date().toISOString(),
                     pagina_origem: 'home',
                     contato: { nome: data.nome, telefone: data.telefone, email: data.email },
-                    agendamento: { data: data.agendamento_data, hora: data.agendamento_hora },
+                    agendamento: { data: data.agendamento_data, hora: data.agendamento_hora, iso: agendamentoISO_Start },
                     qualificacao: {
                         desafio: data.pergunta_desafio,
                         gargalo: data.pergunta_gargalo,
@@ -1935,7 +1968,7 @@
                     fetch(ORIONX_CONFIG.n8nWebhookUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ...payload, lead_id: leadId })
+                        body: JSON.stringify({ ...n8nPayload, lead_id: leadId })
                     });
                 } catch (err) { }
 

@@ -1824,16 +1824,14 @@
         })();
 
         // Converte data "dd/mm/aaaa" + hora "HH:MM" para ISO 8601 (fuso Brasília -03:00)
-        function buildAgendamentoISO(dataBR, hora) {
+        function buildAgendamentoISO(dataBR, hora, extraHours = 0) {
             try {
                 const [dia, mes, ano] = dataBR.split('/');
                 const [h, m] = hora.split(':');
-                // Monta string de data local (sem UTC) e ajusta fuso de Brasília
-                const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${h.padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
+                let targetHour = parseInt(h) + extraHours;
+                const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${targetHour.toString().padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
                 return iso;
-            } catch (_) {
-                return null;
-            }
+            } catch (_) { return null; }
         }
 
         // --- PARTIAL SAVE (LEAD CAPTURE) ---
@@ -1881,16 +1879,30 @@
             const data = Object.fromEntries(formData.entries());
 
             // Garantir que campos de agendamento que vêm de IDs manuais (se houver) sejam capturados se não estiverem no FormData
-            if (!data.agendamento_data) data.agendamento_data = document.getElementById('hidden-date').value;
-            if (!data.agendamento_hora) data.agendamento_hora = document.getElementById('hidden-time').value;
-            if (!data.nome) data.nome = document.getElementById('fullname').value;
-            if (!data.telefone) data.telefone = document.getElementById('phone').value;
-            if (!data.email) data.email = document.getElementById('email').value;
+            if (!data.agendamento_data) data.agendamento_data = documen            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
+            const agendamentoISO_Start = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 0);
+            const agendamentoISO_End   = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 1);
 
-            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
-            const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
+            // 2. Payload Achatado para o n8n (conforme estrutura esperada no workflow)
+            const n8nPayload = {
+                event:         'booking_qualification',
+                timestamp:     new Date().toISOString(),
+                pagina_origem: 'lp_clinicas',
+                name:          data.nome,
+                phone:         data.telefone,
+                email:         data.email,
+                hora:          data.agendamento_hora,
+                desafio:       data.pergunta_desafio,
+                gargalo:       data.pergunta_gargalo,
+                sistema:       data.pergunta_sistemas,
+                equipe:        data.pergunta_equipe,
+                detalhes:      data.pergunta_detalhes,
+                data_inicio:   agendamentoISO_Start,
+                data_fim:      agendamentoISO_End,
+                ..._utmParams
+            };
 
-            // 2. Payload completo e estruturado
+            // 2b. Payload estruturado (mantido para log/Supabase se necessário)
             const payload = {
                 event:         'booking_qualification',
                 timestamp:     new Date().toISOString(),
@@ -1899,12 +1911,25 @@
                 contato: {
                     nome:     data.nome,
                     telefone: data.telefone,
+                    email:    data.email,
                 },
 
                 agendamento: {
-                    data: data.agendamento_data,  // "07/04/2026"
-                    hora: data.agendamento_hora,  // "14:00"
-                    iso:  agendamentoISO,          // "2026-04-07T14:00:00-03:00"
+                    data: data.agendamento_data,
+                    hora: data.agendamento_hora,
+                    iso:  agendamentoISO_Start,
+                },
+
+                qualificacao: {
+                    desafio:  data.pergunta_desafio,
+                    gargalo:  data.pergunta_gargalo,
+                    sistemas: data.pergunta_sistemas,
+                    equipe:   data.pergunta_equipe,
+                    detalhes: data.pergunta_detalhes,
+                },
+
+                utm: _utmParams,
+            };0:00-03:00"
                 },
 
                 qualificacao: {
@@ -1934,7 +1959,7 @@
                         telefone:          data.telefone,
                         agendamento_data:  data.agendamento_data,
                         agendamento_hora:  data.agendamento_hora,
-                        agendamento_iso:   agendamentoISO,
+                        agendamento_iso:   agendamentoISO_Start,
                         pergunta_desafio:  data.pergunta_desafio,
                         pergunta_gargalo:  data.pergunta_gargalo,
                         pergunta_sistemas: data.pergunta_sistemas,
@@ -1983,7 +2008,7 @@
                     fetch(ORIONX_CONFIG.n8nWebhookUrl, {
                         method:  'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body:    JSON.stringify({ ...payload, lead_id: leadId }),
+                        body:    JSON.stringify({ ...n8nPayload, lead_id: leadId }),
                     });
                     console.log('✅ Webhook n8n disparado.');
                 } catch (err) {
