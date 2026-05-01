@@ -1814,8 +1814,20 @@
 
                 if (!valid) return;
 
-                if (currentSubStep < 6) showSubStep(currentSubStep + 1);
-                else document.getElementById('qualify-form').requestSubmit();
+                if (currentSubStep < 6) {
+                    showSubStep(currentSubStep + 1);
+                } else {
+                    const form = document.getElementById('qualify-form');
+                    if (typeof form.requestSubmit === 'function') {
+                        try {
+                            form.requestSubmit();
+                        } catch (e) {
+                            form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                        }
+                    } else {
+                        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                    }
+                }
             }
 
             function prevSubStep() {
