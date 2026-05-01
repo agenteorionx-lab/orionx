@@ -15,6 +15,24 @@
     <meta name="description" content="Otimize o atendimento da sua clínica ou hospital com a IA da OrionX. Automação de agendamentos 24/7, agentes de voz com tom humano e gestão eficiente de pacientes. Atenda mais e melhor.">
     <meta name="keywords" content="atendimento inteligente IA, software para clínicas, gestão de saúde, engenharia de software, desenvolvimento de softwares sob medida, sistemas escaláveis, consultoria tecnologia, OrionX sistemas, IA corporativa, agendamento automático, voz IA para clínicas">
     
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '27776838281925410');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=27776838281925410&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://orionxbrasil.com/clinicas/">
@@ -1861,6 +1879,11 @@
                     const inserted = await res.json();
                     currentLeadId = inserted[0]?.id;
                     console.log('Lead parcial salvo (Clínicas). ID:', currentLeadId);
+
+                    // Facebook Pixel Event: Lead
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'Lead');
+                    }
                 }
             } catch (e) { console.error('Erro savePartialLead Clínicas', e); }
         }
@@ -1945,6 +1968,11 @@
                         const sbJson = await sbRes.json();
                         leadId = sbJson[0]?.id || null;
                         console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
+
+                        // Facebook Pixel Event: Schedule
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Schedule');
+                        }
                     } else {
                         const errorDetails = await sbRes.json();
                         console.error('❌ Erro retornado pelo Supabase:', {
