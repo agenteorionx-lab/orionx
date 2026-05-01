@@ -1834,18 +1834,13 @@
 
         async function handleBookingSubmit(e) {
             e.preventDefault();
-            const data = {
-                nome:              document.getElementById('fullname').value,
-                email:             document.getElementById('email').value,
-                telefone:          document.getElementById('phone').value,
-                agendamento_data:  document.getElementById('hidden-date').value,
-                agendamento_hora:  document.getElementById('hidden-time').value,
-                pergunta_desafio:  document.getElementById('pergunta_desafio').value,
-                pergunta_gargalo:  document.getElementById('pergunta_gargalo').value,
-                pergunta_sistemas: document.getElementById('pergunta_sistemas').value,
-                pergunta_equipe:   document.getElementById('pergunta_equipe').value,
-                pergunta_detalhes: document.getElementById('pergunta_detalhes').value
-            };
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Garantir que o valor do rádio seja capturado corretamente (embora o entries() já faça isso)
+            // Se houver algum problema específico com rádio, oentries() geralmente pega o primeiro marcado.
+
 
             // 1. Monta o timestamp ISO para a Google Calendar API no n8n
             const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
