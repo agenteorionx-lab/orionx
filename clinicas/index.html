@@ -2476,7 +2476,21 @@
             if (!allValid) return;
 
             if (currentSubStep < 6) {
-                if (currentSubStep === 1) savePartialLead();
+                if (currentSubStep === 1) {
+                    // Feedback visual de carregamento
+                    const btn = document.getElementById('btn-next-substep');
+                    const originalText = document.getElementById('btn-substep-text').innerText;
+                    document.getElementById('btn-substep-text').innerText = 'SALVANDO...';
+                    btn.disabled = true;
+                    
+                    savePartialLead().finally(() => {
+                        document.getElementById('btn-substep-text').innerText = originalText;
+                        btn.disabled = false;
+                        currentSubStep++;
+                        showSubStep(currentSubStep);
+                    });
+                    return;
+                }
                 currentSubStep++;
                 showSubStep(currentSubStep);
             } else {
@@ -2655,6 +2669,8 @@
                         if (typeof fbq === 'function' && !scheduleFired) {
                             fbq('track', 'CompleteRegistration');
                             scheduleFired = true;
+                            // Limpa o ID para o próximo uso (segurança)
+                            currentLeadId = null;
                         }
                     } else {
                         const errorDetails = await sbRes.json();
