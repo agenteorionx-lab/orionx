@@ -1879,7 +1879,13 @@
             const data = Object.fromEntries(formData.entries());
 
             // Garantir que campos de agendamento que vêm de IDs manuais (se houver) sejam capturados se não estiverem no FormData
-            if (!data.agendamento_data) data.agendamento_data = documen            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
+            if (!data.agendamento_data) data.agendamento_data = document.getElementById('hidden-date').value;
+            if (!data.agendamento_hora) data.agendamento_hora = document.getElementById('hidden-time').value;
+            if (!data.nome) data.nome = document.getElementById('fullname').value;
+            if (!data.telefone) data.telefone = document.getElementById('phone').value;
+            if (!data.email) data.email = document.getElementById('email').value;
+
+            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
             const agendamentoISO_Start = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 0);
             const agendamentoISO_End   = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 1);
 
