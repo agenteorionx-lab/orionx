@@ -1752,11 +1752,9 @@
             if (n === 6) {
                 btnText.innerText = 'FINALIZAR';
                 btnIcon.innerText = 'check_circle';
-                nextBtn.onclick = () => document.getElementById('qualify-form').requestSubmit();
             } else {
                 btnText.innerText = 'CONTINUAR';
                 btnIcon.innerText = 'arrow_forward';
-                nextBtn.onclick = nextSubStep;
             }
         }
 
@@ -1779,6 +1777,9 @@
             if (currentSubStep < 6) {
                 currentSubStep++;
                 showSubStep(currentSubStep);
+            } else {
+                const form = document.getElementById('qualify-form');
+                handleBookingSubmit({ preventDefault: () => {}, target: form });
             }
         }
 
