@@ -1775,10 +1775,6 @@
             if (!allValid) return;
 
             if (currentSubStep < 6) {
-                // Salvamento Parcial ao sair do passo 1 (Contato)
-                if (currentSubStep === 1) {
-                    savePartialLead();
-                }
                 currentSubStep++;
                 showSubStep(currentSubStep);
             } else {
@@ -1824,91 +1820,37 @@
         })();
 
         // Converte data "dd/mm/aaaa" + hora "HH:MM" para ISO 8601 (fuso Brasília -03:00)
-        function buildAgendamentoISO(dataBR, hora, extraHours = 0) {
+        function buildAgendamentoISO(dataBR, hora) {
             try {
                 const [dia, mes, ano] = dataBR.split('/');
                 const [h, m] = hora.split(':');
-                let targetHour = parseInt(h) + extraHours;
-                const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${targetHour.toString().padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
+                // Monta string de data local (sem UTC) e ajusta fuso de Brasília
+                const iso = `${ano}-${mes.padStart(2,'0')}-${dia.padStart(2,'0')}T${h.padStart(2,'0')}:${m.padStart(2,'0')}:00-03:00`;
                 return iso;
-            } catch (_) { return null; }
-        }
-
-        // --- PARTIAL SAVE (LEAD CAPTURE) ---
-        let leadId = null;
-
-        async function savePartialLead() {
-            const form = document.getElementById('qualify-form');
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const payload = {
-                    nome: data.nome,
-                    email: data.email,
-                    telefone: data.telefone,
-                    pagina_origem: 'lp_clinicas',
-                    ..._utmParams
-                };
-
-                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'apikey': ORIONX_CONFIG.supabaseKey,
-                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
-                        'Prefer': 'return=representation'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (res.ok) {
-                    const inserted = await res.json();
-                    leadId = inserted[0]?.id;
-                    console.log('📍 Lead parcial salvo (Clínicas). ID:', leadId);
-                }
-            } catch (err) {
-                console.error('❌ Erro no salvamento parcial (Clínicas):', err);
+            } catch (_) {
+                return null;
             }
         }
 
         async function handleBookingSubmit(e) {
-            if (e && typeof e.preventDefault === 'function') e.preventDefault();
-            const form = document.getElementById('qualify-form');
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            // Garantir que campos de agendamento que vêm de IDs manuais (se houver) sejam capturados se não estiverem no FormData
-            if (!data.agendamento_data) data.agendamento_data = document.getElementById('hidden-date').value;
-            if (!data.agendamento_hora) data.agendamento_hora = document.getElementById('hidden-time').value;
-            if (!data.nome) data.nome = document.getElementById('fullname').value;
-            if (!data.telefone) data.telefone = document.getElementById('phone').value;
-            if (!data.email) data.email = document.getElementById('email').value;
-
-            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
-            const agendamentoISO_Start = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 0);
-            const agendamentoISO_End   = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora, 1);
-
-            // 2. Payload Achatado para o n8n (conforme estrutura esperada no workflow)
-            const n8nPayload = {
-                event:         'booking_qualification',
-                timestamp:     new Date().toISOString(),
-                pagina_origem: 'lp_clinicas',
-                name:          data.nome,
-                phone:         data.telefone,
-                email:         data.email,
-                hora:          data.agendamento_hora,
-                desafio:       data.pergunta_desafio,
-                gargalo:       data.pergunta_gargalo,
-                sistema:       data.pergunta_sistemas,
-                equipe:        data.pergunta_equipe,
-                detalhes:      data.pergunta_detalhes,
-                data_inicio:   agendamentoISO_Start,
-                data_fim:      agendamentoISO_End,
-                ..._utmParams
+            e.preventDefault();
+            const data = {
+                nome:              document.getElementById('fullname').value,
+                email:             document.getElementById('email').value,
+                telefone:          document.getElementById('phone').value,
+                agendamento_data:  document.getElementById('hidden-date').value,
+                agendamento_hora:  document.getElementById('hidden-time').value,
+                pergunta_desafio:  document.getElementById('pergunta_desafio').value,
+                pergunta_gargalo:  document.getElementById('pergunta_gargalo').value,
+                pergunta_sistemas: document.getElementById('pergunta_sistemas').value,
+                pergunta_equipe:   document.getElementById('pergunta_equipe').value,
+                pergunta_detalhes: document.getElementById('pergunta_detalhes').value
             };
 
-            // 2b. Payload estruturado (mantido para log/Supabase se necessário)
+            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
+            const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
+
+            // 2. Payload completo e estruturado
             const payload = {
                 event:         'booking_qualification',
                 timestamp:     new Date().toISOString(),
@@ -1917,25 +1859,12 @@
                 contato: {
                     nome:     data.nome,
                     telefone: data.telefone,
-                    email:    data.email,
                 },
 
                 agendamento: {
-                    data: data.agendamento_data,
-                    hora: data.agendamento_hora,
-                    iso:  agendamentoISO_Start,
-                },
-
-                qualificacao: {
-                    desafio:  data.pergunta_desafio,
-                    gargalo:  data.pergunta_gargalo,
-                    sistemas: data.pergunta_sistemas,
-                    equipe:   data.pergunta_equipe,
-                    detalhes: data.pergunta_detalhes,
-                },
-
-                utm: _utmParams,
-            };0:00-03:00"
+                    data: data.agendamento_data,  // "07/04/2026"
+                    hora: data.agendamento_hora,  // "14:00"
+                    iso:  agendamentoISO,          // "2026-04-07T14:00:00-03:00"
                 },
 
                 qualificacao: {
@@ -1949,51 +1878,40 @@
                 utm: _utmParams,
             };
 
-            // 3. Salva no Supabase (PATCH se tiver leadId, senão POST)
+            // 3. Salva no Supabase (não bloqueia a UX)
+            let leadId = null;
             if (ORIONX_CONFIG.supabaseUrl && !ORIONX_CONFIG.supabaseUrl.startsWith('COLE')) {
                 try {
-                    const sbHeaders = {
-                        'Content-Type':  'application/json',
-                        'apikey':        ORIONX_CONFIG.supabaseKey,
-                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
-                        'Prefer':        'return=representation',
-                    };
-
-                    const sbBody = {
-                        nome:              data.nome,
-                        email:             data.email,
-                        telefone:          data.telefone,
-                        agendamento_data:  data.agendamento_data,
-                        agendamento_hora:  data.agendamento_hora,
-                        agendamento_iso:   agendamentoISO_Start,
-                        pergunta_desafio:  data.pergunta_desafio,
-                        pergunta_gargalo:  data.pergunta_gargalo,
-                        pergunta_sistemas: data.pergunta_sistemas,
-                        pergunta_equipe:   data.pergunta_equipe,
-                        pergunta_detalhes: data.pergunta_detalhes,
-                        pagina_origem:     'lp_clinicas',
-                        ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
-                    };
-
-                    let sbRes;
-                    if (leadId) {
-                        sbRes = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`, {
-                            method: 'PATCH',
-                            headers: sbHeaders,
-                            body: JSON.stringify(sbBody),
-                        });
-                    } else {
-                        sbRes = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                            method: 'POST',
-                            headers: sbHeaders,
-                            body: JSON.stringify(sbBody),
-                        });
-                    }
+                    const sbRes = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type':  'application/json',
+                            'apikey':        ORIONX_CONFIG.supabaseKey,
+                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                            'Prefer':        'return=representation',
+                        },
+                        body: JSON.stringify({
+                            nome:              data.nome,
+                            email:             data.email, // ← Adicionado e-mail
+                            telefone:          data.telefone,
+                            agendamento_data:  data.agendamento_data,
+                            agendamento_hora:  data.agendamento_hora,
+                            agendamento_iso:   agendamentoISO,
+                            pergunta_desafio:  data.pergunta_desafio,
+                            pergunta_gargalo:  data.pergunta_gargalo,
+                            pergunta_sistemas: data.pergunta_sistemas,
+                            pergunta_equipe:   data.pergunta_equipe,
+                            pergunta_detalhes: data.pergunta_detalhes,
+                            pagina_origem:     'lp_clinicas',
+                            // Garante que só envia UTMs que tenham valor
+                            ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
+                        }),
+                    });
 
                     if (sbRes.ok) {
                         const sbJson = await sbRes.json();
                         leadId = sbJson[0]?.id || null;
-                        console.log('✅ Lead atualizado no Supabase com sucesso! ID:', leadId);
+                        console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
                     } else {
                         const errorDetails = await sbRes.json();
                         console.error('❌ Erro retornado pelo Supabase:', {
@@ -2014,7 +1932,7 @@
                     fetch(ORIONX_CONFIG.n8nWebhookUrl, {
                         method:  'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body:    JSON.stringify({ ...n8nPayload, lead_id: leadId }),
+                        body:    JSON.stringify({ ...payload, lead_id: leadId }),
                     });
                     console.log('✅ Webhook n8n disparado.');
                 } catch (err) {
