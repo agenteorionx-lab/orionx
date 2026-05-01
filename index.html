@@ -1575,7 +1575,7 @@
             const ORIONX_CONFIG = {
                 supabaseUrl: 'https://oyyiowkeegmkicwvbmit.supabase.co',
                 supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im95eWlvd2tlZWdta2ljd3ZibWl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyMDIzNDcsImV4cCI6MjA4OTc3ODM0N30.Wk7s-kebbtAjwW7uCV2l2XQxQTop78xW8LJsBDLF0LM',
-                n8nWebhookUrl: 'https://n8n.orionxbrasil.com.br/webhook/orion_formulario',
+                n8nWebhookUrl: 'https://n8n.orionxbrasil.com.br/webhook-test/orion_formulario',
             };
 
             // Captura parâmetros UTM
@@ -1814,6 +1814,11 @@
 
                 if (!valid) return;
 
+                // Salvamento Parcial (Lead Capture) ao sair do passo 1
+                if (currentSubStep === 1) {
+                    savePartialLead();
+                }
+
                 if (currentSubStep < 6) {
                     showSubStep(currentSubStep + 1);
                 } else {
@@ -1830,10 +1835,48 @@
                 else goToStep1();
             }
 
+            // --- PARTIAL SAVE (LEAD CAPTURE) ---
+            let leadId = null; // Global para persistir entre passos
+
+            async function savePartialLead() {
+                const form = document.getElementById('qualify-form');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                    const payload = {
+                        nome: data.nome,
+                        email: data.email,
+                        telefone: data.telefone,
+                        pagina_origem: 'home',
+                        ..._utmParams
+                    };
+
+                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'apikey': ORIONX_CONFIG.supabaseKey,
+                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                            'Prefer': 'return=representation'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        const inserted = await res.json();
+                        leadId = inserted[0]?.id;
+                        console.log('📍 Lead parcial salvo. ID:', leadId);
+                    }
+                } catch (err) {
+                    console.error('❌ Erro no salvamento parcial:', err);
+                }
+            }
+
             // --- SUBMISSION ---
             async function handleBookingSubmit(e) {
-                e.preventDefault();
-                const form = e.target;
+                if (e && typeof e.preventDefault === 'function') e.preventDefault();
+                const form = document.getElementById('qualify-form');
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
 
@@ -1853,24 +1896,37 @@
                     utm: _utmParams
                 };
 
-                // Salva no Supabase
-                // Salva no Supabase e captura o ID gerado
-                let leadId = null;
+                // Salva no Supabase (Update se já tiver leadId, senão Insert)
                 try {
-                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'apikey': ORIONX_CONFIG.supabaseKey,
-                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
-                            'Prefer': 'return=representation'
-                        },
-                        body: JSON.stringify({ ...data, pagina_origem: 'home', ..._utmParams })
-                    });
+                    const sbBody = { ...data, pagina_origem: 'home', ..._utmParams };
+                    const sbHeaders = {
+                        'Content-Type': 'application/json',
+                        'apikey': ORIONX_CONFIG.supabaseKey,
+                        'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
+                        'Prefer': 'return=representation'
+                    };
+
+                    let res;
+                    if (leadId) {
+                        // Atualiza registro existente
+                        res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`, {
+                            method: 'PATCH',
+                            headers: sbHeaders,
+                            body: JSON.stringify(sbBody)
+                        });
+                    } else {
+                        // Cria novo (caso não tenha passado pelo passo 1 por algum motivo)
+                        res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                            method: 'POST',
+                            headers: sbHeaders,
+                            body: JSON.stringify(sbBody)
+                        });
+                    }
+
                     if (res.ok) {
                         const insertedData = await res.json();
                         leadId = insertedData[0]?.id;
-                        console.log('✅ Salvo no Supabase. ID:', leadId);
+                        console.log('✅ Supabase atualizado. ID:', leadId);
                     }
                 } catch (err) { console.error('❌ Erro Supabase', err); }
 
