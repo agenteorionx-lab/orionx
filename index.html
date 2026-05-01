@@ -6,11 +6,14 @@
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','GTM-P5SG3RWQ');
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || []; w[l].push({
+                        'gtm.start':
+                            new Date().getTime(), event: 'gtm.js'
+                    }); var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-P5SG3RWQ');
             }, 1000); // Carrega 1s após o DOM para priorizar LCP
         });
     </script>
@@ -25,20 +28,22 @@
 
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '27776838281925410');
-    fbq('track', 'PageView');
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '27776838281925410');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=27776838281925410&ev=PageView&noscript=1"
-    /></noscript>
+            src="https://www.facebook.com/tr?id=27776838281925410&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Open Graph / Facebook -->
@@ -64,8 +69,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Font Awesome (Preloaded for performance) -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
 
     <!-- Critical CSS Inlined -->
     <style>
@@ -139,20 +147,26 @@
                 transform: translate(-50%, -50%);
                 width: 130%;
             }
-            #hero-x-img { opacity: 0.08; }
+
+            #hero-x-img {
+                opacity: 0.08;
+            }
         }
 
         @media (min-width: 768px) {
             .hero-x-wrapper {
-                right: -8vh; 
+                right: -8vh;
                 transform: translateY(-50%);
-                width: 100vh; /* Aumentado em 15% conforme solicitado */
+                width: 100vh;
+                /* Aumentado em 15% conforme solicitado */
                 height: 100vh;
             }
-            #hero-x-img { 
-                opacity: 0.12; 
+
+            #hero-x-img {
+                opacity: 0.12;
                 pointer-events: auto;
-                filter: brightness(0.8); /* Ajuste de tom para o blend */
+                filter: brightness(0.8);
+                /* Ajuste de tom para o blend */
             }
         }
     </style>
@@ -161,13 +175,20 @@
     <link rel="stylesheet" href="compiled-tailwind.css">
 
     <!-- Google Fonts with display=swap (non-blocking text rendering) -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Public+Sans:wght@400;700&display=swap"
+        rel="stylesheet">
 
     <!-- Material Symbols + AOS + Swiper (all async / non-critical) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"></noscript>
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    </noscript>
+    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
 
     <link rel="stylesheet" href="style.css" media="print" onload="this.media='all'">
 
@@ -292,8 +313,8 @@
         <div class="max-w-7xl mx-auto px-4 md:px-6 h-12 md:h-14 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <a href="#hero" aria-label="Ir para o Início">
-                    <img src="imagens/OrionX_Logotipo principal preto (1).webp" alt="Logo OrionX" width="160" height="40"
-                        fetchpriority="high" loading="eager" class="h-8 md:h-10 w-auto">
+                    <img src="imagens/OrionX_Logotipo principal preto (1).webp" alt="Logo OrionX" width="160"
+                        height="40" fetchpriority="high" loading="eager" class="h-8 md:h-10 w-auto">
                 </a>
             </div>
             <nav class="hidden md:flex items-center gap-10">
@@ -347,10 +368,10 @@
         <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden" style="perspective: 1500px;">
             <!-- Elemento X centralizado no mobile e fixo à direita no desktop via CSS -->
             <div class="hero-x-wrapper">
-                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp" 
+                <img id="hero-x-img" src="imagens/OrionX_X preto (1).webp"
                     srcset="imagens/OrionX_X preto (1).webp 800w, imagens/OrionX_X preto (1).webp 1200w"
-                    sizes="(max-width: 768px) 80vh, 100vh"
-                    alt="Logo X OrionX" width="800" height="800" fetchpriority="high" style="cursor: grab;">
+                    sizes="(max-width: 768px) 80vh, 100vh" alt="Logo X OrionX" width="800" height="800"
+                    fetchpriority="high" style="cursor: grab;">
             </div>
         </div>
         <div class="absolute inset-0 neural-pattern opacity-5 pointer-events-none"></div>
@@ -388,39 +409,42 @@
         </div>
     </section>
 
-    <div class="bg-white dark:bg-background-dark py-6 md:py-10 marquee-container border-b border-primary/5 overflow-hidden">
-        <div class="marquee-content flex flex-row flex-nowrap items-center gap-8 md:gap-16 text-slate-300 dark:text-slate-700 font-display font-bold text-xs md:text-lg uppercase tracking-[0.2em] md:tracking-[0.4em] w-max">
+    <div
+        class="bg-white dark:bg-background-dark py-6 md:py-10 marquee-container border-b border-primary/5 overflow-hidden">
+        <div
+            class="marquee-content flex flex-row flex-nowrap items-center gap-8 md:gap-16 text-slate-300 dark:text-slate-700 font-display font-bold text-xs md:text-lg uppercase tracking-[0.2em] md:tracking-[0.4em] w-max">
             <!-- Grupo 1 -->
             <div class="flex items-center gap-8 md:gap-16">
-                <span>Node.js</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>TypeScript</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>NestJS</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Docker</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Redis</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>PostgreSQL</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Python</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>LLMs</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Outros</span> <span class="text-slate-900/20 opacity-40">/</span> 
+                <span>Node.js</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>TypeScript</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>NestJS</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Docker</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Redis</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>PostgreSQL</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Python</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>LLMs</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Outros</span> <span class="text-slate-900/20 opacity-40">/</span>
                 <span>Linux</span> <span class="text-slate-900/20 opacity-40">/</span>
             </div>
             <!-- Grupo 2 (Duplicado para loop infinito) -->
             <div class="flex items-center gap-8 md:gap-16">
-                <span>Node.js</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>TypeScript</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>NestJS</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Docker</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Redis</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>PostgreSQL</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Python</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>LLMs</span> <span class="text-slate-900/20 opacity-40">/</span> 
-                <span>Outros</span> <span class="text-slate-900/20 opacity-40">/</span> 
+                <span>Node.js</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>TypeScript</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>NestJS</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Docker</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Redis</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>PostgreSQL</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Python</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>LLMs</span> <span class="text-slate-900/20 opacity-40">/</span>
+                <span>Outros</span> <span class="text-slate-900/20 opacity-40">/</span>
                 <span>Linux</span> <span class="text-slate-900/20 opacity-40">/</span>
             </div>
         </div>
     </div>
 
     <!-- Section 2: Services (Pillars) -->
-    <section class="py-12 md:py-24 bg-white" id="services" style="content-visibility: auto; contain-intrinsic-size: 1px 800px;">
+    <section class="py-12 md:py-24 bg-white" id="services"
+        style="content-visibility: auto; contain-intrinsic-size: 1px 800px;">
         <div class="container mx-auto px-4 md:px-6">
             <div class="flex flex-col md:flex-row justify-between items-end mb-10 md:mb-16 gap-6 md:gap-8">
                 <div class="max-w-2xl">
@@ -543,7 +567,8 @@
     </section>
 
     <!-- Section 3: Authority - Premium Redesign -->
-    <section class="py-16 md:py-32 text-white relative overflow-hidden bg-primary" id="authority" style="content-visibility: auto; contain-intrinsic-size: 1px 600px;">
+    <section class="py-16 md:py-32 text-white relative overflow-hidden bg-primary" id="authority"
+        style="content-visibility: auto; contain-intrinsic-size: 1px 600px;">
         <!-- Background Fade (Arrows / Fundo Orion) with higher opacity (~25%) -->
         <div
             class="absolute inset-0 bg-[url('imagens/fundoorion.webp')] bg-cover bg-center bg-no-repeat opacity-25 mix-blend-multiply pointer-events-none transition-transform duration-1000 ease-out hover:scale-105">
@@ -821,7 +846,8 @@
                         onclick="window.location.href='plataformas-escalaveis.html'">
                         <!-- Imagem de fundo com overlay mais escuro -->
                         <img src="imagens/lp_placeholder_1_1774644503727.webp" alt="SaaS Dashboard 3D" width="600"
-                            height="450" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
+                            height="450" loading="lazy"
+                            class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-1000 group-hover:scale-110" />
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent">
                         </div>
 
@@ -894,7 +920,8 @@
     </section>
 
     <!-- Section 6: Why Us -->
-    <section class="bg-slate-950 pt-28 pb-16 md:py-32 text-white relative angular-divider-top overflow-hidden" id="choice">
+    <section class="bg-slate-950 pt-28 pb-16 md:py-32 text-white relative angular-divider-top overflow-hidden"
+        id="choice">
         <!-- Background Branding Image (Left Aligned - Shifted 5% Down) -->
         <div class="absolute inset-0 flex items-center justify-start pointer-events-none z-0 px-4 md:px-6">
             <img src="imagens/OrionX_X vazado preto.webp" alt="Background Pattern" loading="lazy" width="500"
@@ -911,7 +938,8 @@
                     </h2>
                     <div class="h-2 w-24 bg-primary rounded-full mx-auto"></div>
                 </div>
-                <p class="text-lg md:text-2xl opacity-80 font-light leading-relaxed mt-10">Não entregamos apenas software.
+                <p class="text-lg md:text-2xl opacity-80 font-light leading-relaxed mt-10">Não entregamos apenas
+                    software.
                     Entregamos
                     <span class="text-slate-100 font-bold underline">vantagem competitiva</span> através de experiências
                     3D intuitivas e infraestrutura de elite.
@@ -1283,8 +1311,8 @@
                             class="bg-primary/10 hover:bg-primary p-3 rounded-xl text-primary hover:text-white transition-all">
                             <i class="fa-brands fa-whatsapp text-xl"></i>
                         </a>
-                        <a href="https://www.instagram.com/orionx_br?igsh=MTEzZmUwdGE3ZXBnMw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer"
-                            aria-label="Ir para o Instagram"
+                        <a href="https://www.instagram.com/orionx_br?igsh=MTEzZmUwdGE3ZXBnMw%3D%3D&utm_source=qr"
+                            target="_blank" rel="noopener noreferrer" aria-label="Ir para o Instagram"
                             class="bg-primary/10 hover:bg-primary p-3 rounded-xl text-primary hover:text-white transition-all">
                             <i class="fa-brands fa-instagram text-xl"></i>
                         </a>
@@ -1295,11 +1323,13 @@
                 <div class="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left">
                     <img src="imagens/OrionX_Logotipo principal laranja (1).webp" alt="OrionX Logo" width="120"
                         height="24" loading="lazy" class="h-6 w-auto opacity-80">
-                    <p class="text-slate-500 text-[9px] md:text-xs font-accent tracking-[0.2em] uppercase max-w-[200px] md:max-w-none">
+                    <p
+                        class="text-slate-500 text-[9px] md:text-xs font-accent tracking-[0.2em] uppercase max-w-[200px] md:max-w-none">
                         © 2024 OrionX. Todos os direitos reservados. <br class="md:hidden"> High Performance Built.
                     </p>
                 </div>
-                <div class="flex gap-6 md:gap-8 text-[10px] font-accent font-bold uppercase tracking-widest text-slate-500">
+                <div
+                    class="flex gap-6 md:gap-8 text-[10px] font-accent font-bold uppercase tracking-widest text-slate-500">
                     <a class="hover:text-primary transition-colors" href="termos.html">Termos</a>
                     <span class="opacity-10" aria-hidden="true">|</span>
                     <a class="hover:text-primary transition-colors" href="privacidade.html">Privacidade</a>
@@ -1840,7 +1870,7 @@
                 } else {
                     const form = document.getElementById('qualify-form');
                     handleBookingSubmit({
-                        preventDefault: () => {},
+                        preventDefault: () => { },
                         target: form
                     });
                 }
@@ -1866,19 +1896,19 @@
                             'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
                             'Prefer': 'return=representation'
                         },
-                        body: JSON.stringify({ 
-                            nome: data.nome, 
-                            email: data.email, 
+                        body: JSON.stringify({
+                            nome: data.nome,
+                            email: data.email,
                             telefone: data.telefone,
                             pagina_origem: 'home',
-                            ..._utmParams 
+                            ..._utmParams
                         })
                     });
                     if (res.ok) {
                         const inserted = await res.json();
                         currentLeadId = inserted[0]?.id;
                         console.log('Lead parcial salvo. ID:', currentLeadId);
-                        
+
                         // Facebook Pixel Event: Lead
                         if (typeof fbq === 'function') {
                             fbq('track', 'Lead');
@@ -1913,10 +1943,10 @@
                 // Salva no Supabase
                 let leadId = currentLeadId;
                 try {
-                    const url = leadId 
+                    const url = leadId
                         ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`
                         : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
-                    
+
                     const res = await fetch(url, {
                         method: leadId ? 'PATCH' : 'POST',
                         headers: {
@@ -1952,20 +1982,20 @@
                 goToStep3(data);
             }
         </script>
-    <!-- Supabase SDK (loaded at end of body to not block rendering) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Inicializa AOS com delay para não impactar performance inicial
-        window.addEventListener('load', () => {
-            AOS.init({
-                duration: 800,
-                once: true,
-                disable: window.innerWidth < 768 // Desativado em mobile para performance extrema
+        <!-- Supabase SDK (loaded at end of body to not block rendering) -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="script.js"></script>
+        <script>
+            // Inicializa AOS com delay para não impactar performance inicial
+            window.addEventListener('load', () => {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    disable: window.innerWidth < 768 // Desativado em mobile para performance extrema
+                });
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>
