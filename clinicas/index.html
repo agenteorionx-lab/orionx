@@ -1970,9 +1970,9 @@
                         leadId = sbJson[0]?.id || null;
                         console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
 
-                        // Facebook Pixel Event: Schedule (Trava contra duplicidade)
+                        // Facebook Pixel Event: CompleteRegistration (Concluir inscrição)
                         if (typeof fbq === 'function' && !scheduleFired) {
-                            fbq('track', 'Schedule');
+                            fbq('track', 'CompleteRegistration');
                             scheduleFired = true;
                         }
                     } else {

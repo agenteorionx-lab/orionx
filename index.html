@@ -1932,9 +1932,9 @@
                         leadId = insertedData[0]?.id;
                         console.log('✅ Salvo no Supabase. ID:', leadId);
 
-                        // Facebook Pixel Event: Schedule (Trava contra duplicidade)
+                        // Facebook Pixel Event: CompleteRegistration (Concluir inscrição)
                         if (typeof fbq === 'function' && !scheduleFired) {
-                            fbq('track', 'Schedule');
+                            fbq('track', 'CompleteRegistration');
                             scheduleFired = true;
                         }
                     }
