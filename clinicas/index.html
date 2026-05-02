@@ -2596,7 +2596,6 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
             
-            // Mapeamento dos campos para o Supabase
             const payload = {
                 nome: data.nome || null,
                 email: data.email || null,
@@ -2630,19 +2629,20 @@
 
                 if (res.ok) {
                     const result = await res.json();
-                    if (!currentLeadId && result.length > 0) {
+                    if (result && result.length > 0) {
                         currentLeadId = result[0].id;
-                        console.log('Lead criado (Clínicas). ID:', currentLeadId);
-                        
-                        // Pixel: Lead no primeiro salvamento bem sucedido
-                        if (typeof fbq === 'function') fbq('track', 'Lead');
-                    } else {
-                        console.log('Lead atualizado progressivamente (Clínicas).');
+                        console.log('Lead salvo/atualizado (Clínicas). ID:', currentLeadId);
+                        if (res.status === 201 && typeof fbq === 'function') fbq('track', 'Lead');
+                        return currentLeadId;
                     }
+                } else {
+                    const err = await res.json();
+                    console.error('Erro resposta Supabase (Clínicas):', err);
                 }
             } catch (e) { 
                 console.error('Erro saveLeadProgress Clínicas:', e); 
             }
+            return currentLeadId;
         }
 
         async function handleBookingSubmit(e) {
@@ -2651,8 +2651,9 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
-            // 1. Salva a versão final no Supabase
-            await saveLeadProgress();
+            // 1. Salva a versão final no Supabase e obtém o ID garantido
+            const finalLeadId = await saveLeadProgress();
+            console.log('Finalizando agendamento Clínicas para Lead ID:', finalLeadId);
 
             // 2. Monta o timestamp ISO para a Google Calendar API no n8n
             const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
@@ -2676,7 +2677,7 @@
                     detalhes: data.pergunta_detalhes,
                 },
                 utm: _utmParams,
-                lead_id: currentLeadId
+                lead_id: finalLeadId
             };
 
             // 4. Dispara Pixel de Conversão
@@ -2685,15 +2686,20 @@
                 scheduleFired = true;
             }
 
-            // 5. Webhook n8n (Só agora que está tudo completo)
-            try {
-                fetch(ORIONX_CONFIG.n8nWebhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-            } catch (err) { 
-                console.error('Erro Webhook:', err);
+            // 5. Webhook n8n
+            if (finalLeadId) {
+                try {
+                    fetch(ORIONX_CONFIG.n8nWebhookUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    console.log('Webhook Clínicas disparado com Lead ID:', finalLeadId);
+                } catch (err) { 
+                    console.error('Erro Webhook Clínicas:', err);
+                }
+            } else {
+                console.error('Abortando Webhook Clínicas: lead_id está nulo.');
             }
 
             // 6. Limpa o ID e finaliza a UX
