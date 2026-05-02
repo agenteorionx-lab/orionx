@@ -2731,26 +2731,6 @@
             finishBooking(data);
         }
 
-            // 4. Dispara Webhook n8n (com lead_id para o n8n poder atualizar o meet_link)
-            if (ORIONX_CONFIG.n8nWebhookUrl && !ORIONX_CONFIG.n8nWebhookUrl.startsWith('COLE')) {
-                try {
-                    fetch(ORIONX_CONFIG.n8nWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ...payload, lead_id: leadId }),
-                    });
-                    console.log('✅ Webhook n8n disparado.');
-                } catch (err) {
-                    console.error('❌ Falha ao disparar webhook n8n:', err);
-                }
-            }
-
-            console.log('📋 Lead OrionX Clínicas qualificado:', payload);
-
-            // 5. Transição para a tela de sucesso
-            goToStep3(data);
-        }
-
         // Navbar bg change
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
