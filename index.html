@@ -1874,24 +1874,21 @@
                 if (!valid) return;
 
                 if (currentSubStep < 6) {
-                    const isFirstStep = (currentSubStep === 1);
-                    if (isFirstStep) {
-                        // Feedback visual e trava no primeiro passo
+                    if (currentSubStep === 1) {
+                        // Feedback visual e trava
                         const btn = document.getElementById('btn-next-substep');
                         const originalText = document.getElementById('btn-substep-text').innerText;
                         document.getElementById('btn-substep-text').innerText = 'SALVANDO...';
                         btn.disabled = true;
 
-                        syncLeadData().finally(() => {
+                        savePartialLead().finally(() => {
                             document.getElementById('btn-substep-text').innerText = originalText;
                             btn.disabled = false;
                             showSubStep(currentSubStep + 1);
                         });
-                    } else {
-                        // Salva em background nos demais
-                        syncLeadData();
-                        showSubStep(currentSubStep + 1);
+                        return;
                     }
+                    showSubStep(currentSubStep + 1);
                 } else {
                     const form = document.getElementById('qualify-form');
                     handleBookingSubmit({
@@ -1907,21 +1904,14 @@
             }
 
             // --- SUBMISSION ---
-            async function syncLeadData() {
+            async function savePartialLead() {
                 const form = document.getElementById('qualify-form');
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
-                
                 if (!data.nome || !data.email) return;
-
-                const isNew = !currentLeadId;
-                const url = isNew 
-                    ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`
-                    : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${currentLeadId}`;
-
                 try {
-                    const res = await fetch(url, {
-                        method: isNew ? 'POST' : 'PATCH',
+                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'apikey': ORIONX_CONFIG.supabaseKey,
@@ -1932,28 +1922,21 @@
                             nome: data.nome,
                             email: data.email,
                             telefone: data.telefone,
-                            pergunta_desafio: data.pergunta_desafio,
-                            pergunta_gargalo: data.pergunta_gargalo,
-                            pergunta_sistemas: data.pergunta_sistemas,
-                            pergunta_equipe: data.pergunta_equipe,
-                            pergunta_detalhes: data.pergunta_detalhes,
-                            agendamento_data: data.agendamento_data,
-                            agendamento_hora: data.agendamento_hora,
                             pagina_origem: 'home',
-                            status: isNew ? 'pendente' : undefined,
                             ..._utmParams
                         })
                     });
-
-                    if (res.ok && isNew) {
+                    if (res.ok) {
                         const inserted = await res.json();
                         currentLeadId = inserted[0]?.id;
-                        console.log('Lead criado (Home):', currentLeadId);
-                        if (typeof fbq === 'function') fbq('track', 'Lead');
-                    } else if (res.ok) {
-                        console.log('Lead sincronizado (Home):', currentLeadId);
+                        console.log('Lead parcial salvo. ID:', currentLeadId);
+
+                        // Facebook Pixel Event: Lead
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Lead');
+                        }
                     }
-                } catch (e) { console.error('Erro syncLeadData', e); }
+                } catch (e) { console.error('Erro savePartialLead', e); }
             }
 
             async function handleBookingSubmit(e) {
@@ -1979,41 +1962,44 @@
                     utm: _utmParams
                 };
 
-                // Salva no Supabase (Sincronização final)
+                // Salva no Supabase
+                let leadId = currentLeadId;
                 try {
-                    const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${currentLeadId}`, {
-                        method: 'PATCH',
+                    const url = leadId
+                        ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`
+                        : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
+
+                    const res = await fetch(url, {
+                        method: leadId ? 'PATCH' : 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'apikey': ORIONX_CONFIG.supabaseKey,
                             'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
                             'Prefer': 'return=representation'
                         },
-                        body: JSON.stringify({ 
-                            ...data, 
-                            status: 'agendado',
-                            pagina_origem: 'home', 
-                            ..._utmParams 
-                        })
+                        body: JSON.stringify({ ...data, pagina_origem: 'home', ..._utmParams })
                     });
-                    
                     if (res.ok) {
-                        console.log('✅ Status atualizado (Home). ID:', currentLeadId);
+                        const insertedData = await res.json();
+                        leadId = insertedData[0]?.id;
+                        console.log('✅ Salvo no Supabase. ID:', leadId);
 
-                        // Facebook Pixel Event: CompleteRegistration
+                        // Facebook Pixel Event: CompleteRegistration (Concluir inscrição)
                         if (typeof fbq === 'function' && !scheduleFired) {
                             fbq('track', 'CompleteRegistration');
                             scheduleFired = true;
+                            // Limpa o ID para o próximo uso (segurança)
+                            currentLeadId = null;
                         }
                     }
-                } catch (err) { console.error('❌ Erro final Supabase', err); }
+                } catch (err) { console.error('❌ Erro Supabase', err); }
 
-                // Webhook n8n (Disparo único final)
+                // Webhook n8n
                 try {
                     fetch(ORIONX_CONFIG.n8nWebhookUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ...payload, lead_id: currentLeadId })
+                        body: JSON.stringify({ ...payload, lead_id: leadId })
                     });
                 } catch (err) { }
 
