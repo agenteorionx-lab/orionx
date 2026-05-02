@@ -2502,7 +2502,7 @@
             }
         }
 
-        function nextSubStep() {
+        async function nextSubStep() {
             const activeStep = document.querySelector(`.form-sub-step[data-step="${currentSubStep}"]`);
             const inputs = activeStep.querySelectorAll('input[required], textarea[required], select[required]');
 
@@ -2519,23 +2519,22 @@
             if (!allValid) return;
 
             if (currentSubStep < 6) {
-                if (currentSubStep === 1) {
-                    // Feedback visual de carregamento
-                    const btn = document.getElementById('btn-next-substep');
-                    const originalText = document.getElementById('btn-substep-text').innerText;
-                    document.getElementById('btn-substep-text').innerText = 'SALVANDO...';
-                    btn.disabled = true;
+                // Feedback visual de carregamento
+                const btn = document.getElementById('btn-next-substep');
+                const btnText = document.getElementById('btn-substep-text');
+                const originalText = btnText.innerText;
+                
+                btnText.innerText = 'SALVANDO...';
+                btn.disabled = true;
 
-                    savePartialLead().finally(() => {
-                        document.getElementById('btn-substep-text').innerText = originalText;
-                        btn.disabled = false;
-                        currentSubStep++;
-                        showSubStep(currentSubStep);
-                    });
-                    return;
+                try {
+                    await saveLeadProgress();
+                } finally {
+                    btnText.innerText = originalText;
+                    btn.disabled = false;
+                    currentSubStep++;
+                    showSubStep(currentSubStep);
                 }
-                currentSubStep++;
-                showSubStep(currentSubStep);
             } else {
                 const form = document.getElementById('qualify-form');
                 handleBookingSubmit({ preventDefault: () => { }, target: form });
@@ -2592,39 +2591,58 @@
         }
 
         // --- BOOKING SYSTEM LOGIC ---
-        async function savePartialLead() {
+        async function saveLeadProgress() {
             const form = document.getElementById('qualify-form');
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
-            if (!data.nome || !data.email) return;
+            
+            // Mapeamento dos campos para o Supabase
+            const payload = {
+                nome: data.nome || null,
+                email: data.email || null,
+                telefone: data.telefone || null,
+                pergunta_desafio: data.pergunta_desafio || null,
+                pergunta_gargalo: data.pergunta_gargalo || null,
+                pergunta_sistemas: data.pergunta_sistemas || null,
+                pergunta_equipe: data.pergunta_equipe || null,
+                pergunta_detalhes: data.pergunta_detalhes || null,
+                agendamento_data: data.agendamento_data || null,
+                agendamento_hora: data.agendamento_hora || null,
+                pagina_origem: 'lp_clinicas',
+                ..._utmParams
+            };
+
             try {
-                const res = await fetch(`${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`, {
-                    method: 'POST',
+                const url = currentLeadId 
+                    ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${currentLeadId}`
+                    : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
+
+                const res = await fetch(url, {
+                    method: currentLeadId ? 'PATCH' : 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'apikey': ORIONX_CONFIG.supabaseKey,
                         'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
                         'Prefer': 'return=representation'
                     },
-                    body: JSON.stringify({
-                        nome: data.nome,
-                        email: data.email,
-                        telefone: data.telefone,
-                        pagina_origem: 'lp_clinicas',
-                        ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
-                    })
+                    body: JSON.stringify(payload)
                 });
-                if (res.ok) {
-                    const inserted = await res.json();
-                    currentLeadId = inserted[0]?.id;
-                    console.log('Lead parcial salvo (Clínicas). ID:', currentLeadId);
 
-                    // Facebook Pixel Event: Lead
-                    if (typeof fbq === 'function') {
-                        fbq('track', 'Lead');
+                if (res.ok) {
+                    const result = await res.json();
+                    if (!currentLeadId && result.length > 0) {
+                        currentLeadId = result[0].id;
+                        console.log('Lead criado (Clínicas). ID:', currentLeadId);
+                        
+                        // Pixel: Lead no primeiro salvamento bem sucedido
+                        if (typeof fbq === 'function') fbq('track', 'Lead');
+                    } else {
+                        console.log('Lead atualizado progressivamente (Clínicas).');
                     }
                 }
-            } catch (e) { console.error('Erro savePartialLead Clínicas', e); }
+            } catch (e) { 
+                console.error('Erro saveLeadProgress Clínicas:', e); 
+            }
         }
 
         async function handleBookingSubmit(e) {
@@ -2633,31 +2651,23 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
-            // Garantir que o valor do rádio seja capturado corretamente (embora o entries() já faça isso)
-            // Se houver algum problema específico com rádio, oentries() geralmente pega o primeiro marcado.
+            // 1. Salva a versão final no Supabase
+            await saveLeadProgress();
 
-
-            // 1. Monta o timestamp ISO para a Google Calendar API no n8n
+            // 2. Monta o timestamp ISO para a Google Calendar API no n8n
             const agendamentoISO = buildAgendamentoISO(data.agendamento_data, data.agendamento_hora);
 
-            // 2. Payload completo e estruturado
+            // 3. Payload completo e estruturado para o n8n
             const payload = {
                 event: 'booking_qualification',
                 timestamp: new Date().toISOString(),
                 pagina_origem: 'lp_clinicas',
-
-                contato: {
-                    nome: data.nome,
-                    telefone: data.telefone,
-                    email: data.email,
-                },
-
+                contato: { nome: data.nome, telefone: data.telefone, email: data.email },
                 agendamento: {
-                    data: data.agendamento_data,  // "07/04/2026"
-                    hora: data.agendamento_hora,  // "14:00"
-                    iso: agendamentoISO,          // "2026-04-07T14:00:00-03:00"
+                    data: data.agendamento_data,
+                    hora: data.agendamento_hora,
+                    iso: agendamentoISO,
                 },
-
                 qualificacao: {
                     desafio: data.pergunta_desafio,
                     gargalo: data.pergunta_gargalo,
@@ -2665,89 +2675,32 @@
                     equipe: data.pergunta_equipe,
                     detalhes: data.pergunta_detalhes,
                 },
-
                 utm: _utmParams,
+                lead_id: currentLeadId
             };
 
-            // 3. Salva no Supabase (não bloqueia a UX)
-            let leadId = currentLeadId;
-            if (ORIONX_CONFIG.supabaseUrl && !ORIONX_CONFIG.supabaseUrl.startsWith('COLE')) {
-                try {
-                    const url = leadId
-                        ? `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas?id=eq.${leadId}`
-                        : `${ORIONX_CONFIG.supabaseUrl}/rest/v1/leads_clinicas`;
-
-                    const sbRes = await fetch(url, {
-                        method: leadId ? 'PATCH' : 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'apikey': ORIONX_CONFIG.supabaseKey,
-                            'Authorization': `Bearer ${ORIONX_CONFIG.supabaseKey}`,
-                            'Prefer': 'return=representation',
-                        },
-                        body: JSON.stringify({
-                            nome: data.nome,
-                            email: data.email,
-                            telefone: data.telefone,
-                            agendamento_data: data.agendamento_data,
-                            agendamento_hora: data.agendamento_hora,
-                            agendamento_iso: agendamentoISO,
-                            pergunta_desafio: data.pergunta_desafio,
-                            pergunta_gargalo: data.pergunta_gargalo,
-                            pergunta_sistemas: data.pergunta_sistemas,
-                            pergunta_equipe: data.pergunta_equipe,
-                            pergunta_detalhes: data.pergunta_detalhes,
-                            pagina_origem: 'lp_clinicas',
-                            // Garante que só envia UTMs que tenham valor
-                            ...(Object.fromEntries(Object.entries(_utmParams).filter(([_, v]) => v && v !== '')))
-                        }),
-                    });
-
-                    if (sbRes.ok) {
-                        const sbJson = await sbRes.json();
-                        leadId = sbJson[0]?.id || null;
-                        console.log('✅ Lead salvo no Supabase com sucesso! ID:', leadId);
-
-                        // Facebook Pixel Event: CompleteRegistration (Concluir inscrição)
-                        if (typeof fbq === 'function' && !scheduleFired) {
-                            fbq('track', 'CompleteRegistration');
-                            scheduleFired = true;
-                            // Limpa o ID para o próximo uso (segurança)
-                            currentLeadId = null;
-                        }
-                    } else {
-                        const errorDetails = await sbRes.json();
-                        console.error('❌ Erro retornado pelo Supabase:', {
-                            status: sbRes.status,
-                            statusText: sbRes.statusText,
-                            details: errorDetails
-                        });
-                        alert('Atenção: O agendamento foi processado, mas houve um erro ao salvar no banco. Verifique o console do desenvolvedor (F12).');
-                    }
-                } catch (err) {
-                    console.error('❌ Erro crítico na requisição Supabase:', err);
-                }
+            // 4. Dispara Pixel de Conversão
+            if (typeof fbq === 'function' && !scheduleFired) {
+                fbq('track', 'CompleteRegistration');
+                scheduleFired = true;
             }
 
-            // 4. Dispara Webhook n8n (com lead_id para o n8n poder atualizar o meet_link)
-            if (ORIONX_CONFIG.n8nWebhookUrl && !ORIONX_CONFIG.n8nWebhookUrl.startsWith('COLE')) {
-                try {
-                    fetch(ORIONX_CONFIG.n8nWebhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ ...payload, lead_id: leadId }),
-                    });
-                    console.log('✅ Webhook n8n disparado.');
-                } catch (err) {
-                    console.error('❌ Falha ao disparar webhook n8n:', err);
-                }
+            // 5. Webhook n8n (Só agora que está tudo completo)
+            try {
+                fetch(ORIONX_CONFIG.n8nWebhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) { 
+                console.error('Erro Webhook:', err);
             }
 
-            console.log('📋 Lead OrionX Clínicas qualificado:', payload);
-
-            // 5. Transição para a tela de sucesso
+            // 6. Limpa o ID e finaliza a UX
+            currentLeadId = null;
             goToStep3(data);
         }
+
 
         // Navbar bg change
         // Navbar scroll effect
